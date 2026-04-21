@@ -1,0 +1,1495 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KZNGFA — BPR Gap Analysis</title>
+    <style>
+        /*@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&family=DM+Serif+Display&display=swap');*/
+
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0
+        }
+
+        :root {
+            --bg: #F5F4F0;
+            --surface: #FFFFFF;
+            --surface2: #EDECEA;
+            --border: #E0DDD8;
+            --border2: #C8C5BE;
+            --text: #0D1F2B;
+            --text2: #4A5A65;
+            --text3: #8A9AA5;
+            --accent: #092835;
+            --accent-light: #EAF0F3;
+            --accent-mid: #0F3D50;
+            --accent-border: #8AB0BF;
+            --brand: #E74D26;
+            --brand-light: #FDF1ED;
+            --brand-border: #F0A990;
+            --brand-mid: #C93E1C;
+            --danger: #C0350D;
+            --danger-light: #FDF1ED;
+            --danger-border: #F0A990;
+            --warn-light: #FDF6E8;
+            --warn-border: #E8C97A;
+            --radius: 8px;
+            --radius-lg: 12px;
+            --radius-xl: 16px;
+            --shadow: 0 1px 3px rgba(0, 0, 0, 0.06), 0 1px 2px rgba(0, 0, 0, 0.04);
+            --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.08), 0 2px 6px rgba(0, 0, 0, 0.04);
+        }
+
+        body {
+            font-family: 'DM Sans', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            min-height: 100vh;
+            font-size: 15px;
+            line-height: 1.65
+        }
+
+        a {
+            color: var(--accent);
+            text-decoration: none
+        }
+
+        .shell {
+            max-width: 860px;
+            margin: 0 auto;
+            padding: 0 24px 100px
+        }
+
+        /* Header */
+        .hdr {
+            padding: 28px 0 20px;
+            border-bottom: 1px solid var(--border);
+            margin-bottom: 28px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px
+        }
+
+        .hdr-left {
+            display: flex;
+            flex-direction: column;
+            gap: 3px;
+            padding-left: 12px;
+            border-left: 3px solid var(--brand)
+        }
+
+        .hdr-org {
+            font-size: 10.5px;
+            font-weight: 600;
+            letter-spacing: .1em;
+            text-transform: uppercase;
+            color: var(--brand)
+        }
+
+        .hdr-title {
+            font-family: 'DM Serif Display', serif;
+            font-size: 20px;
+            font-weight: 400;
+            color: var(--accent)
+        }
+
+        .step-pill {
+            font-size: 12px;
+            font-weight: 500;
+            padding: 5px 14px;
+            border-radius: 20px;
+            background: var(--surface2);
+            color: var(--text2);
+            border: 1px solid var(--border);
+            white-space: nowrap;
+            flex-shrink: 0
+        }
+
+        /* Progress */
+        .progress-track {
+            height: 3px;
+            background: var(--border);
+            margin-bottom: 32px;
+            border-radius: 2px;
+            overflow: hidden
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: var(--brand);
+            border-radius: 2px;
+            transition: width .4s ease
+        }
+
+        /* Pages */
+        .page {
+            display: none
+        }
+
+        .page.active {
+            display: block
+        }
+
+        .page-head {
+            margin-bottom: 28px
+        }
+
+        .page-title {
+            font-family: 'DM Serif Display', serif;
+            font-size: 28px;
+            font-weight: 400;
+            color: var(--accent);
+            margin-bottom: 8px;
+            line-height: 1.25
+        }
+
+        .page-sub {
+            font-size: 14px;
+            color: var(--text2);
+            max-width: 580px;
+            line-height: 1.7
+        }
+
+        /* Cards */
+        .card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+            padding: 24px;
+            margin-bottom: 16px;
+            box-shadow: var(--shadow)
+        }
+
+        .info-block {
+            background: var(--accent-light);
+            border: 1px solid var(--accent-border);
+            border-radius: var(--radius-lg);
+            padding: 18px 22px;
+            margin-bottom: 20px
+        }
+
+        .info-block p {
+            font-size: 14px;
+            color: #0A2535;
+            line-height: 1.7
+        }
+
+        .warn-block {
+            background: var(--warn-light);
+            border: 1px solid var(--warn-border);
+            border-radius: var(--radius-lg);
+            padding: 18px 22px;
+            margin-bottom: 20px
+        }
+
+        .warn-block p {
+            font-size: 14px;
+            color: #5C3D0A;
+            line-height: 1.7
+        }
+
+        /* Buttons */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 22px;
+            border-radius: var(--radius);
+            font-family: 'DM Sans', sans-serif;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all .15s;
+            border: 1px solid transparent;
+            line-height: 1
+        }
+
+        .btn-primary {
+            background: var(--accent);
+            color: #fff;
+            border-color: var(--accent)
+        }
+
+        .btn-primary:hover {
+            background: var(--accent-mid)
+        }
+
+        .btn-ghost {
+            background: transparent;
+            color: var(--text2);
+            border-color: var(--border)
+        }
+
+        .btn-ghost:hover {
+            background: var(--surface2);
+            color: var(--text)
+        }
+
+        .btn-danger {
+            background: transparent;
+            color: var(--danger);
+            border-color: var(--danger-border)
+        }
+
+        .btn-danger:hover {
+            background: var(--danger-light)
+        }
+
+        .btn-sm {
+            padding: 7px 14px;
+            font-size: 13px
+        }
+
+        .btn-icon {
+            padding: 7px;
+            border-radius: var(--radius);
+            background: transparent;
+            border: 1px solid var(--border);
+            color: var(--text2);
+            cursor: pointer;
+            transition: all .15s;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px
+        }
+
+        .btn-icon:hover {
+            background: var(--surface2);
+            color: var(--text)
+        }
+
+        .nav-row {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-top: 32px
+        }
+
+        .nav-row .spacer {
+            flex: 1
+        }
+
+        /* Dept selection */
+        .dept-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
+            gap: 12px;
+            margin-top: 16px
+        }
+
+        .dept-card {
+            background: var(--surface);
+            border: 1.5px solid var(--border);
+            border-radius: var(--radius-lg);
+            padding: 16px 18px;
+            cursor: pointer;
+            transition: all .2s;
+            display: flex;
+            align-items: center;
+            gap: 12px
+        }
+
+        .dept-card:hover {
+            border-color: var(--accent-border);
+            background: var(--accent-light)
+        }
+
+        .dept-card.selected {
+            border-color: var(--accent);
+            background: var(--accent-light)
+        }
+
+        .dept-abbr {
+            width: 36px;
+            height: 36px;
+            border-radius: 6px;
+            background: var(--surface2);
+            border: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: .04em;
+            color: var(--text3);
+            flex-shrink: 0;
+            text-transform: uppercase
+        }
+
+        .dept-card.selected .dept-abbr {
+            background: var(--accent);
+            color: #fff;
+            border-color: var(--accent)
+        }
+
+        .dept-card:hover .dept-abbr {
+            background: var(--accent-light);
+            color: var(--accent);
+            border-color: var(--accent-border)
+        }
+
+        .dept-label {
+            font-size: 13.5px;
+            font-weight: 500;
+            color: var(--text);
+            line-height: 1.3
+        }
+
+        .dept-card.selected .dept-label {
+            color: var(--accent)
+        }
+
+        /* Process index */
+        .proc-index {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            margin-top: 4px
+        }
+
+        .proc-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 16px;
+            border-radius: var(--radius);
+            border: 1px solid var(--border);
+            background: var(--surface);
+            cursor: pointer;
+            transition: all .15s;
+            text-align: left;
+            width: 100%
+        }
+
+        .proc-item:hover {
+            border-color: var(--accent-border);
+            background: var(--accent-light)
+        }
+
+        .proc-item.active-proc {
+            border-color: var(--accent);
+            background: var(--accent-light);
+            border-left: 3px solid var(--brand)
+        }
+
+        .proc-item.done-proc {
+            border-color: var(--accent-border)
+        }
+
+        .proc-num {
+            font-size: 11px;
+            font-weight: 600;
+            color: var(--text3);
+            width: 40px;
+            flex-shrink: 0;
+            letter-spacing: .03em
+        }
+
+        .proc-item.active-proc .proc-num {
+            color: var(--accent)
+        }
+
+        .proc-name {
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--text);
+            flex: 1
+        }
+
+        .proc-item.active-proc .proc-name {
+            color: var(--accent)
+        }
+
+        .proc-status {
+            font-size: 11px;
+            font-weight: 500;
+            padding: 3px 8px;
+            border-radius: 12px;
+            background: var(--surface2);
+            color: var(--text3)
+        }
+
+        .proc-status.done {
+            background: #E0EEF4;
+            color: #092835
+        }
+
+        .proc-status.partial {
+            background: var(--warn-light);
+            color: #7A5010
+        }
+
+        /* Process page */
+        .proc-page-header {
+            background: var(--accent);
+            border-radius: var(--radius-lg);
+            padding: 18px 22px;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px
+        }
+
+        .proc-page-title {
+            font-family: 'DM Serif Display', serif;
+            font-size: 20px;
+            font-weight: 400;
+            color: #fff
+        }
+
+        .proc-breadcrumb {
+            font-size: 12px;
+            color: rgba(255, 255, 255, 0.6);
+            margin-bottom: 4px
+        }
+
+        .proc-page-header .btn-ghost {
+            color: rgba(255, 255, 255, 0.85);
+            border-color: rgba(255, 255, 255, 0.25)
+        }
+
+        .proc-page-header .btn-ghost:hover {
+            background: rgba(255, 255, 255, 0.12);
+            color: #fff
+        }
+
+        /* Likert */
+        .likert-label {
+            font-size: 15px;
+            font-weight: 500;
+            color: var(--text);
+            margin-bottom: 14px
+        }
+
+        .likert-options {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap
+        }
+
+        .likert-opt {
+            border: 1.5px solid var(--border);
+            border-radius: var(--radius);
+            padding: 10px 18px;
+            cursor: pointer;
+            transition: all .15s;
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--text2);
+            background: var(--surface)
+        }
+
+        .likert-opt:hover {
+            border-color: var(--accent-border);
+            background: var(--accent-light);
+            color: var(--accent)
+        }
+
+        .likert-opt.selected {
+            border-color: var(--accent);
+            background: var(--accent-light);
+            color: var(--accent)
+        }
+
+        .likert-opt.selected-warn {
+            border-color: #C49A1A;
+            background: var(--warn-light);
+            color: #7A5010
+        }
+
+        .likert-opt.selected-danger {
+            border-color: var(--brand);
+            background: var(--brand-light);
+            color: var(--brand-mid)
+        }
+
+        /* Gap cards */
+        .gaps-section {
+            margin-top: 20px
+        }
+
+        .gaps-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 14px
+        }
+
+        .gaps-title {
+            font-size: 13px;
+            font-weight: 600;
+            letter-spacing: .06em;
+            text-transform: uppercase;
+            color: var(--text3)
+        }
+
+        .gap-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+            padding: 18px 20px;
+            margin-bottom: 12px;
+            box-shadow: var(--shadow);
+            position: relative
+        }
+
+        .gap-card-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 14px
+        }
+
+        .gap-card-label {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text2)
+        }
+
+        .gap-field {
+            margin-bottom: 14px
+        }
+
+        .gap-field:last-child {
+            margin-bottom: 0
+        }
+
+        .gap-field label {
+            display: block;
+            font-size: 12px;
+            font-weight: 600;
+            letter-spacing: .05em;
+            text-transform: uppercase;
+            color: var(--text3);
+            margin-bottom: 6px
+        }
+
+        .gap-field input,
+        .gap-field textarea {
+            width: 100%;
+            padding: 9px 12px;
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            font-family: 'DM Sans', sans-serif;
+            font-size: 14px;
+            color: var(--text);
+            background: var(--bg);
+            resize: vertical;
+            transition: border-color .15s;
+            outline: none
+        }
+
+        .gap-field textarea {
+            min-height: 72px;
+            line-height: 1.5
+        }
+
+        .gap-field input:focus,
+        .gap-field textarea:focus {
+            border-color: var(--accent);
+            background: #fff
+        }
+
+        .add-gap-row {
+            margin-top: 4px
+        }
+
+        /* Summary */
+        .summary-dept-label {
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: .08em;
+            text-transform: uppercase;
+            color: var(--text3);
+            margin-bottom: 16px
+        }
+
+        .summary-proc-row {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            padding: 14px 0;
+            border-bottom: 1px solid var(--border)
+        }
+
+        .summary-proc-row:last-child {
+            border-bottom: none
+        }
+
+        .summary-proc-name {
+            font-size: 14px;
+            font-weight: 500;
+            width: 260px;
+            flex-shrink: 0
+        }
+
+        .summary-result {
+            flex: 1
+        }
+
+        .summary-no-gap {
+            font-size: 13px;
+            color: var(--text3);
+            font-style: italic
+        }
+
+        .summary-gap-item {
+            font-size: 13px;
+            color: var(--text2);
+            margin-bottom: 4px
+        }
+
+        .summary-gap-heading {
+            font-weight: 500;
+            color: var(--text)
+        }
+
+        .badge {
+            display: inline-block;
+            font-size: 11px;
+            font-weight: 600;
+            padding: 3px 9px;
+            border-radius: 12px;
+            letter-spacing: .02em
+        }
+
+        .badge-green {
+            background: #E0EEF4;
+            color: #092835
+        }
+
+        .badge-warn {
+            background: var(--warn-light);
+            color: #7A5010
+        }
+
+        .badge-red {
+            background: var(--brand-light);
+            color: var(--brand-mid)
+        }
+
+        .badge-grey {
+            background: var(--surface2);
+            color: var(--text3)
+        }
+
+        /* Export */
+        .export-card {
+            background: var(--accent);
+            border-radius: var(--radius-lg);
+            padding: 22px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 20px;
+            margin-bottom: 20px
+        }
+
+        .export-text h3 {
+            font-size: 16px;
+            font-weight: 500;
+            margin-bottom: 4px;
+            color: #fff
+        }
+
+        .export-text p {
+            font-size: 13px;
+            color: rgba(255, 255, 255, 0.65)
+        }
+
+        .export-card .btn-primary {
+            background: var(--brand);
+            border-color: var(--brand)
+        }
+
+        .export-card .btn-primary:hover {
+            background: var(--brand-mid);
+            border-color: var(--brand-mid)
+        }
+
+        .export-card .btn-ghost {
+            color: rgba(255, 255, 255, 0.85);
+            border-color: rgba(255, 255, 255, 0.3)
+        }
+
+        .export-card .btn-ghost:hover {
+            background: rgba(255, 255, 255, 0.1);
+            color: #fff
+        }
+
+        /* Top nav bar */
+        .top-nav {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 10px;
+            margin-bottom: 24px;
+            padding: 10px 14px;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow)
+        }
+
+        .top-nav-left,
+        .top-nav-right {
+            display: flex;
+            align-items: center;
+            gap: 8px
+        }
+
+        .top-nav .spacer {
+            flex: 1
+        }
+
+        /* Divider */
+        .divider {
+            height: 1px;
+            background: var(--border);
+            margin: 24px 0
+        }
+
+        /* Scrollbar */
+        ::-webkit-scrollbar {
+            width: 6px;
+            height: 6px
+        }
+
+        ::-webkit-scrollbar-track {
+            background: transparent
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--border2);
+            border-radius: 6px
+        }
+
+        /* Responsive */
+        @media(max-width:600px) {
+            .shell {
+                padding: 0 16px 80px
+            }
+
+            .dept-grid {
+                grid-template-columns: 1fr 1fr
+            }
+
+            .likert-options {
+                flex-direction: column
+            }
+
+            .export-card {
+                flex-direction: column;
+                align-items: flex-start
+            }
+
+            .summary-proc-row {
+                flex-direction: column;
+                gap: 6px
+            }
+
+            .summary-proc-name {
+                width: 100%
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="shell">
+        <div class="hdr">
+            <div class="hdr-left">
+                <span class="hdr-org">KwaZulu-Natal Growth Fund Agency</span>
+                <span class="hdr-title">BPR Gap Analysis Survey</span>
+            </div>
+            <span class="step-pill" id="step-pill">Step 1 of 5</span>
+        </div>
+        <div class="progress-track">
+            <div class="progress-fill" id="progress" style="width:20%"></div>
+        </div>
+
+        <!-- PAGE 1: INTRO -->
+        <div class="page active" id="page-intro">
+            <div class="page-head">
+                <div class="page-title">Welcome to the Gap Analysis</div>
+                <div class="page-sub">This survey forms part of the Business Process Reengineering (BPR) engagement
+                    currently underway at KZNGFA. Your input is critical to identifying process gaps and shaping the
+                    future-state design.</div>
+            </div>
+            <div class="info-block">
+                <p><strong>What is a process gap?</strong><br>A gap is a point in your current (as-is) process where
+                    something is missing, unclear, duplicated, inefficient, or not aligned to policy or best practice.
+                    Gaps may relate to systems, people, controls, documentation, or workflows.</p>
+            </div>
+            <div class="card">
+                <p style="font-size:14px;font-weight:600;margin-bottom:10px">What you will be asked to do</p>
+                <ul
+                    style="font-size:14px;color:var(--text2);padding-left:18px;display:flex;flex-direction:column;gap:8px;line-height:1.6">
+                    <li>Select the department you represent</li>
+                    <li>Work through each of your department's documented processes</li>
+                    <li>Indicate whether gaps exist and describe them briefly</li>
+                    <li>Suggest mitigations or solutions where possible</li>
+                </ul>
+            </div>
+            <div class="warn-block">
+                <p><strong>Note:</strong> Your responses are saved locally in your browser as you go. You can return to
+                    this page and continue where you left off, provided you use the same browser and device.</p>
+            </div>
+            <div class="card" style="padding:18px 22px">
+                <p style="font-size:13px;color:var(--text2);line-height:1.7">This survey covers the processes documented
+                    during the as-is mapping phase. If a process is not listed, it may be captured in a separate
+                    submission or follow-up session. For queries contact your BPR project coordinator.</p>
+            </div>
+            <div class="nav-row">
+                <div class="spacer"></div>
+                <button class="btn btn-primary" onclick="goTo('page-dept')">Begin survey <span
+                        style="font-size:16px">→</span></button>
+            </div>
+        </div>
+
+        <!-- PAGE 2: DEPT SELECT -->
+        <div class="page" id="page-dept">
+            <div class="top-nav">
+                <div class="top-nav-left"><button class="btn btn-ghost btn-sm" onclick="goTo('page-intro')">←
+                        Back</button></div>
+                <div class="spacer"></div>
+                <div class="top-nav-right"><button class="btn btn-primary btn-sm" onclick="confirmDept()">Continue
+                        →</button></div>
+            </div>
+            <div class="page-head">
+                <div class="page-title">Select your department</div>
+                <div class="page-sub">Your selection determines which processes you will be asked to review. Choose the
+                    department you represent or are completing this survey on behalf of.</div>
+            </div>
+            <div class="dept-grid" id="dept-grid">
+                <div class="dept-card" data-dept="SCM" onclick="selectDept(this)">
+                    <div class="dept-abbr">SCM</div><span class="dept-label">Supply Chain Management</span>
+                </div>
+                <div class="dept-card" data-dept="Finance" onclick="selectDept(this)">
+                    <div class="dept-abbr">FIN</div><span class="dept-label">Finance</span>
+                </div>
+                <div class="dept-card" data-dept="HR" onclick="selectDept(this)">
+                    <div class="dept-abbr">HR</div><span class="dept-label">Human Resources</span>
+                </div>
+                <div class="dept-card" data-dept="Investment" onclick="selectDept(this)">
+                    <div class="dept-abbr">INV</div><span class="dept-label">Investment & Post-Investment</span>
+                </div>
+                <div class="dept-card" data-dept="IT" onclick="selectDept(this)">
+                    <div class="dept-abbr">IT</div><span class="dept-label">Information Technology</span>
+                </div>
+                <div class="dept-card" data-dept="Risk" onclick="selectDept(this)">
+                    <div class="dept-abbr">RLC</div><span class="dept-label">Risk, Legal & Compliance</span>
+                </div>
+                <div class="dept-card" data-dept="Marketing" onclick="selectDept(this)">
+                    <div class="dept-abbr">MKT</div><span class="dept-label">Marketing & Communications</span>
+                </div>
+                <div class="dept-card" data-dept="Cosec" onclick="selectDept(this)">
+                    <div class="dept-abbr">COSEC</div><span class="dept-label">Company Secretariat</span>
+                </div>
+                <div class="dept-card" data-dept="PMO" onclick="selectDept(this)">
+                    <div class="dept-abbr">PMO</div><span class="dept-label">Project Management Office</span>
+                </div>
+            </div>
+            <div id="dept-error" style="display:none;margin-top:12px">
+                <span style="font-size:13px;color:var(--danger)">Please select a department to continue.</span>
+            </div>
+        </div>
+
+        <!-- PAGE 3: PROCESS INDEX -->
+        <div class="page" id="page-index">
+            <div class="top-nav">
+                <div class="top-nav-left"><button class="btn btn-ghost btn-sm" onclick="goTo('page-dept')">← Change
+                        department</button></div>
+                <div class="spacer"></div>
+                <div class="top-nav-right"><button class="btn btn-primary btn-sm" onclick="goToSummary()">View summary
+                        →</button></div>
+            </div>
+            <div class="page-head">
+                <div class="page-title" id="index-title">SCM Processes</div>
+                <div class="page-sub">Below are the documented processes for your department. Work through each one and
+                    record any gaps identified. You can navigate between processes freely — your progress is saved as
+                    you go.</div>
+            </div>
+            <div class="card" style="padding:0;overflow:hidden">
+                <div
+                    style="padding:16px 20px 12px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between">
+                    <span style="font-size:13px;font-weight:600;color:var(--text2)">Process list</span>
+                    <span style="font-size:12px;color:var(--text3)" id="index-progress-text">0 of 0 completed</span>
+                </div>
+                <div class="proc-index" style="padding:10px 12px 12px" id="proc-index-list"></div>
+            </div>
+        </div>
+
+        <!-- PAGE 4: PROCESS DETAIL -->
+        <div class="page" id="page-process">
+            <div class="top-nav">
+                <div class="top-nav-left">
+                    <button class="btn btn-ghost btn-sm" id="proc-prev-btn" onclick="procNav(-1)">← Previous</button>
+                    <button class="btn btn-ghost btn-sm" onclick="goTo('page-index')">↑ All processes</button>
+                </div>
+                <div class="spacer"></div>
+                <div class="top-nav-right">
+                    <button class="btn btn-primary btn-sm" id="proc-next-btn" onclick="procNav(1)">Next →</button>
+                </div>
+            </div>
+            <div class="proc-page-header">
+                <div>
+                    <div class="proc-breadcrumb" id="proc-breadcrumb">SCM</div>
+                    <div class="proc-page-title" id="proc-page-title">Process Name</div>
+                </div>
+                <button class="btn btn-ghost btn-sm" onclick="goTo('page-index')">← All processes</button>
+            </div>
+
+            <div class="card">
+                <div class="likert-label">Are there gaps in this process?</div>
+                <div class="likert-options" id="likert-options">
+                    <div class="likert-opt" data-val="none" onclick="selectLikert(this)">No gaps identified</div>
+                    <div class="likert-opt" data-val="few" onclick="selectLikert(this)">1–2 gaps</div>
+                    <div class="likert-opt" data-val="many" onclick="selectLikert(this)">3 or more gaps</div>
+                </div>
+            </div>
+
+            <div id="gaps-container" style="display:none">
+                <div class="gaps-section">
+                    <div class="gaps-header">
+                        <span class="gaps-title">Gaps identified</span>
+                    </div>
+                    <div id="gap-cards-list"></div>
+                    <div class="add-gap-row">
+                        <button class="btn btn-ghost btn-sm" onclick="addGapCard()">+ Add gap</button>
+                    </div>
+                </div>
+            </div>
+
+            <div id="no-gap-msg" style="display:none">
+                <div class="info-block" style="margin-top:4px">
+                    <p>No gaps recorded for this process. Use the navigation above to move to the next process or return
+                        to the index.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- PAGE 5: SUMMARY -->
+        <div class="page" id="page-summary">
+            <div class="top-nav">
+                <div class="top-nav-left"><button class="btn btn-ghost btn-sm" onclick="goTo('page-index')">← Back to
+                        processes</button></div>
+                <div class="spacer"></div>
+                <div class="top-nav-right">
+                    <button class="btn btn-ghost btn-sm" onclick="exportTXT()">Download TXT</button>
+                    <button class="btn btn-primary btn-sm" onclick="exportCSV()">Download CSV</button>
+                </div>
+            </div>
+            <div class="page-head">
+                <div class="page-title">Summary & Export</div>
+                <div class="page-sub">Review your responses below. You can go back to edit any process before exporting.
+                </div>
+            </div>
+            <div class="export-card">
+                <div class="export-text">
+                    <h3>Export your responses</h3>
+                    <p>Downloads a formatted text file you can email to your BPR project coordinator.</p>
+                </div>
+                <div style="display:flex;gap:10px;flex-shrink:0;flex-wrap:wrap">
+                    <button class="btn btn-primary" onclick="exportCSV()">Download CSV</button>
+                    <button class="btn btn-ghost" onclick="exportTXT()">Download TXT</button>
+                </div>
+            </div>
+            <div id="summary-body"></div>
+            <div style="margin-top:20px;display:flex;justify-content:flex-end">
+                <button class="btn btn-ghost btn-sm" onclick="clearAllData()"
+                    style="color:var(--danger);border-color:var(--danger-border)">Clear all data</button>
+            </div>
+        </div>
+
+    </div><!-- /shell -->
+
+    <script>
+        // ─── DATA ─────────────────────────────────────────────────────────────────────
+        const PROCESSES = {
+            SCM: [
+                { id: 'scm-1.1', num: '1.1', name: 'Procurement Planning (>R1M) & Demand Planning (<R1M)' },
+                { id: 'scm-1.2.1', num: '1.2.1', name: 'Preparing Quotations (<R30K) and RFQs' },
+                { id: 'scm-1.2.2', num: '1.2.2', name: 'Preparing RFPs' },
+                { id: 'scm-1.3', num: '1.3', name: 'Contracting' },
+                { id: 'scm-1.4', num: '1.4', name: 'Delivery and Sign-off' },
+                { id: 'scm-1.5.1', num: '1.5.1', name: 'Contract Management' },
+                { id: 'scm-1.5.2', num: '1.5.2', name: 'Contract Variance and Deviations' },
+                { id: 'scm-1.6', num: '1.6', name: 'Supplier Evaluations' },
+                { id: 'scm-1.7', num: '1.7', name: 'SCM Compliance' },
+                { id: 'scm-1.8', num: '1.8', name: 'SCM Policies' },
+                { id: 'scm-1.9', num: '1.9', name: 'Asset Management and Disposal' },
+                { id: 'scm-1.10', num: '1.10', name: 'Reporting' },
+            ],
+            Finance: [
+                { id: 'fin-1.1', num: '1.1', name: 'Treasury Management – Managing Surplus Cash' },
+                { id: 'fin-1.2', num: '1.2', name: 'Treasury Management – Manage and Reconcile Cash Positions' },
+                { id: 'fin-1.3', num: '1.3', name: 'Treasury Management – Manage Cash Equivalents' },
+                { id: 'fin-1.4', num: '1.4', name: 'Loan Book – Interest Received' },
+                { id: 'fin-1.5', num: '1.5', name: 'Equity Improvement' },
+                { id: 'fin-1.6', num: '1.6', name: 'Management Fees' },
+                { id: 'fin-1.7', num: '1.7', name: 'Other Income' },
+                { id: 'fin-2.1', num: '2.1', name: 'Operating Expenditure Procurement' },
+                { id: 'fin-2.2', num: '2.2', name: 'Capital Expenditure Procurement' },
+                { id: 'fin-3.1', num: '3.1', name: 'Fixed Asset Cycle' },
+                { id: 'fin-4.1', num: '4.1', name: 'Planning & Budgeting' },
+                { id: 'fin-4.2', num: '4.2', name: 'Resource Allocation' },
+                { id: 'fin-4.3', num: '4.3', name: 'Monitoring, Evaluation & Reporting' },
+            ],
+            HR: [
+                { id: 'hr-1.1', num: '1.1', name: 'Recruitment and Selection' },
+                { id: 'hr-1.2', num: '1.2', name: 'Performance Management' },
+                { id: 'hr-1.3', num: '1.3', name: 'Training and Skills Development' },
+                { id: 'hr-1.4', num: '1.4', name: 'Payroll' },
+                { id: 'hr-1.5', num: '1.5', name: 'Employee Remuneration' },
+                { id: 'hr-1.6', num: '1.6', name: 'Employee Benefits' },
+                { id: 'hr-1.7', num: '1.7', name: 'Leave Management and Attendance' },
+                { id: 'hr-1.8', num: '1.8', name: 'Employee Wellness' },
+                { id: 'hr-1.9', num: '1.9', name: 'Onboarding and Induction' },
+                { id: 'hr-1.10', num: '1.10', name: 'Disciplinary Process' },
+                { id: 'hr-1.11', num: '1.11', name: 'Grievance Process' },
+                { id: 'hr-1.12', num: '1.12', name: 'HR Records and Personnel Files' },
+                { id: 'hr-1.13', num: '1.13', name: 'Monthly and Quarterly Management Reporting' },
+                { id: 'hr-1.14', num: '1.14', name: 'CSI' },
+                { id: 'hr-1.15', num: '1.15', name: 'Occupational Health and Safety' },
+                { id: 'hr-1.16', num: '1.16', name: 'Succession Planning' },
+                { id: 'hr-1.17', num: '1.17', name: 'Policy Development' },
+                { id: 'hr-1.18', num: '1.18', name: 'Employment Equity' },
+                { id: 'hr-1.19', num: '1.19', name: 'Industrial Relations' },
+                { id: 'hr-1.20', num: '1.20', name: 'BBBEE' },
+                { id: 'hr-1.21', num: '1.21', name: 'Organisational Design' },
+
+            ],
+            Investment: [
+                { id: 'inv-1.1.1', num: '1.1.1', name: 'Debt – Deal Sourcing and Initial Screening' },
+                { id: 'inv-1.1.2', num: '1.1.2', name: 'Debt – Appraisal and Approval' },
+                { id: 'inv-1.1.3', num: '1.1.3', name: 'Debt – Deal Discussion' },
+                { id: 'inv-1.1.4', num: '1.1.4', name: 'Debt – Due Diligence' },
+                { id: 'inv-1.1.5', num: '1.1.5', name: 'Debt – Due Diligence Reporting' },
+                { id: 'inv-1.1.6', num: '1.1.6', name: 'Debt – Final Appraisal Report' },
+                { id: 'inv-1.2.1', num: '1.2.1', name: 'Debt – Implementation' },
+                { id: 'inv-1.3.1', num: '1.3.1', name: 'Debt – Post Investment Activities' },
+                { id: 'inv-1.3.2', num: '1.3.2', name: 'Debt – Portfolio Management: Default Management' },
+                { id: 'inv-1.3.3', num: '1.3.3', name: 'Debt – Legal Recovery' },
+                { id: 'inv-2.1.1', num: '2.1.1', name: 'Equity – Origination and Initial Screening' },
+                { id: 'inv-2.1.2', num: '2.1.2', name: 'Equity – Due Diligence and FAR' },
+                { id: 'inv-2.2.1', num: '2.2.1', name: 'Equity – Contracting and Disbursement' },
+                { id: 'inv-2.3.1', num: '2.3.1', name: 'Equity – Post Investment Activities' },
+            ],
+            IT: [
+                { id: 'it-1.1', num: '1.1', name: 'IT Service Desk' },
+                { id: 'it-1.2', num: '1.2', name: 'User Onboarding (Joiners)' },
+                { id: 'it-1.3', num: '1.3', name: 'Training' },
+                { id: 'it-1.4', num: '1.4', name: 'Role Changes (Movers)' },
+                { id: 'it-1.5', num: '1.5', name: 'Termination (Leavers)' },
+                { id: 'it-1.6', num: '1.6', name: 'Change Requests' },
+                { id: 'it-1.7', num: '1.7', name: 'Access Reviews & Privileged Access' },
+                { id: 'it-1.8', num: '1.8', name: 'Vulnerability & Patch Management' },
+                { id: 'it-1.9', num: '1.9', name: 'Monthly and Quarterly Management Reporting' },
+                { id: 'it-1.10', num: '1.10', name: 'Vendor Management' },
+                { id: 'it-1.11', num: '1.11', name: 'Cybersecurity Monitoring' },
+                { id: 'it-1.12', num: '1.12', name: 'Security Incidents' },
+                { id: 'it-1.13.1', num: '1.13.1', name: 'BC/DR – Business Continuity Plan / Disaster Recovery Plan' },
+                { id: 'it-1.13.2', num: '1.13.2', name: 'BC/DR – Incident' },
+                { id: 'it-1.14', num: '1.14', name: 'IT Policy Development and Reviews' },
+                { id: 'it-1.15', num: '1.15', name: 'Resource Management' },
+                { id: 'it-1.16', num: '1.16', name: 'Asset Management' },
+                { id: 'it-1.17', num: '1.17', name: 'Software and Hardware Acquisition' },
+            ],
+            Risk: [
+                { id: 'risk-1.1', num: '1.1', name: 'Credit Risk – Investment Team (Deal Structuring)' },
+                { id: 'risk-1.2.1', num: '1.2.1', name: 'Credit Risk – Financial Close' },
+                { id: 'risk-1.2.2', num: '1.2.2', name: 'Credit Risk – Disbursement' },
+                { id: 'risk-1.3', num: '1.3', name: 'Credit Risk – Post Investment Monitoring' },
+                { id: 'risk-1.4', num: '1.4', name: 'Credit Risk – Hand Over to Legal Recoveries' },
+                { id: 'risk-2.1', num: '2.1', name: 'Legal – NDA Review' },
+                { id: 'risk-2.2', num: '2.2', name: 'Legal – Preliminary Legal Risk Assessment' },
+                { id: 'risk-2.3', num: '2.3', name: 'Legal – Legal DD & FAR Input' },
+                { id: 'risk-2.4', num: '2.4', name: 'Legal – Contract Drafting & CP Verification' },
+                { id: 'risk-2.5', num: '2.5', name: 'Legal – Breach Management & LODs' },
+                { id: 'risk-2.6', num: '2.6', name: 'Legal – Litigation & Legal Recovery' },
+                { id: 'risk-3.1', num: '3.1', name: 'Compliance – Regulatory Compliance' },
+                { id: 'risk-3.2', num: '3.2', name: 'Compliance – Policy Compliance' },
+                { id: 'risk-4.1', num: '4.1', name: 'Risk – Enterprise Risk Management' },
+                { id: 'risk-5.1', num: '5.1', name: 'Legal (Enterprise) – Legal Opinion' },
+                { id: 'risk-5.2', num: '5.2', name: 'Legal (Enterprise) – Policy Drafting' },
+                { id: 'risk-5.3.1', num: '5.3.1', name: 'Legal (Enterprise) – SLA Drafting' },
+                { id: 'risk-5.3.2', num: '5.3.2', name: 'Legal (Enterprise) – Contract Drafting (MOUs, NDAs, Lease Agreements, etc)' },
+                { id: 'risk-6.1', num: '6.1', name: 'ESG – Quarterly Reporting, Verification and Advisory' },
+            ],
+            Marketing: [
+                { id: 'mkt-1.1', num: '1.1', name: 'Social Media Management' },
+                { id: 'mkt-1.2', num: '1.2', name: 'Marketing Campaigns' },
+                { id: 'mkt-1.3', num: '1.3', name: 'Media Relations' },
+                { id: 'mkt-1.4', num: '1.4', name: 'Event Management' },
+                { id: 'mkt-1.5', num: '1.5', name: 'Media Monitoring' },
+                { id: 'mkt-1.6', num: '1.6', name: 'Brand Management' },
+                { id: 'mkt-1.7', num: '1.7', name: 'Communication Campaigns' },
+            ],
+            Cosec: [
+                { id: 'cosec-1.1', num: '1.1', name: 'Board Governance' },
+                { id: 'cosec-1.2.1', num: '1.2.1', name: 'Work Planning – Initial Set Up' },
+                { id: 'cosec-1.2.2', num: '1.2.2', name: 'Work Planning – Ongoing Planning' },
+                { id: 'cosec-1.3', num: '1.3', name: 'Charters' },
+                { id: 'cosec-1.4', num: '1.4', name: 'Policy Planning' },
+                { id: 'cosec-1.5', num: '1.5', name: 'Induction of Board Members' },
+                { id: 'cosec-2.1', num: '2.1', name: 'Ad-Hoc – Opinion Papers' },
+            ],
+            PMO: [
+                { id: 'pmo-1.1', num: '1.1', name: 'Project Management and Governance (Internal)' },
+                { id: 'pmo-1.2', num: '1.2', name: 'Office Relocation and Infrastructure Projects Governance' },
+                { id: 'pmo-1.3', num: '1.3', name: 'Executive Committee (EXCO) Governance and Document' },
+                { id: 'pmo-1.4', num: '1.4', name: 'Integrated Reporting' },
+                { id: 'pmo-1.5', num: '1.5', name: 'Annual Performance Plan (APP) Governance and Coordination' },
+                { id: 'pmo-1.6', num: '1.6', name: 'Organisational Performance Monitoring and Reporting' },
+                { id: 'pmo-1.7', num: '1.7', name: 'Organisational Strategy Governance' },
+            ],
+        };
+
+        const DEPT_LABELS = {
+            SCM: 'Supply Chain Management', Finance: 'Finance', HR: 'Human Resources',
+            Investment: 'Investment & Post-Investment', IT: 'Information Technology',
+            Risk: 'Risk, Legal & Compliance', Marketing: 'Marketing & Communications',
+            Cosec: 'Company Secretariat', PMO: 'Project Management Office'
+        };
+
+        // ─── STATE ────────────────────────────────────────────────────────────────────
+        let state = {
+            dept: null,
+            currentProcId: null,
+            responses: {} // { procId: { likert:'none'|'few'|'many', gaps:[{heading,gap,mitigation}] } }
+        };
+
+        function saveState() { localStorage.setItem('kzngfa_gap_v2', JSON.stringify(state)) }
+        function loadState() {
+            const s = localStorage.getItem('kzngfa_gap_v2');
+            if (s) { try { state = JSON.parse(s) } catch (e) { } }
+        }
+
+        // ─── NAVIGATION ───────────────────────────────────────────────────────────────
+        const PAGES = ['page-intro', 'page-dept', 'page-index', 'page-process', 'page-summary'];
+        const STEP_LABELS = ['Step 1 of 5', 'Step 2 of 5', 'Step 3 of 5', 'Step 4 of 5', 'Step 5 of 5'];
+        const PROGRESS = [20, 40, 60, 80, 100];
+
+        function goTo(pageId) {
+            document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+            document.getElementById(pageId).classList.add('active');
+            const idx = PAGES.indexOf(pageId);
+            document.getElementById('step-pill').textContent = STEP_LABELS[idx];
+            document.getElementById('progress').style.width = PROGRESS[idx] + '%';
+            if (pageId === 'page-index') renderIndex();
+            if (pageId === 'page-summary') renderSummary();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // ─── DEPT SELECT ──────────────────────────────────────────────────────────────
+        function selectDept(el) {
+            document.querySelectorAll('.dept-card').forEach(c => {
+                c.classList.remove('selected');
+                const abbr = c.querySelector('.dept-abbr');
+                if (abbr) { abbr.style.background = ''; abbr.style.color = ''; abbr.style.borderColor = ''; }
+            });
+            el.classList.add('selected');
+            document.getElementById('dept-error').style.display = 'none';
+        }
+
+        function confirmDept() {
+            const sel = document.querySelector('.dept-card.selected');
+            if (!sel) { document.getElementById('dept-error').style.display = 'block'; return; }
+            state.dept = sel.dataset.dept;
+            saveState();
+            goTo('page-index');
+        }
+
+        // ─── PROCESS INDEX ────────────────────────────────────────────────────────────
+        function renderIndex() {
+            if (!state.dept) return;
+            const procs = PROCESSES[state.dept] || [];
+            document.getElementById('index-title').textContent = DEPT_LABELS[state.dept] + ' — Processes';
+            const list = document.getElementById('proc-index-list');
+            const completed = procs.filter(p => state.responses[p.id]?.likert).length;
+            document.getElementById('index-progress-text').textContent = completed + ' of ' + procs.length + ' completed';
+
+            list.innerHTML = procs.map(p => {
+                const resp = state.responses[p.id];
+                const done = resp?.likert;
+                const hasGaps = resp?.gaps?.length > 0;
+                let statusHtml = '<span class="proc-status">Not started</span>';
+                if (done && resp.likert === 'none') statusHtml = '<span class="proc-status done">No gaps</span>';
+                else if (done && hasGaps) statusHtml = '<span class="proc-status done">' + resp.gaps.length + ' gap' + (resp.gaps.length > 1 ? 's' : '') + '</span>';
+                else if (done) statusHtml = '<span class="proc-status partial">Saved</span>';
+                const activeClass = state.currentProcId === p.id ? ' active-proc' : '';
+                const doneClass = done ? ' done-proc' : '';
+                return `<button class="proc-item${activeClass}${doneClass}" onclick="openProc('${p.id}')">
+      <span class="proc-num">${p.num}</span>
+      <span class="proc-name">${p.name}</span>
+      ${statusHtml}
+    </button>`;
+            }).join('');
+        }
+
+        function openProc(procId) {
+            state.currentProcId = procId;
+            saveState();
+            const procs = PROCESSES[state.dept];
+            const proc = procs.find(p => p.id === procId);
+            document.getElementById('proc-breadcrumb').textContent = DEPT_LABELS[state.dept];
+            document.getElementById('proc-page-title').textContent = proc.num + ' — ' + proc.name;
+
+            // restore likert
+            const resp = state.responses[procId] || {};
+            document.querySelectorAll('.likert-opt').forEach(o => {
+                o.classList.remove('selected', 'selected-warn', 'selected-danger');
+                if (o.dataset.val === resp.likert) {
+                    if (resp.likert === 'none') o.classList.add('selected');
+                    else if (resp.likert === 'few') o.classList.add('selected-warn');
+                    else o.classList.add('selected-danger');
+                }
+            });
+
+            // show/hide sections
+            applyLikertUI(resp.likert, procId);
+
+            // prev/next buttons (now in top nav)
+            const idx = procs.findIndex(p => p.id === procId);
+            const prevBtn = document.getElementById('proc-prev-btn');
+            const nextBtn = document.getElementById('proc-next-btn');
+            prevBtn.style.visibility = idx === 0 ? 'hidden' : 'visible';
+            const isLast = idx === procs.length - 1;
+            nextBtn.textContent = isLast ? 'Summary →' : 'Next →';
+
+            goTo('page-process');
+        }
+
+        function applyLikertUI(val, procId) {
+            const gapsContainer = document.getElementById('gaps-container');
+            const noGapMsg = document.getElementById('no-gap-msg');
+            gapsContainer.style.display = 'none';
+            noGapMsg.style.display = 'none';
+
+            if (!val) return;
+            if (val === 'none') {
+                noGapMsg.style.display = 'block';
+            } else {
+                gapsContainer.style.display = 'block';
+                renderGapCards(procId);
+            }
+        }
+
+        // ─── LIKERT ───────────────────────────────────────────────────────────────────
+        function selectLikert(el) {
+            const val = el.dataset.val;
+            const procId = state.currentProcId;
+
+            document.querySelectorAll('.likert-opt').forEach(o => {
+                o.classList.remove('selected', 'selected-warn', 'selected-danger');
+            });
+            if (val === 'none') el.classList.add('selected');
+            else if (val === 'few') el.classList.add('selected-warn');
+            else el.classList.add('selected-danger');
+
+            if (!state.responses[procId]) state.responses[procId] = { likert: null, gaps: [] };
+            state.responses[procId].likert = val;
+
+            // If switching away from gap-bearing, don't wipe existing gaps but do re-init if empty
+            if ((val === 'few' || val === 'many') && (!state.responses[procId].gaps || state.responses[procId].gaps.length === 0)) {
+                state.responses[procId].gaps = [{ heading: '', gap: '', mitigation: '' }];
+            }
+            saveState();
+            applyLikertUI(val, procId);
+        }
+
+        // ─── GAP CARDS ────────────────────────────────────────────────────────────────
+        function renderGapCards(procId) {
+            const gaps = state.responses[procId]?.gaps || [];
+            const list = document.getElementById('gap-cards-list');
+            list.innerHTML = gaps.map((g, i) => gapCardHTML(i, g)).join('');
+        }
+
+        function gapCardHTML(i, g) {
+            return `<div class="gap-card" id="gap-card-${i}">
+    <div class="gap-card-header">
+      <span class="gap-card-label">Gap ${i + 1}</span>
+      <button class="btn-icon" title="Remove this gap" onclick="removeGap(${i})">✕</button>
+    </div>
+    <div class="gap-field">
+      <label>Heading</label>
+      <input type="text" placeholder="e.g. Missing approval step, No SLA defined…" value="${escH(g.heading)}" oninput="updateGap(${i},'heading',this.value)">
+    </div>
+    <div class="gap-field">
+      <label>Gap identified</label>
+      <textarea placeholder="Describe the gap in the current process…" oninput="updateGap(${i},'gap',this.value)">${escH(g.gap)}</textarea>
+    </div>
+    <div class="gap-field">
+      <label>Mitigation / suggested solution</label>
+      <textarea placeholder="How should this gap be addressed?…" oninput="updateGap(${i},'mitigation',this.value)">${escH(g.mitigation)}</textarea>
+    </div>
+  </div>`;
+        }
+
+        function escH(s) { return (s || '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;') }
+
+        function updateGap(i, field, val) {
+            const procId = state.currentProcId;
+            if (!state.responses[procId]) return;
+            state.responses[procId].gaps[i][field] = val;
+            saveState();
+        }
+
+        function addGapCard() {
+            const procId = state.currentProcId;
+            if (!state.responses[procId]) state.responses[procId] = { likert: 'few', gaps: [] };
+            state.responses[procId].gaps.push({ heading: '', gap: '', mitigation: '' });
+            saveState();
+            renderGapCards(procId);
+            // scroll to new card
+            const cards = document.querySelectorAll('.gap-card');
+            if (cards.length) cards[cards.length - 1].scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+
+        function removeGap(i) {
+            const procId = state.currentProcId;
+            state.responses[procId].gaps.splice(i, 1);
+            if (state.responses[procId].gaps.length === 0) {
+                state.responses[procId].gaps = [{ heading: '', gap: '', mitigation: '' }];
+            }
+            saveState();
+            renderGapCards(procId);
+        }
+
+        // ─── PROC NAVIGATION ──────────────────────────────────────────────────────────
+        function procNav(dir) {
+            const procs = PROCESSES[state.dept];
+            const idx = procs.findIndex(p => p.id === state.currentProcId);
+            const next = idx + dir;
+            if (next < 0) { goTo('page-index'); return; }
+            if (next >= procs.length) { goToSummary(); return; }
+            openProc(procs[next].id);
+        }
+
+        function goToSummary() { goTo('page-summary') }
+
+        // ─── SUMMARY ─────────────────────────────────────────────────────────────────
+        function renderSummary() {
+            if (!state.dept) return;
+            const procs = PROCESSES[state.dept];
+            const body = document.getElementById('summary-body');
+
+            let html = `<div class="summary-dept-label">${DEPT_LABELS[state.dept]}</div>`;
+
+            procs.forEach(p => {
+                const resp = state.responses[p.id];
+                html += `<div class="summary-proc-row">
+      <div class="summary-proc-name">
+        <span style="font-size:11px;color:var(--text3);display:block;margin-bottom:2px">${p.num}</span>
+        ${p.name}
+      </div>
+      <div class="summary-result">`;
+
+                if (!resp?.likert) {
+                    html += `<span class="badge badge-grey">Not completed</span>`;
+                } else if (resp.likert === 'none') {
+                    html += `<span class="badge badge-green">No gaps</span>`;
+                } else {
+                    const gapCount = (resp.gaps || []).filter(g => g.heading || g.gap).length;
+                    html += `<span class="badge ${resp.likert === 'many' ? 'badge-red' : 'badge-warn'}">${gapCount} gap${gapCount !== 1 ? 's' : ''} recorded</span>`;
+                    (resp.gaps || []).forEach((g, i) => {
+                        if (!g.heading && !g.gap) return;
+                        html += `<div class="summary-gap-item" style="margin-top:10px">
+          <div class="summary-gap-heading">${escH(g.heading || 'Gap ' + (i + 1))}</div>
+          ${g.gap ? `<div style="font-size:13px;color:var(--text2);margin-top:2px">${escH(g.gap)}</div>` : ''}
+          ${g.mitigation ? `<div style="font-size:12px;color:var(--text3);margin-top:3px;font-style:italic">↳ ${escH(g.mitigation)}</div>` : ''}
+        </div>`;
+                    });
+                }
+                html += `</div>
+      <button class="btn btn-ghost btn-sm" onclick="openProc('${p.id}')" style="margin-top:6px;flex-shrink:0">Edit</button>
+    </div>`;
+            });
+
+            body.innerHTML = html;
+        }
+
+        // ─── EXPORT ───────────────────────────────────────────────────────────────────
+        function exportTXT() {
+            if (!state.dept) return;
+            const procs = PROCESSES[state.dept];
+            let txt = `KZNGFA BPR GAP ANALYSIS\n`;
+            txt += `Department: ${DEPT_LABELS[state.dept]}\n`;
+            txt += `Exported: ${new Date().toLocaleString('en-ZA')}\n`;
+            txt += `${'='.repeat(60)}\n\n`;
+
+            procs.forEach(p => {
+                const resp = state.responses[p.id];
+                txt += `${p.num} — ${p.name}\n${'-'.repeat(50)}\n`;
+                if (!resp?.likert) { txt += 'Status: Not completed\n\n'; return; }
+                if (resp.likert === 'none') { txt += 'Gaps: None identified\n\n'; return; }
+                const gaps = (resp.gaps || []).filter(g => g.heading || g.gap);
+                txt += `Gaps identified: ${gaps.length}\n`;
+                gaps.forEach((g, i) => {
+                    txt += `\nGap ${i + 1}: ${g.heading || '(no heading)'}\n`;
+                    txt += `  Gap identified: ${g.gap || '—'}\n`;
+                    txt += `  Mitigation: ${g.mitigation || '—'}\n`;
+                });
+                txt += '\n';
+            });
+
+            download('KZNGFA_Gap_Analysis_' + state.dept + '_' + datestamp() + '.txt', txt, 'text/plain');
+        }
+
+        function exportCSV() {
+            if (!state.dept) return;
+            const procs = PROCESSES[state.dept];
+            const rows = [['Department', 'Process Number', 'Process Name', 'Gap #', 'Gap Heading', 'Gap Identified', 'Mitigation/Solution']];
+
+            procs.forEach(p => {
+                const resp = state.responses[p.id];
+                if (!resp?.likert) { rows.push([DEPT_LABELS[state.dept], p.num, p.name, '', '', 'Not completed', '']); return; }
+                if (resp.likert === 'none') { rows.push([DEPT_LABELS[state.dept], p.num, p.name, '', '', 'No gaps identified', '']); return; }
+                const gaps = (resp.gaps || []).filter(g => g.heading || g.gap);
+                if (!gaps.length) { rows.push([DEPT_LABELS[state.dept], p.num, p.name, '', '', '', '']); return; }
+                gaps.forEach((g, i) => {
+                    rows.push([DEPT_LABELS[state.dept], p.num, p.name, i + 1, g.heading, g.gap, g.mitigation]);
+                });
+            });
+
+            const csv = rows.map(r => r.map(c => '"' + (c || '').toString().replace(/"/g, '""') + '"').join(',')).join('\n');
+            download('KZNGFA_Gap_Analysis_' + state.dept + '_' + datestamp() + '.csv', csv, 'text/csv');
+        }
+
+        function download(name, content, type) {
+            const a = document.createElement('a');
+            a.href = URL.createObjectURL(new Blob([content], { type }));
+            a.download = name;
+            a.click();
+        }
+
+        function datestamp() { return new Date().toISOString().slice(0, 10) }
+
+        function clearAllData() {
+            if (!confirm('This will permanently delete all saved responses. Are you sure?')) return;
+            localStorage.removeItem('kzngfa_gap_v2');
+            state = { dept: null, currentProcId: null, responses: {} };
+            goTo('page-intro');
+        }
+
+        // ─── INIT ─────────────────────────────────────────────────────────────────────
+        loadState();
+
+        // Restore dept card selection if returning
+        if (state.dept) {
+            const card = document.querySelector(`.dept-card[data-dept="${state.dept}"]`);
+            if (card) card.classList.add('selected');
+        }
+    </script>
+</body>
+
+</html>
