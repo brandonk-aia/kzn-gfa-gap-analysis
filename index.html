@@ -984,8 +984,7 @@
                         processes</button></div>
                 <div class="spacer"></div>
                 <div class="top-nav-right">
-                    <button class="btn btn-ghost btn-sm" onclick="exportTXT()">Download TXT</button>
-                    <button class="btn btn-primary btn-sm" onclick="exportCSV()">Download CSV</button>
+                    <button class="btn btn-primary btn-sm" onclick="exportXLSX()">Download XLSX</button>
                 </div>
             </div>
             <div class="page-head">
@@ -996,11 +995,10 @@
             <div class="export-card">
                 <div class="export-text">
                     <h3>Export your responses</h3>
-                    <p>Downloads a formatted text file you can email to your BPR project coordinator.</p>
+                    <p>Downloads a formatted Excel workbook you can share with your BPR project coordinator.</p>
                 </div>
                 <div style="display:flex;gap:10px;flex-shrink:0;flex-wrap:wrap">
-                    <button class="btn btn-primary" onclick="exportCSV()">Download CSV</button>
-                    <button class="btn btn-ghost" onclick="exportTXT()">Download TXT</button>
+                    <button class="btn btn-primary" onclick="exportXLSX()">Download XLSX</button>
                 </div>
             </div>
             <div id="summary-body"></div>
@@ -1066,7 +1064,7 @@
                 { id: 'hr-1.19', num: '1.19', name: 'Industrial Relations' },
                 { id: 'hr-1.20', num: '1.20', name: 'BBBEE' },
                 { id: 'hr-1.21', num: '1.21', name: 'Organisational Design' },
-
+                { id: 'hr-1.22', num: '1.22', name: 'Industrial Relations (2)' },
             ],
             Investment: [
                 { id: 'inv-1.1.1', num: '1.1.1', name: 'Debt – Deal Sourcing and Initial Screening' },
@@ -1419,57 +1417,74 @@
         }
 
         // ─── EXPORT ───────────────────────────────────────────────────────────────────
-        function exportTXT() {
+        function exportXLSX() {
             if (!state.dept) return;
+            if (typeof XLSX === 'undefined') { alert('Export library not loaded. Check your internet connection and try again.'); return; }
+
             const procs = PROCESSES[state.dept];
-            let txt = `KZNGFA BPR GAP ANALYSIS\n`;
-            txt += `Department: ${DEPT_LABELS[state.dept]}\n`;
-            txt += `Exported: ${new Date().toLocaleString('en-ZA')}\n`;
-            txt += `${'='.repeat(60)}\n\n`;
+            const dept = DEPT_LABELS[state.dept];
+            const rows = [];
+
+            // Header row
+            rows.push(['Department', 'Process Number', 'Process Name', 'Gap #', 'Gap Heading', 'Gap Identified', 'Mitigation / Suggested Solution', 'Status']);
 
             procs.forEach(p => {
                 const resp = state.responses[p.id];
-                txt += `${p.num} — ${p.name}\n${'-'.repeat(50)}\n`;
-                if (!resp?.likert) { txt += 'Status: Not completed\n\n'; return; }
-                if (resp.likert === 'none') { txt += 'Gaps: None identified\n\n'; return; }
+                if (!resp?.likert) {
+                    rows.push([dept, p.num, p.name, '', '', '', '', 'Not completed']);
+                    return;
+                }
+                if (resp.likert === 'none') {
+                    rows.push([dept, p.num, p.name, '', '', '', '', 'No gaps identified']);
+                    return;
+                }
                 const gaps = (resp.gaps || []).filter(g => g.heading || g.gap);
-                txt += `Gaps identified: ${gaps.length}\n`;
+                if (!gaps.length) {
+                    rows.push([dept, p.num, p.name, '', '', '', '', 'Gaps indicated but not detailed']);
+                    return;
+                }
                 gaps.forEach((g, i) => {
-                    txt += `\nGap ${i + 1}: ${g.heading || '(no heading)'}\n`;
-                    txt += `  Gap identified: ${g.gap || '—'}\n`;
-                    txt += `  Mitigation: ${g.mitigation || '—'}\n`;
+                    rows.push([
+                        i === 0 ? dept : '',
+                        i === 0 ? p.num : '',
+                        i === 0 ? p.name : '',
+                        i + 1,
+                        g.heading || '',
+                        g.gap || '',
+                        g.mitigation || '',
+                        i === 0 ? (resp.likert === 'many' ? '3+ gaps' : '1–2 gaps') : ''
+                    ]);
                 });
-                txt += '\n';
             });
 
-            download('KZNGFA_Gap_Analysis_' + state.dept + '_' + datestamp() + '.txt', txt, 'text/plain');
-        }
+            const ws = XLSX.utils.aoa_to_sheet(rows);
 
-        function exportCSV() {
-            if (!state.dept) return;
-            const procs = PROCESSES[state.dept];
-            const rows = [['Department', 'Process Number', 'Process Name', 'Gap #', 'Gap Heading', 'Gap Identified', 'Mitigation/Solution']];
+            // Column widths
+            ws['!cols'] = [
+                { wch: 28 }, { wch: 14 }, { wch: 48 }, { wch: 7 }, { wch: 28 }, { wch: 48 }, { wch: 48 }, { wch: 20 }
+            ];
 
+            // Style header row — SheetJS CE doesn't support cell styles but we can freeze the top row
+            ws['!freeze'] = { xSplit: 0, ySplit: 1 };
+
+            const wb = XLSX.utils.book_new();
+            XLSX.utils.book_append_sheet(wb, ws, 'Gap Analysis');
+
+            // Summary sheet — one row per process, gap count
+            const sumRows = [['Process Number', 'Process Name', 'Status', 'Gaps Recorded']];
             procs.forEach(p => {
                 const resp = state.responses[p.id];
-                if (!resp?.likert) { rows.push([DEPT_LABELS[state.dept], p.num, p.name, '', '', 'Not completed', '']); return; }
-                if (resp.likert === 'none') { rows.push([DEPT_LABELS[state.dept], p.num, p.name, '', '', 'No gaps identified', '']); return; }
-                const gaps = (resp.gaps || []).filter(g => g.heading || g.gap);
-                if (!gaps.length) { rows.push([DEPT_LABELS[state.dept], p.num, p.name, '', '', '', '']); return; }
-                gaps.forEach((g, i) => {
-                    rows.push([DEPT_LABELS[state.dept], p.num, p.name, i + 1, g.heading, g.gap, g.mitigation]);
-                });
+                const status = !resp?.likert ? 'Not completed'
+                    : resp.likert === 'none' ? 'No gaps'
+                        : resp.likert === 'few' ? '1–2 gaps' : '3+ gaps';
+                const count = (resp?.gaps || []).filter(g => g.heading || g.gap).length;
+                sumRows.push([p.num, p.name, status, resp?.likert && resp.likert !== 'none' ? count : '']);
             });
+            const ws2 = XLSX.utils.aoa_to_sheet(sumRows);
+            ws2['!cols'] = [{ wch: 14 }, { wch: 48 }, { wch: 18 }, { wch: 14 }];
+            XLSX.utils.book_append_sheet(wb, ws2, 'Summary');
 
-            const csv = rows.map(r => r.map(c => '"' + (c || '').toString().replace(/"/g, '""') + '"').join(',')).join('\n');
-            download('KZNGFA_Gap_Analysis_' + state.dept + '_' + datestamp() + '.csv', csv, 'text/csv');
-        }
-
-        function download(name, content, type) {
-            const a = document.createElement('a');
-            a.href = URL.createObjectURL(new Blob([content], { type }));
-            a.download = name;
-            a.click();
+            XLSX.writeFile(wb, 'KZNGFA_Gap_Analysis_' + state.dept + '_' + datestamp() + '.xlsx');
         }
 
         function datestamp() { return new Date().toISOString().slice(0, 10) }
@@ -1490,6 +1505,7 @@
             if (card) card.classList.add('selected');
         }
     </script>
+    <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
 </body>
 
 </html>
