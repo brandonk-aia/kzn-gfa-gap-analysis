@@ -40,9 +40,8 @@
             --warn-border: #E8C97A;
             --radius: 8px;
             --radius-lg: 12px;
-            --radius-xl: 16px;
-            --shadow: 0 1px 3px rgba(0, 0, 0, 0.06), 0 1px 2px rgba(0, 0, 0, 0.04);
-            --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.08), 0 2px 6px rgba(0, 0, 0, 0.04);
+            --shadow: 0 1px 3px rgba(0, 0, 0, .06), 0 1px 2px rgba(0, 0, 0, .04);
+            --shadow-md: 0 4px 16px rgba(0, 0, 0, .08), 0 2px 6px rgba(0, 0, 0, .04);
         }
 
         body {
@@ -60,16 +59,16 @@
         }
 
         .shell {
-            max-width: 860px;
+            max-width: 980px;
             margin: 0 auto;
             padding: 0 24px 100px
         }
 
-        /* Header */
+        /* ── HEADER ── */
         .hdr {
             padding: 28px 0 20px;
             border-bottom: 1px solid var(--border);
-            margin-bottom: 28px;
+            margin-bottom: 20px;
             display: flex;
             align-items: center;
             justify-content: space-between;
@@ -111,11 +110,11 @@
             flex-shrink: 0
         }
 
-        /* Progress */
+        /* ── PROGRESS ── */
         .progress-track {
             height: 3px;
             background: var(--border);
-            margin-bottom: 32px;
+            margin-bottom: 28px;
             border-radius: 2px;
             overflow: hidden
         }
@@ -127,7 +126,7 @@
             transition: width .4s ease
         }
 
-        /* Pages */
+        /* ── PAGES ── */
         .page {
             display: none
         }
@@ -137,7 +136,7 @@
         }
 
         .page-head {
-            margin-bottom: 28px
+            margin-bottom: 24px
         }
 
         .page-title {
@@ -152,11 +151,11 @@
         .page-sub {
             font-size: 14px;
             color: var(--text2);
-            max-width: 580px;
+            max-width: 600px;
             line-height: 1.7
         }
 
-        /* Cards */
+        /* ── CARDS ── */
         .card {
             background: var(--surface);
             border: 1px solid var(--border);
@@ -194,7 +193,7 @@
             line-height: 1.7
         }
 
-        /* Buttons */
+        /* ── BUTTONS ── */
         .btn {
             display: inline-flex;
             align-items: center;
@@ -231,16 +230,6 @@
             color: var(--text)
         }
 
-        .btn-danger {
-            background: transparent;
-            color: var(--danger);
-            border-color: var(--danger-border)
-        }
-
-        .btn-danger:hover {
-            background: var(--danger-light)
-        }
-
         .btn-sm {
             padding: 7px 14px;
             font-size: 13px
@@ -257,7 +246,7 @@
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            font-size: 16px
+            font-size: 14px
         }
 
         .btn-icon:hover {
@@ -269,14 +258,40 @@
             display: flex;
             align-items: center;
             gap: 10px;
-            margin-top: 32px
+            margin-top: 28px;
+            flex-wrap: wrap
         }
 
         .nav-row .spacer {
             flex: 1
         }
 
-        /* Dept selection */
+        /* ── TOP NAV ── */
+        .top-nav {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 10px;
+            margin-bottom: 20px;
+            padding: 10px 14px;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow)
+        }
+
+        .top-nav-left,
+        .top-nav-right {
+            display: flex;
+            align-items: center;
+            gap: 8px
+        }
+
+        .top-nav .spacer {
+            flex: 1
+        }
+
+        /* ── DEPT GRID ── */
         .dept-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
@@ -346,7 +361,7 @@
             color: var(--accent)
         }
 
-        /* Process index */
+        /* ── PROCESS INDEX ── */
         .proc-index {
             display: flex;
             flex-direction: column;
@@ -387,7 +402,7 @@
             font-size: 11px;
             font-weight: 600;
             color: var(--text3);
-            width: 40px;
+            width: 44px;
             flex-shrink: 0;
             letter-spacing: .03em
         }
@@ -413,7 +428,8 @@
             padding: 3px 8px;
             border-radius: 12px;
             background: var(--surface2);
-            color: var(--text3)
+            color: var(--text3);
+            white-space: nowrap
         }
 
         .proc-status.done {
@@ -421,137 +437,281 @@
             color: #092835
         }
 
-        .proc-status.partial {
-            background: var(--warn-light);
-            color: #7A5010
-        }
-
-        /* Process page */
+        /* ── PROCESS PAGE HEADER ── */
         .proc-page-header {
             background: var(--accent);
             border-radius: var(--radius-lg);
-            padding: 18px 22px;
-            margin-bottom: 20px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 12px
-        }
-
-        .proc-page-title {
-            font-family: 'DM Serif Display', serif;
-            font-size: 20px;
-            font-weight: 400;
-            color: #fff
+            padding: 16px 22px;
+            margin-bottom: 18px
         }
 
         .proc-breadcrumb {
             font-size: 12px;
-            color: rgba(255, 255, 255, 0.6);
-            margin-bottom: 4px
+            color: rgba(255, 255, 255, .55);
+            margin-bottom: 3px
         }
 
-        .proc-page-header .btn-ghost {
-            color: rgba(255, 255, 255, 0.85);
-            border-color: rgba(255, 255, 255, 0.25)
+        .proc-page-title {
+            font-family: 'DM Serif Display', serif;
+            font-size: 19px;
+            font-weight: 400;
+            color: #fff;
+            line-height: 1.3
         }
 
-        .proc-page-header .btn-ghost:hover {
-            background: rgba(255, 255, 255, 0.12);
-            color: #fff
-        }
-
-        /* Likert */
-        .likert-label {
-            font-size: 15px;
-            font-weight: 500;
-            color: var(--text);
-            margin-bottom: 14px
-        }
-
-        .likert-options {
-            display: flex;
-            gap: 10px;
-            flex-wrap: wrap
-        }
-
-        .likert-opt {
-            border: 1.5px solid var(--border);
-            border-radius: var(--radius);
-            padding: 10px 18px;
-            cursor: pointer;
-            transition: all .15s;
-            font-size: 14px;
-            font-weight: 500;
-            color: var(--text2);
-            background: var(--surface)
-        }
-
-        .likert-opt:hover {
-            border-color: var(--accent-border);
-            background: var(--accent-light);
-            color: var(--accent)
-        }
-
-        .likert-opt.selected {
-            border-color: var(--accent);
-            background: var(--accent-light);
-            color: var(--accent)
-        }
-
-        .likert-opt.selected-warn {
-            border-color: #C49A1A;
-            background: var(--warn-light);
-            color: #7A5010
-        }
-
-        .likert-opt.selected-danger {
-            border-color: var(--brand);
-            background: var(--brand-light);
-            color: var(--brand-mid)
-        }
-
-        /* Gap cards */
-        .gaps-section {
-            margin-top: 20px
-        }
-
-        .gaps-header {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            margin-bottom: 14px
-        }
-
-        .gaps-title {
-            font-size: 13px;
-            font-weight: 600;
-            letter-spacing: .06em;
-            text-transform: uppercase;
-            color: var(--text3)
-        }
-
-        .gap-card {
+        /* ── MAP ── */
+        .map-wrap {
             background: var(--surface);
             border: 1px solid var(--border);
             border-radius: var(--radius-lg);
-            padding: 18px 20px;
-            margin-bottom: 12px;
-            box-shadow: var(--shadow);
-            position: relative
+            overflow: hidden;
+            margin-bottom: 20px;
+            box-shadow: var(--shadow)
         }
 
-        .gap-card-header {
+        .map-toolbar {
+            padding: 9px 16px;
+            border-bottom: 1px solid var(--border);
+            background: var(--surface2);
             display: flex;
             align-items: center;
             justify-content: space-between;
+            gap: 8px
+        }
+
+        .map-toolbar-label {
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--text3);
+            letter-spacing: .05em;
+            text-transform: uppercase
+        }
+
+        .map-hint {
+            font-size: 12px;
+            color: var(--text3);
+            font-style: italic
+        }
+
+        .map-container {
+            height: auto;
+            overflow: visible;
+            background: #fff;
+        }
+
+        .map-container.compact {
+            height: auto
+        }
+
+        .map-container svg {
+            display: block
+        }
+
+        .map-placeholder {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+            width: 100%;
+            color: var(--text3);
+            font-size: 14px;
+            gap: 8px;
+            padding: 24px;
+            text-align: center
+        }
+
+        .map-placeholder-icon {
+            font-size: 32px;
+            opacity: .35
+        }
+
+        .map-loading {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+            width: 100%;
+            color: var(--text3);
+            font-size: 14px;
+            gap: 8px
+        }
+
+        /* SVG interactivity */
+        .sv-clickable {
+            cursor: pointer
+        }
+
+        /* data-step groups: filter-based hover/selected */
+        .sv-clickable[data-step]:hover {
+            filter: brightness(0.88)
+        }
+
+        .sv-selected[data-step] {
+            filter: drop-shadow(0 0 5px #e67e22)
+        }
+
+        /* Visio <g> fallback: target direct child geometry */
+        .sv-clickable:not([data-step]):hover>rect,
+        .sv-clickable:not([data-step]):hover>path,
+        .sv-clickable:not([data-step]):hover>ellipse,
+        .sv-clickable:not([data-step]):hover>polygon {
+            opacity: .82
+        }
+
+        .sv-selected:not([data-step])>rect,
+        .sv-selected:not([data-step])>path,
+        .sv-selected:not([data-step])>ellipse,
+        .sv-selected:not([data-step])>polygon {
+            stroke: var(--brand) !important;
+            stroke-width: 2.5px !important
+        }
+
+        /* ── GAP TYPE CARDS ── */
+        .gap-types-section {
+            margin-bottom: 8px
+        }
+
+        .gap-types-label {
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--text3);
+            text-transform: uppercase;
+            letter-spacing: .07em;
             margin-bottom: 14px
         }
 
-        .gap-card-label {
+        .gap-types-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 14px
+        }
+
+        .gap-type-card {
+            background: var(--surface);
+            border: 1.5px solid var(--border);
+            border-radius: var(--radius-lg);
+            padding: 20px;
+            cursor: pointer;
+            transition: all .18s;
+            position: relative
+        }
+
+        .gap-type-card:hover {
+            transform: translateY(-1px);
+            box-shadow: var(--shadow-md)
+        }
+
+        .gap-type-icon {
+            font-size: 26px;
+            display: block;
+            margin-bottom: 10px
+        }
+
+        .gap-type-label {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--text);
+            margin-bottom: 5px
+        }
+
+        .gap-type-desc {
+            font-size: 13px;
+            color: var(--text2);
+            line-height: 1.5
+        }
+
+        .gap-type-count {
+            position: absolute;
+            top: 14px;
+            right: 14px;
+            font-size: 11px;
+            font-weight: 700;
+            padding: 3px 9px;
+            border-radius: 12px;
+            background: var(--surface2);
+            color: var(--text3)
+        }
+
+        .gap-type-count.has-gaps {
+            color: #fff
+        }
+
+        /* ── GAP TYPE BADGE ── */
+        .gt-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 7px;
+            padding: 6px 14px;
+            border-radius: 20px;
             font-size: 13px;
             font-weight: 600;
-            color: var(--text2)
+            margin-bottom: 16px;
+            border: 1px solid
+        }
+
+        /* ── GAP LIST ── */
+        .gap-list {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-bottom: 16px
+        }
+
+        .gap-list-item {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+            padding: 13px 16px;
+            display: flex;
+            align-items: flex-start;
+            gap: 12px
+        }
+
+        .gap-list-body {
+            flex: 1;
+            min-width: 0
+        }
+
+        .gap-list-step {
+            font-size: 11px;
+            font-weight: 600;
+            color: var(--text3);
+            text-transform: uppercase;
+            letter-spacing: .05em;
+            margin-bottom: 2px
+        }
+
+        .gap-list-heading {
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--text)
+        }
+
+        .gap-list-desc {
+            font-size: 13px;
+            color: var(--text2);
+            margin-top: 3px;
+            line-height: 1.45
+        }
+
+        /* ── GAP FORM ── */
+        .gap-form-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+            padding: 20px;
+            margin-bottom: 16px;
+            box-shadow: var(--shadow)
+        }
+
+        .gap-form-title {
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--text3);
+            text-transform: uppercase;
+            letter-spacing: .07em;
+            margin-bottom: 16px
         }
 
         .gap-field {
@@ -588,7 +748,7 @@
         }
 
         .gap-field textarea {
-            min-height: 72px;
+            min-height: 70px;
             line-height: 1.5
         }
 
@@ -598,11 +758,73 @@
             background: #fff
         }
 
-        .add-gap-row {
-            margin-top: 4px
+        .step-flash {
+            border-color: var(--accent-border) !important;
+            background: var(--accent-light) !important;
+            transition: none !important
         }
 
-        /* Summary */
+        /* ── STEP PICKER ── */
+        .step-picker-label {
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--text3);
+            text-transform: uppercase;
+            letter-spacing: .07em;
+            margin: 14px 0 8px
+        }
+
+        .step-chip-wrap {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            margin-bottom: 8px
+        }
+
+        .step-chip {
+            padding: 5px 14px;
+            border-radius: 20px;
+            border: 1.5px solid var(--border);
+            background: #fff;
+            font-size: 12px;
+            cursor: pointer;
+            color: var(--text2);
+            user-select: none;
+            transition: border-color .12s, background .12s, color .12s
+        }
+
+        .step-chip:hover {
+            border-color: var(--brand);
+            color: var(--brand)
+        }
+
+        .step-chip.active {
+            background: var(--brand);
+            border-color: var(--brand);
+            color: #fff
+        }
+
+        /* ── ACTION BAR ── */
+        .action-bar {
+            background: var(--accent-light);
+            border: 1px solid var(--accent-border);
+            border-radius: var(--radius-lg);
+            padding: 14px 18px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            flex-wrap: wrap;
+            margin-top: 12px
+        }
+
+        .action-bar-label {
+            font-size: 13px;
+            font-weight: 500;
+            color: #0A2535
+        }
+
+        /* ── SUMMARY ── */
         .summary-dept-label {
             font-size: 11px;
             font-weight: 600;
@@ -627,7 +849,7 @@
         .summary-proc-name {
             font-size: 14px;
             font-weight: 500;
-            width: 260px;
+            width: 230px;
             flex-shrink: 0
         }
 
@@ -635,16 +857,22 @@
             flex: 1
         }
 
-        .summary-no-gap {
-            font-size: 13px;
-            color: var(--text3);
-            font-style: italic
+        .summary-type-group {
+            margin-bottom: 10px
+        }
+
+        .summary-type-label {
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: .05em;
+            margin-bottom: 5px
         }
 
         .summary-gap-item {
             font-size: 13px;
             color: var(--text2);
-            margin-bottom: 4px
+            margin-bottom: 5px
         }
 
         .summary-gap-heading {
@@ -666,22 +894,12 @@
             color: #092835
         }
 
-        .badge-warn {
-            background: var(--warn-light);
-            color: #7A5010
-        }
-
-        .badge-red {
-            background: var(--brand-light);
-            color: var(--brand-mid)
-        }
-
         .badge-grey {
             background: var(--surface2);
             color: var(--text3)
         }
 
-        /* Export */
+        /* ── EXPORT ── */
         .export-card {
             background: var(--accent);
             border-radius: var(--radius-lg);
@@ -702,7 +920,7 @@
 
         .export-text p {
             font-size: 13px;
-            color: rgba(255, 255, 255, 0.65)
+            color: rgba(255, 255, 255, .65)
         }
 
         .export-card .btn-primary {
@@ -715,49 +933,7 @@
             border-color: var(--brand-mid)
         }
 
-        .export-card .btn-ghost {
-            color: rgba(255, 255, 255, 0.85);
-            border-color: rgba(255, 255, 255, 0.3)
-        }
-
-        .export-card .btn-ghost:hover {
-            background: rgba(255, 255, 255, 0.1);
-            color: #fff
-        }
-
-        /* Top nav bar */
-        .top-nav {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 10px;
-            margin-bottom: 24px;
-            padding: 10px 14px;
-            background: var(--surface);
-            border: 1px solid var(--border);
-            border-radius: var(--radius-lg);
-            box-shadow: var(--shadow)
-        }
-
-        .top-nav-left,
-        .top-nav-right {
-            display: flex;
-            align-items: center;
-            gap: 8px
-        }
-
-        .top-nav .spacer {
-            flex: 1
-        }
-
-        /* Divider */
-        .divider {
-            height: 1px;
-            background: var(--border);
-            margin: 24px 0
-        }
-
-        /* Scrollbar */
+        /* ── SCROLLBAR ── */
         ::-webkit-scrollbar {
             width: 6px;
             height: 6px
@@ -772,8 +948,8 @@
             border-radius: 6px
         }
 
-        /* Responsive */
-        @media(max-width:600px) {
+        /* ── RESPONSIVE ── */
+        @media(max-width: 640px) {
             .shell {
                 padding: 0 16px 80px
             }
@@ -782,8 +958,8 @@
                 grid-template-columns: 1fr 1fr
             }
 
-            .likert-options {
-                flex-direction: column
+            .gap-types-grid {
+                grid-template-columns: 1fr
             }
 
             .export-card {
@@ -799,24 +975,29 @@
             .summary-proc-name {
                 width: 100%
             }
+
+            .top-nav-left {
+                flex-wrap: wrap
+            }
         }
     </style>
 </head>
 
 <body>
     <div class="shell">
+
         <div class="hdr">
             <div class="hdr-left">
                 <span class="hdr-org">KwaZulu-Natal Growth Fund Agency</span>
                 <span class="hdr-title">BPR Gap Analysis Survey</span>
             </div>
-            <span class="step-pill" id="step-pill">Step 1 of 5</span>
+            <span class="step-pill" id="step-pill">Step 1 of 6</span>
         </div>
         <div class="progress-track">
-            <div class="progress-fill" id="progress" style="width:20%"></div>
+            <div class="progress-fill" id="progress" style="width:16.7%"></div>
         </div>
 
-        <!-- PAGE 1: INTRO -->
+        <!-- ═══════════════════════════════════════════════════════════ PAGE 1: INTRO -->
         <div class="page active" id="page-intro">
             <div class="page-head">
                 <div class="page-title">Welcome to the Gap Analysis</div>
@@ -827,26 +1008,35 @@
             <div class="info-block">
                 <p><strong>What is a process gap?</strong><br>A gap is a point in your current (as-is) process where
                     something is missing, unclear, duplicated, inefficient, or not aligned to policy or best practice.
-                    Gaps may relate to systems, people, controls, documentation, or workflows.</p>
+                </p>
             </div>
             <div class="card">
-                <p style="font-size:14px;font-weight:600;margin-bottom:10px">What you will be asked to do</p>
+                <p style="font-size:14px;font-weight:600;margin-bottom:12px">What you will be asked to do</p>
                 <ul
                     style="font-size:14px;color:var(--text2);padding-left:18px;display:flex;flex-direction:column;gap:8px;line-height:1.6">
                     <li>Select the department you represent</li>
                     <li>Work through each of your department's documented processes</li>
-                    <li>Indicate whether gaps exist and describe them briefly</li>
-                    <li>Suggest mitigations or solutions where possible</li>
+                    <li>Review the process map and identify gaps by category</li>
+                    <li>Click the step in the process map where the gap occurs</li>
+                    <li>Describe the gap and suggest a mitigation where possible</li>
                 </ul>
             </div>
-            <div class="warn-block">
-                <p><strong>Note:</strong> Your responses are saved locally in your browser as you go. You can return to
-                    this page and continue where you left off, provided you use the same browser and device.</p>
-            </div>
             <div class="card" style="padding:18px 22px">
-                <p style="font-size:13px;color:var(--text2);line-height:1.7">This survey covers the processes documented
-                    during the as-is mapping phase. If a process is not listed, it may be captured in a separate
-                    submission or follow-up session. For queries contact your BPR project coordinator.</p>
+                <p style="font-size:13px;font-weight:600;margin-bottom:12px">Four gap categories</p>
+                <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+                    <div style="font-size:13px;color:var(--text2)"><strong style="color:var(--text)">⚡ Service
+                            Delivery</strong><br>Gaps in how services reach stakeholders</div>
+                    <div style="font-size:13px;color:var(--text2)"><strong style="color:var(--text)">⚙️ Automation /
+                            Tools</strong><br>Manual steps that could be digitised</div>
+                    <div style="font-size:13px;color:var(--text2)"><strong style="color:var(--text)">📈
+                            Productivity</strong><br>Inefficiencies, bottlenecks, duplication</div>
+                    <div style="font-size:13px;color:var(--text2)"><strong style="color:var(--text)">🏛️
+                            Governance</strong><br>Control, policy, and oversight gaps</div>
+                </div>
+            </div>
+            <div class="warn-block">
+                <p><strong>Note:</strong> Your responses are saved locally in your browser as you go. You can return and
+                    continue where you left off, provided you use the same browser and device.</p>
             </div>
             <div class="nav-row">
                 <div class="spacer"></div>
@@ -855,7 +1045,7 @@
             </div>
         </div>
 
-        <!-- PAGE 2: DEPT SELECT -->
+        <!-- ═══════════════════════════════════════════════════════════ PAGE 2: DEPT -->
         <div class="page" id="page-dept">
             <div class="top-nav">
                 <div class="top-nav-left"><button class="btn btn-ghost btn-sm" onclick="goTo('page-intro')">←
@@ -866,8 +1056,7 @@
             </div>
             <div class="page-head">
                 <div class="page-title">Select your department</div>
-                <div class="page-sub">Your selection determines which processes you will be asked to review. Choose the
-                    department you represent or are completing this survey on behalf of.</div>
+                <div class="page-sub">Your selection determines which processes you will be asked to review.</div>
             </div>
             <div class="dept-grid" id="dept-grid">
                 <div class="dept-card" data-dept="SCM" onclick="selectDept(this)">
@@ -880,16 +1069,16 @@
                     <div class="dept-abbr">HR</div><span class="dept-label">Human Resources</span>
                 </div>
                 <div class="dept-card" data-dept="Investment" onclick="selectDept(this)">
-                    <div class="dept-abbr">INV</div><span class="dept-label">Investment & Post-Investment</span>
+                    <div class="dept-abbr">INV</div><span class="dept-label">Investment &amp; Post-Investment</span>
                 </div>
                 <div class="dept-card" data-dept="IT" onclick="selectDept(this)">
                     <div class="dept-abbr">IT</div><span class="dept-label">Information Technology</span>
                 </div>
                 <div class="dept-card" data-dept="Risk" onclick="selectDept(this)">
-                    <div class="dept-abbr">RLC</div><span class="dept-label">Risk, Legal & Compliance</span>
+                    <div class="dept-abbr">RLC</div><span class="dept-label">Risk, Legal &amp; Compliance</span>
                 </div>
                 <div class="dept-card" data-dept="Marketing" onclick="selectDept(this)">
-                    <div class="dept-abbr">MKT</div><span class="dept-label">Marketing & Communications</span>
+                    <div class="dept-abbr">MKT</div><span class="dept-label">Marketing &amp; Communications</span>
                 </div>
                 <div class="dept-card" data-dept="Cosec" onclick="selectDept(this)">
                     <div class="dept-abbr">COSEC</div><span class="dept-label">Company Secretariat</span>
@@ -903,107 +1092,165 @@
             </div>
         </div>
 
-        <!-- PAGE 3: PROCESS INDEX -->
+        <!-- ═══════════════════════════════════════════════════════════ PAGE 3: PROCESS INDEX -->
         <div class="page" id="page-index">
             <div class="top-nav">
                 <div class="top-nav-left"><button class="btn btn-ghost btn-sm" onclick="goTo('page-dept')">← Change
                         department</button></div>
                 <div class="spacer"></div>
-                <div class="top-nav-right"><button class="btn btn-primary btn-sm" onclick="goToSummary()">View summary
-                        →</button></div>
+                <div class="top-nav-right"><button class="btn btn-primary btn-sm" onclick="goTo('page-summary')">View
+                        summary →</button></div>
             </div>
             <div class="page-head">
-                <div class="page-title" id="index-title">SCM Processes</div>
-                <div class="page-sub">Below are the documented processes for your department. Work through each one and
-                    record any gaps identified. You can navigate between processes freely — your progress is saved as
-                    you go.</div>
+                <div class="page-title" id="index-title">Processes</div>
+                <div class="page-sub">Select a process to view its map and record gaps. Your progress is saved
+                    automatically as you go.</div>
             </div>
             <div class="card" style="padding:0;overflow:hidden">
                 <div
-                    style="padding:16px 20px 12px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between">
+                    style="padding:14px 20px 12px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between">
                     <span style="font-size:13px;font-weight:600;color:var(--text2)">Process list</span>
-                    <span style="font-size:12px;color:var(--text3)" id="index-progress-text">0 of 0 completed</span>
+                    <span style="font-size:12px;color:var(--text3)" id="index-progress-text">0 of 0 with gaps</span>
                 </div>
                 <div class="proc-index" style="padding:10px 12px 12px" id="proc-index-list"></div>
             </div>
         </div>
 
-        <!-- PAGE 4: PROCESS DETAIL -->
-        <div class="page" id="page-process">
+        <!-- ═══════════════════════════════════════════════════════════ PAGE 4: MAP + GAP TYPE -->
+        <div class="page" id="page-map">
             <div class="top-nav">
                 <div class="top-nav-left">
-                    <button class="btn btn-ghost btn-sm" id="proc-prev-btn" onclick="procNav(-1)">← Previous</button>
-                    <button class="btn btn-ghost btn-sm" onclick="goTo('page-index')">↑ All processes</button>
+                    <button class="btn btn-ghost btn-sm" onclick="goTo('page-index')">↑ Process list</button>
+                    <button class="btn btn-ghost btn-sm" id="map-prev-btn" onclick="procNav(-1)">← Prev</button>
                 </div>
                 <div class="spacer"></div>
                 <div class="top-nav-right">
-                    <button class="btn btn-primary btn-sm" id="proc-next-btn" onclick="procNav(1)">Next →</button>
+                    <button class="btn btn-primary btn-sm" id="map-next-btn" onclick="procNav(1)">Next →</button>
                 </div>
             </div>
             <div class="proc-page-header">
-                <div>
-                    <div class="proc-breadcrumb" id="proc-breadcrumb">SCM</div>
-                    <div class="proc-page-title" id="proc-page-title">Process Name</div>
-                </div>
-                <button class="btn btn-ghost btn-sm" onclick="goTo('page-index')">← All processes</button>
+                <div class="proc-breadcrumb" id="map-breadcrumb"></div>
+                <div class="proc-page-title" id="map-proc-title"></div>
             </div>
 
-            <div class="card">
-                <div class="likert-label">Are there gaps in this process?</div>
-                <div class="likert-options" id="likert-options">
-                    <div class="likert-opt" data-val="none" onclick="selectLikert(this)">No gaps identified</div>
-                    <div class="likert-opt" data-val="few" onclick="selectLikert(this)">1–2 gaps</div>
-                    <div class="likert-opt" data-val="many" onclick="selectLikert(this)">3 or more gaps</div>
+            <div class="map-wrap">
+                <div class="map-toolbar">
+                    <span class="map-toolbar-label">Process Map</span>
+                    <span class="map-hint">Scroll to explore the diagram</span>
+                </div>
+                <div class="map-container" id="map-container-4">
+                    <div class="map-loading">Loading map…</div>
                 </div>
             </div>
 
-            <div id="gaps-container" style="display:none">
-                <div class="gaps-section">
-                    <div class="gaps-header">
-                        <span class="gaps-title">Gaps identified</span>
-                    </div>
-                    <div id="gap-cards-list"></div>
-                    <div class="add-gap-row">
-                        <button class="btn btn-ghost btn-sm" onclick="addGapCard()">+ Add gap</button>
-                    </div>
+            <div class="gap-types-section">
+                <div class="gap-types-label">Select a gap category to record</div>
+                <div class="gap-types-grid" id="gap-types-grid"></div>
+            </div>
+        </div>
+
+        <!-- ═══════════════════════════════════════════════════════════ PAGE 5: GAP FORM -->
+        <div class="page" id="page-gap">
+            <div class="top-nav">
+                <div class="top-nav-left">
+                    <button class="btn btn-ghost btn-sm" onclick="goTo('page-index')">↑ Process list</button>
+                    <button class="btn btn-ghost btn-sm" onclick="goTo('page-map')">← Gap categories</button>
+                </div>
+                <div class="spacer"></div>
+                <div class="top-nav-right">
+                    <button class="btn btn-primary btn-sm" id="gap-next-btn" onclick="procNav(1)">Next process
+                        →</button>
+                </div>
+            </div>
+            <div class="proc-page-header">
+                <div class="proc-breadcrumb" id="gap-breadcrumb"></div>
+                <div class="proc-page-title" id="gap-proc-title"></div>
+            </div>
+
+            <div class="map-wrap">
+                <div class="map-toolbar">
+                    <span class="map-toolbar-label">Process Map</span>
+                    <span class="map-hint">For reference</span>
+                </div>
+                <div class="map-container compact" id="map-container-5">
+                    <div class="map-loading">Loading map…</div>
                 </div>
             </div>
 
-            <div id="no-gap-msg" style="display:none">
-                <div class="info-block" style="margin-top:4px">
-                    <p>No gaps recorded for this process. Use the navigation above to move to the next process or return
-                        to the index.</p>
+            <div id="gap-badge-wrap"></div>
+
+            <div id="step-picker" style="display:none">
+                <div class="step-picker-label">Select process step</div>
+                <div class="step-chip-wrap" id="step-chip-wrap"></div>
+            </div>
+
+            <div id="gap-list-section" style="display:none">
+                <div style="font-size:12px;font-weight:600;color:var(--text3);text-transform:uppercase;letter-spacing:.07em;margin-bottom:10px"
+                    id="gap-list-label">Recorded gaps</div>
+                <div class="gap-list" id="gap-list"></div>
+            </div>
+
+            <div class="gap-form-card">
+                <div class="gap-form-title">Add gap</div>
+                <div class="gap-field">
+                    <label>Process Step <span
+                            style="font-weight:400;font-style:italic;text-transform:none;letter-spacing:0;font-size:11px">(select above or type)</span></label>
+                    <input type="text" id="gap-step" placeholder="e.g. Step 3 — CFO Approval">
+                </div>
+                <div class="gap-field">
+                    <label>Gap / Challenge</label>
+                    <input type="text" id="gap-heading" placeholder="e.g. No escalation path defined">
+                </div>
+                <div class="gap-field">
+                    <label>Impact</label>
+                    <textarea id="gap-desc" placeholder="Describe the impact of this gap on the process…"></textarea>
+                </div>
+                <div class="gap-field">
+                    <label>Mitigation / Suggested Solution</label>
+                    <textarea id="gap-mitigation" placeholder="How should this gap be addressed?"></textarea>
+                </div>
+                <div style="margin-top:16px;display:flex;gap:10px;flex-wrap:wrap">
+                    <button class="btn btn-primary" onclick="saveGap()">+ Save gap</button>
+                    <button class="btn btn-ghost" onclick="clearGapForm()">Clear</button>
+                </div>
+            </div>
+
+            <div class="action-bar" id="action-bar" style="display:none">
+                <span class="action-bar-label">Gap saved successfully.</span>
+                <div style="display:flex;gap:8px;flex-wrap:wrap">
+                    <button class="btn btn-ghost btn-sm" onclick="goTo('page-map')">← Choose another gap type</button>
+                    <button class="btn btn-primary btn-sm" id="action-next-btn" onclick="procNav(1)">Next process
+                        →</button>
                 </div>
             </div>
         </div>
 
-        <!-- PAGE 5: SUMMARY -->
+        <!-- ═══════════════════════════════════════════════════════════ PAGE 6: SUMMARY -->
         <div class="page" id="page-summary">
             <div class="top-nav">
                 <div class="top-nav-left"><button class="btn btn-ghost btn-sm" onclick="goTo('page-index')">← Back to
                         processes</button></div>
                 <div class="spacer"></div>
-                <div class="top-nav-right">
-                    <button class="btn btn-primary btn-sm" onclick="exportXLSX()">Download XLSX</button>
-                </div>
+                <div class="top-nav-right"><button class="btn btn-primary btn-sm" onclick="exportXLSX()">Download
+                        XLSX</button></div>
             </div>
             <div class="page-head">
-                <div class="page-title">Summary & Export</div>
+                <div class="page-title">Summary &amp; Export</div>
                 <div class="page-sub">Review your responses below. You can go back to edit any process before exporting.
                 </div>
             </div>
             <div class="export-card">
                 <div class="export-text">
                     <h3>Export your responses</h3>
-                    <p>Downloads a formatted Excel workbook you can share with your BPR project coordinator.</p>
+                    <p>Downloads a formatted Excel workbook to share with your BPR project coordinator.</p>
                 </div>
                 <div style="display:flex;gap:10px;flex-shrink:0;flex-wrap:wrap">
                     <button class="btn btn-primary" onclick="exportXLSX()">Download XLSX</button>
                 </div>
             </div>
             <div id="summary-body"></div>
-            <div style="margin-top:20px;display:flex;justify-content:flex-end">
-                <button class="btn btn-ghost btn-sm" onclick="clearAllData()"
+            <div style="margin-top:24px;display:flex;justify-content:flex-end">
+                <button class="btn btn-sm btn-ghost" onclick="clearAllData()"
                     style="color:var(--danger);border-color:var(--danger-border)">Clear all data</button>
             </div>
         </div>
@@ -1159,42 +1406,53 @@
             Cosec: 'Company Secretariat', PMO: 'Project Management Office'
         };
 
-        // ─── STATE ────────────────────────────────────────────────────────────────────
+        const GAP_TYPES = [
+            { id: 'service_delivery', label: 'Service Delivery', icon: '⚡', color: '#C93E1C', bg: '#FDF1ED', border: '#F0A990', desc: 'Gaps in how services are delivered to internal or external stakeholders' },
+            { id: 'automation', label: 'Automation / Tools / Digitisation', icon: '⚙️', color: '#0F5A9E', bg: '#EBF3FC', border: '#8BB8E8', desc: 'Manual steps that could be automated or supported by better tooling' },
+            { id: 'productivity', label: 'Productivity', icon: '📈', color: '#0A6B0A', bg: '#EFF6EF', border: '#8CC98C', desc: 'Inefficiencies, bottlenecks, or duplication that reduce output' },
+            { id: 'governance', label: 'Governance', icon: '🏛️', color: '#6B119E', bg: '#F5EEF8', border: '#C19FD9', desc: 'Gaps in controls, accountability, policy adherence, or oversight' },
+        ];
+
+        // PROCESS_STEPS is loaded from script.js
+
+        // ─── STATE ─────────────────────────────────────────────────────────────────────
         let state = {
             dept: null,
             currentProcId: null,
-            responses: {} // { procId: { likert:'none'|'few'|'many', gaps:[{heading,gap,mitigation}] } }
+            currentGapType: null,
+            responses: {}
+            // responses[procId] = { gaps: [{ type, step, heading, description, mitigation }] }
         };
 
-        function saveState() { localStorage.setItem('kzngfa_gap_v2', JSON.stringify(state)) }
+        let _pdfCache = {};
+
+        function saveState() { localStorage.setItem('kzngfa_gap_v3', JSON.stringify(state)) }
         function loadState() {
-            const s = localStorage.getItem('kzngfa_gap_v2');
-            if (s) { try { state = JSON.parse(s) } catch (e) { } }
+            const s = localStorage.getItem('kzngfa_gap_v3');
+            if (s) { try { state = JSON.parse(s) } catch (_) { } }
         }
 
-        // ─── NAVIGATION ───────────────────────────────────────────────────────────────
-        const PAGES = ['page-intro', 'page-dept', 'page-index', 'page-process', 'page-summary'];
-        const STEP_LABELS = ['Step 1 of 5', 'Step 2 of 5', 'Step 3 of 5', 'Step 4 of 5', 'Step 5 of 5'];
-        const PROGRESS = [20, 40, 60, 80, 100];
+        // ─── NAVIGATION ────────────────────────────────────────────────────────────────
+        const PAGES = ['page-intro', 'page-dept', 'page-index', 'page-map', 'page-gap', 'page-summary'];
+        const STEP_LABELS = ['Step 1 of 6', 'Step 2 of 6', 'Step 3 of 6', 'Step 4 of 6', 'Step 5 of 6', 'Step 6 of 6'];
+        const PROGRESS = [16.7, 33.3, 50, 66.7, 83.3, 100];
 
         function goTo(pageId) {
             document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
             document.getElementById(pageId).classList.add('active');
             const idx = PAGES.indexOf(pageId);
-            document.getElementById('step-pill').textContent = STEP_LABELS[idx];
-            document.getElementById('progress').style.width = PROGRESS[idx] + '%';
+            if (idx >= 0) {
+                document.getElementById('step-pill').textContent = STEP_LABELS[idx];
+                document.getElementById('progress').style.width = PROGRESS[idx] + '%';
+            }
             if (pageId === 'page-index') renderIndex();
             if (pageId === 'page-summary') renderSummary();
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
-        // ─── DEPT SELECT ──────────────────────────────────────────────────────────────
+        // ─── DEPT ──────────────────────────────────────────────────────────────────────
         function selectDept(el) {
-            document.querySelectorAll('.dept-card').forEach(c => {
-                c.classList.remove('selected');
-                const abbr = c.querySelector('.dept-abbr');
-                if (abbr) { abbr.style.background = ''; abbr.style.color = ''; abbr.style.borderColor = ''; }
-            });
+            document.querySelectorAll('.dept-card').forEach(c => c.classList.remove('selected'));
             el.classList.add('selected');
             document.getElementById('dept-error').style.display = 'none';
         }
@@ -1207,305 +1465,385 @@
             goTo('page-index');
         }
 
-        // ─── PROCESS INDEX ────────────────────────────────────────────────────────────
+        // ─── PROCESS INDEX ─────────────────────────────────────────────────────────────
         function renderIndex() {
             if (!state.dept) return;
             const procs = PROCESSES[state.dept] || [];
             document.getElementById('index-title').textContent = DEPT_LABELS[state.dept] + ' — Processes';
-            const list = document.getElementById('proc-index-list');
-            const completed = procs.filter(p => state.responses[p.id]?.likert).length;
-            document.getElementById('index-progress-text').textContent = completed + ' of ' + procs.length + ' completed';
 
-            list.innerHTML = procs.map(p => {
-                const resp = state.responses[p.id];
-                const done = resp?.likert;
-                const hasGaps = resp?.gaps?.length > 0;
-                let statusHtml = '<span class="proc-status">Not started</span>';
-                if (done && resp.likert === 'none') statusHtml = '<span class="proc-status done">No gaps</span>';
-                else if (done && hasGaps) statusHtml = '<span class="proc-status done">' + resp.gaps.length + ' gap' + (resp.gaps.length > 1 ? 's' : '') + '</span>';
-                else if (done) statusHtml = '<span class="proc-status partial">Saved</span>';
+            const withGaps = procs.filter(p => (state.responses[p.id]?.gaps?.length || 0) > 0).length;
+            document.getElementById('index-progress-text').textContent = withGaps + ' of ' + procs.length + ' with gaps recorded';
+
+            document.getElementById('proc-index-list').innerHTML = procs.map(p => {
+                const gapCount = state.responses[p.id]?.gaps?.length || 0;
+                const statusHtml = gapCount > 0
+                    ? `<span class="proc-status done">${gapCount} gap${gapCount > 1 ? 's' : ''}</span>`
+                    : `<span class="proc-status">Not started</span>`;
                 const activeClass = state.currentProcId === p.id ? ' active-proc' : '';
-                const doneClass = done ? ' done-proc' : '';
+                const doneClass = gapCount > 0 ? ' done-proc' : '';
                 return `<button class="proc-item${activeClass}${doneClass}" onclick="openProc('${p.id}')">
-      <span class="proc-num">${p.num}</span>
-      <span class="proc-name">${p.name}</span>
-      ${statusHtml}
-    </button>`;
+            <span class="proc-num">${p.num}</span>
+            <span class="proc-name">${p.name}</span>
+            ${statusHtml}
+        </button>`;
             }).join('');
         }
 
+        // ─── OPEN PROCESS (→ page 4) ───────────────────────────────────────────────────
         function openProc(procId) {
             state.currentProcId = procId;
             saveState();
+
             const procs = PROCESSES[state.dept];
             const proc = procs.find(p => p.id === procId);
-            document.getElementById('proc-breadcrumb').textContent = DEPT_LABELS[state.dept];
-            document.getElementById('proc-page-title').textContent = proc.num + ' — ' + proc.name;
-
-            // restore likert
-            const resp = state.responses[procId] || {};
-            document.querySelectorAll('.likert-opt').forEach(o => {
-                o.classList.remove('selected', 'selected-warn', 'selected-danger');
-                if (o.dataset.val === resp.likert) {
-                    if (resp.likert === 'none') o.classList.add('selected');
-                    else if (resp.likert === 'few') o.classList.add('selected-warn');
-                    else o.classList.add('selected-danger');
-                }
-            });
-
-            // show/hide sections
-            applyLikertUI(resp.likert, procId);
-
-            // prev/next buttons (now in top nav)
             const idx = procs.findIndex(p => p.id === procId);
-            const prevBtn = document.getElementById('proc-prev-btn');
-            const nextBtn = document.getElementById('proc-next-btn');
-            prevBtn.style.visibility = idx === 0 ? 'hidden' : 'visible';
             const isLast = idx === procs.length - 1;
-            nextBtn.textContent = isLast ? 'Summary →' : 'Next →';
 
-            goTo('page-process');
+            document.getElementById('map-breadcrumb').textContent = DEPT_LABELS[state.dept];
+            document.getElementById('map-proc-title').textContent = proc.num + ' — ' + proc.name;
+            document.getElementById('map-prev-btn').style.visibility = idx === 0 ? 'hidden' : 'visible';
+            document.getElementById('map-next-btn').textContent = isLast ? 'Summary →' : 'Next →';
+
+            loadMap(procId, 'map-container-4');
+            renderGapTypeCards();
+            goTo('page-map');
         }
 
-        function applyLikertUI(val, procId) {
-            const gapsContainer = document.getElementById('gaps-container');
-            const noGapMsg = document.getElementById('no-gap-msg');
-            gapsContainer.style.display = 'none';
-            noGapMsg.style.display = 'none';
+        // ─── SVG MAP ───────────────────────────────────────────────────────────────────
+        async function loadMap(procId, containerId) {
+            const container = document.getElementById(containerId);
+            if (!container) return;
 
-            if (!val) return;
-            if (val === 'none') {
-                noGapMsg.style.display = 'block';
-            } else {
-                gapsContainer.style.display = 'block';
-                renderGapCards(procId);
+            const prefix = procId.split('-')[0];
+            const pageNum = (typeof PROCESS_PAGES !== 'undefined' && PROCESS_PAGES[procId]) || null;
+
+            if (!pageNum) {
+                container.innerHTML = `
+                    <div class="map-placeholder">
+                        <span class="map-placeholder-icon">🗺️</span>
+                        <span>No page mapping found for this process.</span>
+                        <span style="font-size:12px;opacity:.7">Add it to PROCESS_PAGES in script.js</span>
+                    </div>`;
+                return;
+            }
+
+            container.innerHTML = '<div class="map-loading">Loading map…</div>';
+
+            try {
+                pdfjsLib.GlobalWorkerOptions.workerSrc =
+                    'https://cdn.jsdelivr.net/npm/pdfjs-dist@3.11.174/build/pdf.worker.min.js';
+
+                const url = `maps/${prefix}.pdf`;
+                if (!_pdfCache[url]) {
+                    _pdfCache[url] = await pdfjsLib.getDocument(url).promise;
+                }
+                const pdf = _pdfCache[url];
+                const pdfPage = await pdf.getPage(pageNum);
+
+                // Scale to container width; multiply by devicePixelRatio for sharp rendering on retina screens
+                const dpr = window.devicePixelRatio || 1;
+                const containerWidth = container.clientWidth || 700;
+                const baseViewport = pdfPage.getViewport({ scale: 1 });
+                const scale = (containerWidth / baseViewport.width) * dpr;
+                const viewport = pdfPage.getViewport({ scale });
+
+                const canvas = document.createElement('canvas');
+                canvas.width = viewport.width;
+                canvas.height = viewport.height;
+                canvas.style.width = (viewport.width / dpr) + 'px';
+                canvas.style.height = (viewport.height / dpr) + 'px';
+                canvas.style.display = 'block';
+
+                container.innerHTML = '';
+                container.appendChild(canvas);
+
+                await pdfPage.render({ canvasContext: canvas.getContext('2d'), viewport }).promise;
+
+            } catch (_) {
+                container.innerHTML = `
+                    <div class="map-placeholder">
+                        <span class="map-placeholder-icon">🗺️</span>
+                        <span>Could not load process map.</span>
+                        <span style="font-size:12px;opacity:.7">Expected: maps/${prefix}.pdf</span>
+                    </div>`;
             }
         }
 
-        // ─── LIKERT ───────────────────────────────────────────────────────────────────
-        function selectLikert(el) {
-            const val = el.dataset.val;
+        // ─── GAP TYPE CARDS (page 4) ───────────────────────────────────────────────────
+        function renderGapTypeCards() {
             const procId = state.currentProcId;
-
-            document.querySelectorAll('.likert-opt').forEach(o => {
-                o.classList.remove('selected', 'selected-warn', 'selected-danger');
-            });
-            if (val === 'none') el.classList.add('selected');
-            else if (val === 'few') el.classList.add('selected-warn');
-            else el.classList.add('selected-danger');
-
-            if (!state.responses[procId]) state.responses[procId] = { likert: null, gaps: [] };
-            state.responses[procId].likert = val;
-
-            // If switching away from gap-bearing, don't wipe existing gaps but do re-init if empty
-            if ((val === 'few' || val === 'many') && (!state.responses[procId].gaps || state.responses[procId].gaps.length === 0)) {
-                state.responses[procId].gaps = [{ heading: '', gap: '', mitigation: '' }];
-            }
-            saveState();
-            applyLikertUI(val, procId);
-        }
-
-        // ─── GAP CARDS ────────────────────────────────────────────────────────────────
-        function renderGapCards(procId) {
             const gaps = state.responses[procId]?.gaps || [];
-            const list = document.getElementById('gap-cards-list');
-            list.innerHTML = gaps.map((g, i) => gapCardHTML(i, g)).join('');
+
+            document.getElementById('gap-types-grid').innerHTML = GAP_TYPES.map(gt => {
+                const count = gaps.filter(g => g.type === gt.id).length;
+                const countBadge = count > 0
+                    ? `<span class="gap-type-count has-gaps" style="background:${gt.color}">${count}</span>`
+                    : `<span class="gap-type-count">0</span>`;
+                const activeStyle = count > 0
+                    ? `border-color:${gt.border};background:${gt.bg};`
+                    : '';
+                return `<div class="gap-type-card" onclick="openGapType('${gt.id}')" style="${activeStyle}">
+            ${countBadge}
+            <span class="gap-type-icon">${gt.icon}</span>
+            <div class="gap-type-label" style="${count > 0 ? 'color:' + gt.color : ''}">${gt.label}</div>
+            <div class="gap-type-desc">${gt.desc}</div>
+        </div>`;
+            }).join('');
         }
 
-        function gapCardHTML(i, g) {
-            return `<div class="gap-card" id="gap-card-${i}">
-    <div class="gap-card-header">
-      <span class="gap-card-label">Gap ${i + 1}</span>
-      <button class="btn-icon" title="Remove this gap" onclick="removeGap(${i})">✕</button>
-    </div>
-    <div class="gap-field">
-      <label>Heading</label>
-      <input type="text" placeholder="e.g. Missing approval step, No SLA defined…" value="${escH(g.heading)}" oninput="updateGap(${i},'heading',this.value)">
-    </div>
-    <div class="gap-field">
-      <label>Gap identified</label>
-      <textarea placeholder="Describe the gap in the current process…" oninput="updateGap(${i},'gap',this.value)">${escH(g.gap)}</textarea>
-    </div>
-    <div class="gap-field">
-      <label>Mitigation / suggested solution</label>
-      <textarea placeholder="How should this gap be addressed?…" oninput="updateGap(${i},'mitigation',this.value)">${escH(g.mitigation)}</textarea>
-    </div>
-  </div>`;
-        }
-
-        function escH(s) { return (s || '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;') }
-
-        function updateGap(i, field, val) {
-            const procId = state.currentProcId;
-            if (!state.responses[procId]) return;
-            state.responses[procId].gaps[i][field] = val;
+        // ─── OPEN GAP TYPE (→ page 5) ──────────────────────────────────────────────────
+        function openGapType(typeId) {
+            state.currentGapType = typeId;
             saveState();
+
+            const gt = GAP_TYPES.find(g => g.id === typeId);
+            const procs = PROCESSES[state.dept];
+            const proc = procs.find(p => p.id === state.currentProcId);
+            const idx = procs.findIndex(p => p.id === state.currentProcId);
+            const isLast = idx === procs.length - 1;
+
+            document.getElementById('gap-breadcrumb').textContent = DEPT_LABELS[state.dept] + ' › ' + proc.num;
+            document.getElementById('gap-proc-title').textContent = proc.name;
+            document.getElementById('gap-next-btn').textContent = isLast ? 'Summary →' : 'Next process →';
+            document.getElementById('action-next-btn').textContent = isLast ? 'View summary →' : 'Next process →';
+
+            document.getElementById('gap-badge-wrap').innerHTML = `
+        <span class="gt-badge" style="background:${gt.bg};color:${gt.color};border-color:${gt.border}">
+            ${gt.icon} ${gt.label}
+        </span>`;
+
+            loadMap(state.currentProcId, 'map-container-5');
+            renderStepChips();
+            renderGapList();
+            clearGapForm();
+            document.getElementById('action-bar').style.display = 'none';
+            goTo('page-gap');
         }
 
-        function addGapCard() {
-            const procId = state.currentProcId;
-            if (!state.responses[procId]) state.responses[procId] = { likert: 'few', gaps: [] };
-            state.responses[procId].gaps.push({ heading: '', gap: '', mitigation: '' });
-            saveState();
-            renderGapCards(procId);
-            // scroll to new card
-            const cards = document.querySelectorAll('.gap-card');
-            if (cards.length) cards[cards.length - 1].scrollIntoView({ behavior: 'smooth', block: 'start' });
+        // ─── GAP LIST ──────────────────────────────────────────────────────────────────
+        function renderStepChips() {
+            const steps = PROCESS_STEPS[state.currentProcId] || [];
+            const picker = document.getElementById('step-picker');
+            if (!steps.length) { picker.style.display = 'none'; return; }
+
+            picker.style.display = 'block';
+            document.getElementById('step-chip-wrap').innerHTML = steps.map(s =>
+                `<button class="step-chip" onclick="selectStepChip(this,'${s.replace(/'/g,"\\\'")}')">${escH(s)}</button>`
+            ).join('');
         }
 
-        function removeGap(i) {
+        function selectStepChip(btn, label) {
+            document.querySelectorAll('.step-chip').forEach(c => c.classList.remove('active'));
+            btn.classList.add('active');
+            const input = document.getElementById('gap-step');
+            input.value = label;
+            input.classList.add('step-flash');
+            setTimeout(() => input.classList.remove('step-flash'), 900);
+        }
+
+        function renderGapList() {
             const procId = state.currentProcId;
-            state.responses[procId].gaps.splice(i, 1);
-            if (state.responses[procId].gaps.length === 0) {
-                state.responses[procId].gaps = [{ heading: '', gap: '', mitigation: '' }];
+            const typeId = state.currentGapType;
+            const all = state.responses[procId]?.gaps || [];
+            const typed = all.filter(g => g.type === typeId);
+            const sec = document.getElementById('gap-list-section');
+
+            if (!typed.length) { sec.style.display = 'none'; return; }
+
+            document.getElementById('gap-list-label').textContent = `Recorded gaps (${typed.length})`;
+            document.getElementById('gap-list').innerHTML = typed.map(g => {
+                const realIdx = all.indexOf(g);
+                return `<div class="gap-list-item">
+            <div class="gap-list-body">
+                ${g.step ? `<div class="gap-list-step">${escH(g.step)}</div>` : ''}
+                <div class="gap-list-heading">${escH(g.heading || 'Untitled gap')}</div>
+                ${g.description ? `<div class="gap-list-desc">${escH(g.description)}</div>` : ''}
+            </div>
+            <button class="btn-icon" title="Remove" onclick="removeGap(${realIdx})">✕</button>
+        </div>`;
+            }).join('');
+            sec.style.display = 'block';
+        }
+
+        // ─── GAP FORM ──────────────────────────────────────────────────────────────────
+        function clearGapForm() {
+            ['gap-step', 'gap-heading', 'gap-desc', 'gap-mitigation'].forEach(id => {
+                document.getElementById(id).value = '';
+            });
+        }
+
+        function saveGap() {
+            const heading = document.getElementById('gap-heading').value.trim();
+            const description = document.getElementById('gap-desc').value.trim();
+
+            if (!heading && !description) {
+                const h = document.getElementById('gap-heading');
+                h.style.borderColor = 'var(--brand)';
+                h.focus();
+                setTimeout(() => h.style.borderColor = '', 1500);
+                return;
             }
+
+            const procId = state.currentProcId;
+            const typeId = state.currentGapType;
+            if (!state.responses[procId]) state.responses[procId] = { gaps: [] };
+
+            state.responses[procId].gaps.push({
+                type: typeId,
+                step: document.getElementById('gap-step').value.trim(),
+                heading,
+                description,
+                mitigation: document.getElementById('gap-mitigation').value.trim(),
+            });
             saveState();
-            renderGapCards(procId);
+
+            // Deselect chip and clear step field ready for next entry
+            document.querySelectorAll('.step-chip').forEach(c => c.classList.remove('active'));
+
+            renderGapList();
+            clearGapForm();
+
+            const bar = document.getElementById('action-bar');
+            bar.style.display = 'flex';
+            bar.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
         }
 
-        // ─── PROC NAVIGATION ──────────────────────────────────────────────────────────
+        function removeGap(realIdx) {
+            const procId = state.currentProcId;
+            if (!state.responses[procId]?.gaps) return;
+            state.responses[procId].gaps.splice(realIdx, 1);
+            saveState();
+            renderGapList();
+        }
+
+        // ─── PROCESS NAVIGATION ────────────────────────────────────────────────────────
         function procNav(dir) {
             const procs = PROCESSES[state.dept];
             const idx = procs.findIndex(p => p.id === state.currentProcId);
             const next = idx + dir;
             if (next < 0) { goTo('page-index'); return; }
-            if (next >= procs.length) { goToSummary(); return; }
+            if (next >= procs.length) { goTo('page-summary'); return; }
             openProc(procs[next].id);
         }
 
-        function goToSummary() { goTo('page-summary') }
-
-        // ─── SUMMARY ─────────────────────────────────────────────────────────────────
+        // ─── SUMMARY ───────────────────────────────────────────────────────────────────
         function renderSummary() {
             if (!state.dept) return;
             const procs = PROCESSES[state.dept];
-            const body = document.getElementById('summary-body');
-
             let html = `<div class="summary-dept-label">${DEPT_LABELS[state.dept]}</div>`;
 
             procs.forEach(p => {
-                const resp = state.responses[p.id];
+                const allGaps = state.responses[p.id]?.gaps || [];
                 html += `<div class="summary-proc-row">
-      <div class="summary-proc-name">
-        <span style="font-size:11px;color:var(--text3);display:block;margin-bottom:2px">${p.num}</span>
-        ${p.name}
-      </div>
-      <div class="summary-result">`;
+            <div class="summary-proc-name">
+                <span style="font-size:11px;color:var(--text3);display:block;margin-bottom:2px">${p.num}</span>
+                ${p.name}
+            </div>
+            <div class="summary-result">`;
 
-                if (!resp?.likert) {
-                    html += `<span class="badge badge-grey">Not completed</span>`;
-                } else if (resp.likert === 'none') {
-                    html += `<span class="badge badge-green">No gaps</span>`;
+                if (!allGaps.length) {
+                    html += `<span class="badge badge-grey">No gaps recorded</span>`;
                 } else {
-                    const gapCount = (resp.gaps || []).filter(g => g.heading || g.gap).length;
-                    html += `<span class="badge ${resp.likert === 'many' ? 'badge-red' : 'badge-warn'}">${gapCount} gap${gapCount !== 1 ? 's' : ''} recorded</span>`;
-                    (resp.gaps || []).forEach((g, i) => {
-                        if (!g.heading && !g.gap) return;
-                        html += `<div class="summary-gap-item" style="margin-top:10px">
-          <div class="summary-gap-heading">${escH(g.heading || 'Gap ' + (i + 1))}</div>
-          ${g.gap ? `<div style="font-size:13px;color:var(--text2);margin-top:2px">${escH(g.gap)}</div>` : ''}
-          ${g.mitigation ? `<div style="font-size:12px;color:var(--text3);margin-top:3px;font-style:italic">↳ ${escH(g.mitigation)}</div>` : ''}
-        </div>`;
+                    html += `<span class="badge badge-green" style="margin-bottom:10px;display:inline-block">${allGaps.length} gap${allGaps.length !== 1 ? 's' : ''}</span>`;
+                    GAP_TYPES.forEach(gt => {
+                        const typed = allGaps.filter(g => g.type === gt.id);
+                        if (!typed.length) return;
+                        html += `<div class="summary-type-group">
+                    <div class="summary-type-label" style="color:${gt.color}">${gt.icon} ${gt.label}</div>`;
+                        typed.forEach((g, i) => {
+                            html += `<div class="summary-gap-item">
+                        ${g.step ? `<div style="font-size:11px;color:var(--text3);margin-bottom:1px">${escH(g.step)}</div>` : ''}
+                        <div class="summary-gap-heading">${escH(g.heading || 'Gap ' + (i + 1))}</div>
+                        ${g.description ? `<div style="font-size:13px;color:var(--text2);margin-top:2px">${escH(g.description)}</div>` : ''}
+                        ${g.mitigation ? `<div style="font-size:12px;color:var(--text3);margin-top:2px;font-style:italic">↳ ${escH(g.mitigation)}</div>` : ''}
+                    </div>`;
+                        });
+                        html += `</div>`;
                     });
                 }
+
                 html += `</div>
-      <button class="btn btn-ghost btn-sm" onclick="openProc('${p.id}')" style="margin-top:6px;flex-shrink:0">Edit</button>
-    </div>`;
+            <button class="btn btn-ghost btn-sm" onclick="openProc('${p.id}')" style="flex-shrink:0;margin-top:4px">Edit</button>
+        </div>`;
             });
 
-            body.innerHTML = html;
+            document.getElementById('summary-body').innerHTML = html;
         }
 
-        // ─── EXPORT ───────────────────────────────────────────────────────────────────
+        // ─── EXPORT ────────────────────────────────────────────────────────────────────
         function exportXLSX() {
             if (!state.dept) return;
-            if (typeof XLSX === 'undefined') { alert('Export library not loaded. Check your internet connection and try again.'); return; }
+            if (typeof XLSX === 'undefined') { alert('Export library not loaded. Check your internet connection.'); return; }
 
             const procs = PROCESSES[state.dept];
             const dept = DEPT_LABELS[state.dept];
-            const rows = [];
-
-            // Header row
-            rows.push(['Department', 'Process Number', 'Process Name', 'Gap #', 'Gap Heading', 'Gap Identified', 'Mitigation / Suggested Solution', 'Status']);
+            const rows = [['Department', 'Process Number', 'Process Name', 'Gap Category', 'Gap #', 'Process Step', 'Gap / Challenge', 'Impact', 'Mitigation / Suggested Solution']];
 
             procs.forEach(p => {
-                const resp = state.responses[p.id];
-                if (!resp?.likert) {
-                    rows.push([dept, p.num, p.name, '', '', '', '', 'Not completed']);
-                    return;
-                }
-                if (resp.likert === 'none') {
-                    rows.push([dept, p.num, p.name, '', '', '', '', 'No gaps identified']);
-                    return;
-                }
-                const gaps = (resp.gaps || []).filter(g => g.heading || g.gap);
-                if (!gaps.length) {
-                    rows.push([dept, p.num, p.name, '', '', '', '', 'Gaps indicated but not detailed']);
-                    return;
-                }
-                gaps.forEach((g, i) => {
+                const all = state.responses[p.id]?.gaps || [];
+                if (!all.length) { rows.push([dept, p.num, p.name, '', '', '', '', '', 'No gaps recorded']); return; }
+                all.forEach((g, i) => {
+                    const gt = GAP_TYPES.find(t => t.id === g.type);
                     rows.push([
                         i === 0 ? dept : '',
                         i === 0 ? p.num : '',
                         i === 0 ? p.name : '',
+                        gt ? gt.label : g.type,
                         i + 1,
+                        g.step || '',
                         g.heading || '',
-                        g.gap || '',
+                        g.description || '',
                         g.mitigation || '',
-                        i === 0 ? (resp.likert === 'many' ? '3+ gaps' : '1–2 gaps') : ''
                     ]);
                 });
             });
 
             const ws = XLSX.utils.aoa_to_sheet(rows);
-
-            // Column widths
-            ws['!cols'] = [
-                { wch: 28 }, { wch: 14 }, { wch: 48 }, { wch: 7 }, { wch: 28 }, { wch: 48 }, { wch: 48 }, { wch: 20 }
-            ];
-
-            // Style header row — SheetJS CE doesn't support cell styles but we can freeze the top row
+            ws['!cols'] = [{ wch: 28 }, { wch: 13 }, { wch: 44 }, { wch: 28 }, { wch: 7 }, { wch: 28 }, { wch: 36 }, { wch: 44 }, { wch: 44 }];
             ws['!freeze'] = { xSplit: 0, ySplit: 1 };
 
             const wb = XLSX.utils.book_new();
             XLSX.utils.book_append_sheet(wb, ws, 'Gap Analysis');
 
-            // Summary sheet — one row per process, gap count
-            const sumRows = [['Process Number', 'Process Name', 'Status', 'Gaps Recorded']];
-            procs.forEach(p => {
-                const resp = state.responses[p.id];
-                const status = !resp?.likert ? 'Not completed'
-                    : resp.likert === 'none' ? 'No gaps'
-                        : resp.likert === 'few' ? '1–2 gaps' : '3+ gaps';
-                const count = (resp?.gaps || []).filter(g => g.heading || g.gap).length;
-                sumRows.push([p.num, p.name, status, resp?.likert && resp.likert !== 'none' ? count : '']);
+            // Second sheet: grouped by category
+            const cat = [['Gap Category', 'Process Number', 'Process Name', 'Process Step', 'Gap / Challenge', 'Impact', 'Mitigation']];
+            GAP_TYPES.forEach(gt => {
+                procs.forEach(p => {
+                    (state.responses[p.id]?.gaps || [])
+                        .filter(g => g.type === gt.id)
+                        .forEach(g => cat.push([gt.label, p.num, p.name, g.step || '', g.heading || '', g.description || '', g.mitigation || '']));
+                });
             });
-            const ws2 = XLSX.utils.aoa_to_sheet(sumRows);
-            ws2['!cols'] = [{ wch: 14 }, { wch: 48 }, { wch: 18 }, { wch: 14 }];
-            XLSX.utils.book_append_sheet(wb, ws2, 'Summary');
+            const ws2 = XLSX.utils.aoa_to_sheet(cat);
+            ws2['!cols'] = [{ wch: 28 }, { wch: 13 }, { wch: 44 }, { wch: 28 }, { wch: 36 }, { wch: 44 }, { wch: 44 }];
+            XLSX.utils.book_append_sheet(wb, ws2, 'By Category');
 
-            XLSX.writeFile(wb, 'KZNGFA_Gap_Analysis_' + state.dept + '_' + datestamp() + '.xlsx');
+            XLSX.writeFile(wb, 'KZNGFA_Gap_Analysis_' + state.dept + '_' + new Date().toISOString().slice(0, 10) + '.xlsx');
         }
 
-        function datestamp() { return new Date().toISOString().slice(0, 10) }
+        // ─── UTILS ─────────────────────────────────────────────────────────────────────
+        function escH(s) {
+            return (s || '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+        }
 
         function clearAllData() {
             if (!confirm('This will permanently delete all saved responses. Are you sure?')) return;
-            localStorage.removeItem('kzngfa_gap_v2');
-            state = { dept: null, currentProcId: null, responses: {} };
+            localStorage.removeItem('kzngfa_gap_v3');
+            state = { dept: null, currentProcId: null, currentGapType: null, responses: {} };
+            _pdfCache = {};
             goTo('page-intro');
         }
 
-        // ─── INIT ─────────────────────────────────────────────────────────────────────
+        // ─── INIT ──────────────────────────────────────────────────────────────────────
         loadState();
-
-        // Restore dept card selection if returning
         if (state.dept) {
             const card = document.querySelector(`.dept-card[data-dept="${state.dept}"]`);
             if (card) card.classList.add('selected');
         }
     </script>
+    <script src="https://cdn.jsdelivr.net/npm/pdfjs-dist@3.11.174/build/pdf.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
+    <script src="script.js"></script>
 </body>
 
 </html>
