@@ -764,46 +764,6 @@
             transition: none !important
         }
 
-        /* ── STEP PICKER ── */
-        .step-picker-label {
-            font-size: 12px;
-            font-weight: 600;
-            color: var(--text3);
-            text-transform: uppercase;
-            letter-spacing: .07em;
-            margin: 14px 0 8px
-        }
-
-        .step-chip-wrap {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 6px;
-            margin-bottom: 8px
-        }
-
-        .step-chip {
-            padding: 5px 14px;
-            border-radius: 20px;
-            border: 1.5px solid var(--border);
-            background: #fff;
-            font-size: 12px;
-            cursor: pointer;
-            color: var(--text2);
-            user-select: none;
-            transition: border-color .12s, background .12s, color .12s
-        }
-
-        .step-chip:hover {
-            border-color: var(--brand);
-            color: var(--brand)
-        }
-
-        .step-chip.active {
-            background: var(--brand);
-            border-color: var(--brand);
-            color: #fff
-        }
-
         /* ── ACTION BAR ── */
         .action-bar {
             background: var(--accent-light);
@@ -981,6 +941,7 @@
             }
         }
     </style>
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&display=swap" rel="stylesheet">
 </head>
 
 <body>
@@ -1170,7 +1131,7 @@
             <div class="map-wrap">
                 <div class="map-toolbar">
                     <span class="map-toolbar-label">Process Map</span>
-                    <span class="map-hint">For reference</span>
+                    <span class="map-hint">Click an element to set the process step</span>
                 </div>
                 <div class="map-container compact" id="map-container-5">
                     <div class="map-loading">Loading map…</div>
@@ -1178,11 +1139,6 @@
             </div>
 
             <div id="gap-badge-wrap"></div>
-
-            <div id="step-picker" style="display:none">
-                <div class="step-picker-label">Select process step</div>
-                <div class="step-chip-wrap" id="step-chip-wrap"></div>
-            </div>
 
             <div id="gap-list-section" style="display:none">
                 <div style="font-size:12px;font-weight:600;color:var(--text3);text-transform:uppercase;letter-spacing:.07em;margin-bottom:10px"
@@ -1194,7 +1150,8 @@
                 <div class="gap-form-title">Add gap</div>
                 <div class="gap-field">
                     <label>Process Step <span
-                            style="font-weight:400;font-style:italic;text-transform:none;letter-spacing:0;font-size:11px">(select above or type)</span></label>
+                            style="font-weight:400;font-style:italic;text-transform:none;letter-spacing:0;font-size:11px">(click
+                            map element or type)</span></label>
                     <input type="text" id="gap-step" placeholder="e.g. Step 3 — CFO Approval">
                 </div>
                 <div class="gap-field">
@@ -1424,7 +1381,6 @@
             // responses[procId] = { gaps: [{ type, step, heading, description, mitigation }] }
         };
 
-        let _pdfCache = {};
 
         function saveState() { localStorage.setItem('kzngfa_gap_v3', JSON.stringify(state)) }
         function loadState() {
@@ -1509,64 +1465,71 @@
             goTo('page-map');
         }
 
-        // ─── SVG MAP ───────────────────────────────────────────────────────────────────
-        async function loadMap(procId, containerId) {
+        // ─── HTML MAP ──────────────────────────────────────────────────────────────────
+        function loadMap(procId, containerId) {
             const container = document.getElementById(containerId);
             if (!container) return;
 
-            const prefix = procId.split('-')[0];
-            const pageNum = (typeof PROCESS_PAGES !== 'undefined' && PROCESS_PAGES[procId]) || null;
+            const filePath = (typeof PROCESS_MAP_FILES !== 'undefined' && PROCESS_MAP_FILES[procId]) || null;
 
-            if (!pageNum) {
+            if (!filePath) {
                 container.innerHTML = `
                     <div class="map-placeholder">
                         <span class="map-placeholder-icon">🗺️</span>
-                        <span>No page mapping found for this process.</span>
-                        <span style="font-size:12px;opacity:.7">Add it to PROCESS_PAGES in script.js</span>
+                        <span>No map available for this process.</span>
+                        <span style="font-size:12px;opacity:.7">Add the file path to process-maps.js</span>
                     </div>`;
                 return;
             }
 
             container.innerHTML = '<div class="map-loading">Loading map…</div>';
 
-            try {
-                pdfjsLib.GlobalWorkerOptions.workerSrc =
-                    'https://cdn.jsdelivr.net/npm/pdfjs-dist@3.11.174/build/pdf.worker.min.js';
+            const height = containerId === 'map-container-5' ? 360 : 520;
+            const iframe = document.createElement('iframe');
+            iframe.src = filePath;
+            iframe.style.cssText = `width:100%;height:${height}px;border:none;display:block;`;
 
-                const url = `maps/${prefix}.pdf`;
-                if (!_pdfCache[url]) {
-                    _pdfCache[url] = await pdfjsLib.getDocument(url).promise;
-                }
-                const pdf = _pdfCache[url];
-                const pdfPage = await pdf.getPage(pageNum);
+            iframe.onload = () => {
+                try {
+                    const doc = iframe.contentDocument;
 
-                // Scale to container width; multiply by devicePixelRatio for sharp rendering on retina screens
-                const dpr = window.devicePixelRatio || 1;
-                const containerWidth = container.clientWidth || 700;
-                const baseViewport = pdfPage.getViewport({ scale: 1 });
-                const scale = (containerWidth / baseViewport.width) * dpr;
-                const viewport = pdfPage.getViewport({ scale });
+                    const style = doc.createElement('style');
+                    style.textContent = 'header,#panel{display:none!important}';
+                    doc.head.appendChild(style);
 
-                const canvas = document.createElement('canvas');
-                canvas.width = viewport.width;
-                canvas.height = viewport.height;
-                canvas.style.width = (viewport.width / dpr) + 'px';
-                canvas.style.height = (viewport.height / dpr) + 'px';
-                canvas.style.display = 'block';
+                    if (containerId === 'map-container-5') {
+                        const bridge = doc.createElement('script');
+                        bridge.textContent = `(function(){
+  var timer,cc,ct;
+  function chipsText(){
+    return Array.from(cc.querySelectorAll('.chip')).map(function(c){
+      var s=c.querySelector('span:first-child');
+      return s?s.textContent.trim():'';
+    }).filter(Boolean).join(', ');
+  }
+  var obs=new MutationObserver(function(mutations){
+    clearTimeout(timer);
+    timer=setTimeout(function(){
+      var inChips=mutations.some(function(m){ return cc&&(m.target===cc||cc.contains(m.target)); });
+      var text=inChips ? chipsText() : (ct?ct.textContent.trim():'');
+      window.parent.postMessage({type:'map-step',text:text},'*');
+    },50);
+  });
+  function init(){
+    cc=document.getElementById('chip-container');
+    ct=document.getElementById('card-title');
+    if(cc) obs.observe(cc,{childList:true,subtree:true,characterData:true});
+    if(ct) obs.observe(ct,{childList:true,subtree:true,characterData:true});
+  }
+  if(document.readyState==='complete') init(); else window.addEventListener('load',init);
+})();`;
+                        doc.head.appendChild(bridge);
+                    }
+                } catch (_) { }
+            };
 
-                container.innerHTML = '';
-                container.appendChild(canvas);
-
-                await pdfPage.render({ canvasContext: canvas.getContext('2d'), viewport }).promise;
-
-            } catch (_) {
-                container.innerHTML = `
-                    <div class="map-placeholder">
-                        <span class="map-placeholder-icon">🗺️</span>
-                        <span>Could not load process map.</span>
-                        <span style="font-size:12px;opacity:.7">Expected: maps/${prefix}.pdf</span>
-                    </div>`;
-            }
+            container.innerHTML = '';
+            container.appendChild(iframe);
         }
 
         // ─── GAP TYPE CARDS (page 4) ───────────────────────────────────────────────────
@@ -1613,7 +1576,6 @@
         </span>`;
 
             loadMap(state.currentProcId, 'map-container-5');
-            renderStepChips();
             renderGapList();
             clearGapForm();
             document.getElementById('action-bar').style.display = 'none';
@@ -1621,26 +1583,6 @@
         }
 
         // ─── GAP LIST ──────────────────────────────────────────────────────────────────
-        function renderStepChips() {
-            const steps = PROCESS_STEPS[state.currentProcId] || [];
-            const picker = document.getElementById('step-picker');
-            if (!steps.length) { picker.style.display = 'none'; return; }
-
-            picker.style.display = 'block';
-            document.getElementById('step-chip-wrap').innerHTML = steps.map(s =>
-                `<button class="step-chip" onclick="selectStepChip(this,'${s.replace(/'/g,"\\\'")}')">${escH(s)}</button>`
-            ).join('');
-        }
-
-        function selectStepChip(btn, label) {
-            document.querySelectorAll('.step-chip').forEach(c => c.classList.remove('active'));
-            btn.classList.add('active');
-            const input = document.getElementById('gap-step');
-            input.value = label;
-            input.classList.add('step-flash');
-            setTimeout(() => input.classList.remove('step-flash'), 900);
-        }
-
         function renderGapList() {
             const procId = state.currentProcId;
             const typeId = state.currentGapType;
@@ -1696,9 +1638,6 @@
                 mitigation: document.getElementById('gap-mitigation').value.trim(),
             });
             saveState();
-
-            // Deselect chip and clear step field ready for next entry
-            document.querySelectorAll('.step-chip').forEach(c => c.classList.remove('active'));
 
             renderGapList();
             clearGapForm();
@@ -1830,9 +1769,20 @@
             if (!confirm('This will permanently delete all saved responses. Are you sure?')) return;
             localStorage.removeItem('kzngfa_gap_v3');
             state = { dept: null, currentProcId: null, currentGapType: null, responses: {} };
-            _pdfCache = {};
             goTo('page-intro');
         }
+
+        // ─── MAP STEP BRIDGE ───────────────────────────────────────────────────────────
+        window.addEventListener('message', function (e) {
+            if (!e.data || e.data.type !== 'map-step') return;
+            const input = document.getElementById('gap-step');
+            if (!input) return;
+            input.value = e.data.text;
+            if (e.data.text) {
+                input.classList.add('step-flash');
+                setTimeout(() => input.classList.remove('step-flash'), 900);
+            }
+        });
 
         // ─── INIT ──────────────────────────────────────────────────────────────────────
         loadState();
@@ -1841,9 +1791,15 @@
             if (card) card.classList.add('selected');
         }
     </script>
-    <script src="https://cdn.jsdelivr.net/npm/pdfjs-dist@3.11.174/build/pdf.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
+    <script src="process-maps.js"></script>
     <script src="script.js"></script>
+
+    <!-- Extra: styled XLSX exporter (uses ExcelJS, PapaParse, FileSaver) -->
+    <script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/exceljs@4.3.0/dist/exceljs.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/file-saver@2.0.5/dist/FileSaver.min.js"></script>
+
 </body>
 
 </html>
