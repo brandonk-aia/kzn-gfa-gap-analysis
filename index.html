@@ -893,6 +893,59 @@
             border-color: var(--brand-mid)
         }
 
+        /* ── INLINE EDITABLE (summary) ── */
+        [contenteditable="true"] {
+            outline: none;
+            border-radius: 3px;
+            padding: 1px 4px;
+            margin: -1px -4px;
+            transition: background .15s, box-shadow .15s;
+            cursor: text;
+            min-height: 1em
+        }
+
+        [contenteditable="true"]:hover {
+            background: var(--surface2)
+        }
+
+        [contenteditable="true"]:focus {
+            background: var(--accent-light);
+            box-shadow: 0 0 0 1px var(--accent-border)
+        }
+
+        .gap-list-step[contenteditable="true"]:empty::before,
+        .gap-list-heading[contenteditable="true"]:empty::before,
+        .gap-list-desc[contenteditable="true"]:empty::before,
+        .gap-list-mitigation[contenteditable="true"]:empty::before {
+            opacity: .35;
+            font-style: italic;
+            pointer-events: none
+        }
+
+        .gap-list-step[contenteditable="true"]:empty::before {
+            content: 'Process step…'
+        }
+
+        .gap-list-heading[contenteditable="true"]:empty::before {
+            content: 'Gap / Challenge…'
+        }
+
+        .gap-list-desc[contenteditable="true"]:empty::before {
+            content: 'Impact…'
+        }
+
+        .gap-list-mitigation[contenteditable="true"]:empty::before {
+            content: 'Mitigation…'
+        }
+
+        .gap-list-mitigation {
+            font-size: 12px;
+            color: var(--text3);
+            margin-top: 4px;
+            font-style: italic;
+            min-height: 1em
+        }
+
         /* ── SCROLLBAR ── */
         ::-webkit-scrollbar {
             width: 6px;
@@ -1597,9 +1650,18 @@
                 const realIdx = all.indexOf(g);
                 return `<div class="gap-list-item">
             <div class="gap-list-body">
-                ${g.step ? `<div class="gap-list-step">${escH(g.step)}</div>` : ''}
-                <div class="gap-list-heading">${escH(g.heading || 'Untitled gap')}</div>
-                ${g.description ? `<div class="gap-list-desc">${escH(g.description)}</div>` : ''}
+                <div class="gap-list-step" contenteditable="true"
+                    data-proc="${procId}" data-idx="${realIdx}" data-field="step"
+                    onblur="saveGapListField(this)">${escH(g.step || '')}</div>
+                <div class="gap-list-heading" contenteditable="true"
+                    data-proc="${procId}" data-idx="${realIdx}" data-field="heading"
+                    onblur="saveGapListField(this)">${escH(g.heading || '')}</div>
+                <div class="gap-list-desc" contenteditable="true"
+                    data-proc="${procId}" data-idx="${realIdx}" data-field="description"
+                    onblur="saveGapListField(this)">${escH(g.description || '')}</div>
+                <div class="gap-list-mitigation" contenteditable="true"
+                    data-proc="${procId}" data-idx="${realIdx}" data-field="mitigation"
+                    onblur="saveGapListField(this)">${escH(g.mitigation || '')}</div>
             </div>
             <button class="btn-icon" title="Remove" onclick="removeGap(${realIdx})">✕</button>
         </div>`;
@@ -1655,6 +1717,15 @@
             renderGapList();
         }
 
+        function saveGapListField(el) {
+            const procId = el.dataset.proc;
+            const idx = parseInt(el.dataset.idx);
+            const field = el.dataset.field;
+            if (!state.responses[procId]?.gaps[idx]) return;
+            state.responses[procId].gaps[idx][field] = el.textContent.trim();
+            saveState();
+        }
+
         // ─── PROCESS NAVIGATION ────────────────────────────────────────────────────────
         function procNav(dir) {
             const procs = PROCESSES[state.dept];
@@ -1688,16 +1759,29 @@
                         const typed = allGaps.filter(g => g.type === gt.id);
                         if (!typed.length) return;
                         html += `<div class="summary-type-group">
-                    <div class="summary-type-label" style="color:${gt.color}">${gt.icon} ${gt.label}</div>`;
-                        typed.forEach((g, i) => {
-                            html += `<div class="summary-gap-item">
-                        ${g.step ? `<div style="font-size:11px;color:var(--text3);margin-bottom:1px">${escH(g.step)}</div>` : ''}
-                        <div class="summary-gap-heading">${escH(g.heading || 'Gap ' + (i + 1))}</div>
-                        ${g.description ? `<div style="font-size:13px;color:var(--text2);margin-top:2px">${escH(g.description)}</div>` : ''}
-                        ${g.mitigation ? `<div style="font-size:12px;color:var(--text3);margin-top:2px;font-style:italic">↳ ${escH(g.mitigation)}</div>` : ''}
+                    <div class="summary-type-label" style="color:${gt.color}">${gt.icon} ${gt.label}</div>
+                    <div class="gap-list" style="margin-bottom:8px">`;
+                        typed.forEach(g => {
+                            const realIdx = allGaps.indexOf(g);
+                            html += `<div class="gap-list-item">
+                        <div class="gap-list-body">
+                            <div class="gap-list-step" contenteditable="true"
+                                data-proc="${p.id}" data-idx="${realIdx}" data-field="step"
+                                onblur="saveSummaryField(this)">${escH(g.step || '')}</div>
+                            <div class="gap-list-heading" contenteditable="true"
+                                data-proc="${p.id}" data-idx="${realIdx}" data-field="heading"
+                                onblur="saveSummaryField(this)">${escH(g.heading || '')}</div>
+                            <div class="gap-list-desc" contenteditable="true"
+                                data-proc="${p.id}" data-idx="${realIdx}" data-field="description"
+                                onblur="saveSummaryField(this)">${escH(g.description || '')}</div>
+                            <div class="gap-list-mitigation" contenteditable="true"
+                                data-proc="${p.id}" data-idx="${realIdx}" data-field="mitigation"
+                                onblur="saveSummaryField(this)">${escH(g.mitigation || '')}</div>
+                        </div>
+                        <button class="btn-icon" title="Remove" onclick="removeSummaryGap('${p.id}', ${realIdx})">✕</button>
                     </div>`;
                         });
-                        html += `</div>`;
+                        html += `</div></div>`;
                     });
                 }
 
@@ -1707,6 +1791,22 @@
             });
 
             document.getElementById('summary-body').innerHTML = html;
+        }
+
+        function saveSummaryField(el) {
+            const procId = el.dataset.proc;
+            const idx = parseInt(el.dataset.idx);
+            const field = el.dataset.field;
+            if (!state.responses[procId]?.gaps[idx]) return;
+            state.responses[procId].gaps[idx][field] = el.textContent.trim();
+            saveState();
+        }
+
+        function removeSummaryGap(procId, idx) {
+            if (!state.responses[procId]?.gaps) return;
+            state.responses[procId].gaps.splice(idx, 1);
+            saveState();
+            renderSummary();
         }
 
         // ─── EXPORT ────────────────────────────────────────────────────────────────────
