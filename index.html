@@ -1956,6 +1956,78 @@
             text-underline-offset: 3px
         }
 
+        .login-error {
+            display: none;
+            padding: 10px 14px;
+            background: #FDF1ED;
+            border: 1px solid #F0A990;
+            border-radius: 8px;
+            font-size: 13px;
+            color: #C0350D;
+            margin-bottom: 16px;
+            line-height: 1.5
+        }
+
+        .login-success {
+            display: none;
+            padding: 10px 14px;
+            background: #EDFAF5;
+            border: 1px solid #6ECFAA;
+            border-radius: 8px;
+            font-size: 13px;
+            color: #0F6B4E;
+            margin-bottom: 16px;
+            line-height: 1.5
+        }
+
+        .login-switch {
+            text-align: center;
+            font-size: 13px;
+            color: #8A9AA5;
+            margin-top: 16px
+        }
+
+        .login-switch span {
+            color: #092835;
+            cursor: pointer;
+            font-weight: 500;
+            text-decoration: underline;
+            text-underline-offset: 3px
+        }
+
+        .login-name-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin-bottom: 16px
+        }
+
+        .login-name-row .login-field {
+            margin-bottom: 0
+        }
+
+        .btn-login:disabled {
+            opacity: .6;
+            cursor: not-allowed
+        }
+
+        .hdr-logout {
+            font-size: 13px;
+            color: var(--text2);
+            cursor: pointer;
+            padding: 6px 12px;
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            background: none;
+            font-family: 'DM Sans', sans-serif;
+            transition: all .15s
+        }
+
+        .hdr-logout:hover {
+            background: var(--surface2);
+            color: var(--text)
+        }
+
         /* Transitions */
         @keyframes view-out {
             from {
@@ -2257,7 +2329,7 @@
                 <div class="feature-card">
                     <div class="feature-icon">🗺️</div>
                     <div class="feature-title">Process Map Integration</div>
-                    <div class="feature-desc">Link live process maps to each survey step. Respondents click directly on
+                    <div class="feature-desc">Link live process maps to each step. Respondents click directly on
                         the map to pinpoint where a gap occurs.</div>
                 </div>
                 <div class="feature-card">
@@ -2274,7 +2346,7 @@
                 </div>
                 <div class="feature-card">
                     <div class="feature-icon">📋</div>
-                    <div class="feature-title">Guided Survey Wizard</div>
+                    <div class="feature-title">Guided Wizard</div>
                     <div class="feature-desc">A step-by-step flow walks users through every process. Auto-save means no
                         data is lost if a session is interrupted.</div>
                 </div>
@@ -2325,30 +2397,65 @@
                 alt="Africa International Advisors">
             <div class="login-title">Welcome back</div>
             <div class="login-sub">Sign in to access your client workspace</div>
-            <div class="login-demo-note">
-                <span style="flex-shrink:0">ℹ️</span>
-                <span><strong>Demo mode —</strong> any email and password will grant access to the KZNGFA
-                    engagement.</span>
-            </div>
+            <div id="login-error" class="login-error"></div>
             <form onsubmit="doLogin(event)">
                 <div class="login-field">
                     <label class="login-label">Email address</label>
-                    <input class="login-input" type="email" placeholder="you@organisation.com" required>
+                    <input id="login-email" class="login-input" type="email" placeholder="you@organisation.com" required>
                 </div>
                 <div class="login-field">
                     <label class="login-label">Password</label>
-                    <input class="login-input" type="password" placeholder="••••••••" required>
+                    <input id="login-password" class="login-input" type="password" placeholder="••••••••" required>
                 </div>
-                <button type="submit" class="btn-login">Sign In →</button>
+                <button id="btn-login" type="submit" class="btn-login">Sign In →</button>
             </form>
+            <div class="login-switch">Don't have an account? <span onclick="showSignup()">Create one</span></div>
             <div class="login-back">
                 <span onclick="showLanding()">← Back to overview</span>
             </div>
         </div>
     </div>
 
+    <!-- ═══════════════════════════════════════════════ SIGN-UP OVERLAY -->
+    <div id="view-signup" class="view-overlay" style="display:none">
+        <div class="login-card">
+            <img src="https://www.africaia.com/images/aia_logos/logo.svg" class="login-logo"
+                alt="Africa International Advisors">
+            <div class="login-title">Create an account</div>
+            <div class="login-sub">Register to access the KZNGFA gap analysis workspace</div>
+            <div id="signup-error" class="login-error"></div>
+            <div id="signup-success" class="login-success"></div>
+            <form id="signup-form" onsubmit="doSignup(event)">
+                <div class="login-name-row">
+                    <div class="login-field">
+                        <label class="login-label">First name</label>
+                        <input id="signup-firstname" class="login-input" type="text" placeholder="Jane" required>
+                    </div>
+                    <div class="login-field">
+                        <label class="login-label">Last name</label>
+                        <input id="signup-lastname" class="login-input" type="text" placeholder="Doe" required>
+                    </div>
+                </div>
+                <div class="login-field">
+                    <label class="login-label">Email address</label>
+                    <input id="signup-email" class="login-input" type="email" placeholder="you@organisation.com" required>
+                </div>
+                <div class="login-field">
+                    <label class="login-label">Password</label>
+                    <input id="signup-password" class="login-input" type="password" placeholder="Min. 8 characters" required minlength="8">
+                </div>
+                <div class="login-field">
+                    <label class="login-label">Confirm password</label>
+                    <input id="signup-confirm" class="login-input" type="password" placeholder="Repeat your password" required>
+                </div>
+                <button id="btn-signup" type="submit" class="btn-login">Create Account →</button>
+            </form>
+            <div class="login-switch">Already have an account? <span onclick="showLoginFromSignup()">Sign in</span></div>
+        </div>
+    </div>
+
     <!-- ═══════════════════════════════════════════════════ APP SHELL -->
-    <div id="app-shell">
+    <div id="app-shell" style="display:none">
         <div class="shell">
 
             <div class="hdr">
@@ -2357,12 +2464,13 @@
                     <div class="hdr-divider"></div>
                     <div class="hdr-title-group">
                         <span class="hdr-org">KwaZulu-Natal Growth Fund Agency</span>
-                        <span class="hdr-title">BPR Gap Analysis Survey</span>
+                        <span class="hdr-title">BPR Gap Analysis</span>
                     </div>
                 </div>
                 <div style="display:flex;align-items:center;gap:10px">
                     <span class="hdr-client-tag">KZNGFA</span>
                     <span class="step-pill" id="step-pill">Step 1 of 6</span>
+                    <button class="hdr-logout" onclick="doLogout()">Sign out</button>
                 </div>
             </div>
             <div class="progress-track">
@@ -2373,7 +2481,7 @@
             <div class="page active" id="page-intro">
                 <div class="page-head">
                     <div class="page-title">Welcome to the Gap Analysis</div>
-                    <div class="page-sub">This survey forms part of the Business Process Reengineering (BPR) engagement
+                    <div class="page-sub">This tool forms part of the Business Process Reengineering (BPR) engagement
                         currently underway at KZNGFA. Your input is critical to identifying process gaps and shaping the
                         future-state design.</div>
                 </div>
@@ -2412,7 +2520,7 @@
                 </div>
                 <div class="nav-row">
                     <div class="spacer"></div>
-                    <button class="btn btn-primary" onclick="goTo('page-dept')">Begin survey <span
+                    <button class="btn btn-primary" onclick="goTo('page-dept')">Start<span
                             style="font-size:16px">→</span></button>
                 </div>
             </div>
@@ -2621,6 +2729,10 @@
         </div><!-- /shell -->
     </div><!-- /app-shell -->
 
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="env.js"></script>
+    <script src="auth.js"></script>
+
     <script>
         // ─── VIEW SWITCHING ────────────────────────────────────────────────────────
         function showLogin() {
@@ -2635,22 +2747,104 @@
         }
 
         function showLanding() {
+            document.getElementById('view-login').style.display = 'none';
+            document.getElementById('view-signup').style.display = 'none';
             const landing = document.getElementById('view-landing');
-            const login = document.getElementById('view-login');
-            login.style.display = 'none';
             landing.style.display = '';
             landing.scrollTop = 0;
         }
 
-        function doLogin(e) {
+        function showSignup() {
+            document.getElementById('view-login').style.display = 'none';
+            document.getElementById('view-signup').style.display = 'flex';
+        }
+
+        function showLoginFromSignup() {
+            document.getElementById('view-signup').style.display = 'none';
+            document.getElementById('view-login').style.display = 'flex';
+        }
+
+        function _showApp() {
+            document.getElementById('view-landing').style.display = 'none';
+            document.getElementById('view-login').style.display = 'none';
+            document.getElementById('view-signup').style.display = 'none';
+            document.getElementById('app-shell').style.display = '';
+            window.scrollTo(0, 0);
+        }
+
+        // ─── AUTH HELPERS ──────────────────────────────────────────────────────────
+        function _setLoginError(msg) {
+            const el = document.getElementById('login-error');
+            el.textContent = msg;
+            el.style.display = msg ? 'block' : 'none';
+        }
+
+        function _setSignupError(msg) {
+            const el = document.getElementById('signup-error');
+            el.textContent = msg;
+            el.style.display = msg ? 'block' : 'none';
+            document.getElementById('signup-success').style.display = 'none';
+        }
+
+        function _setSignupSuccess(msg) {
+            const el = document.getElementById('signup-success');
+            el.textContent = msg;
+            el.style.display = msg ? 'block' : 'none';
+            document.getElementById('signup-error').style.display = 'none';
+        }
+
+        async function doLogin(e) {
             e.preventDefault();
-            const login = document.getElementById('view-login');
-            login.classList.add('anim-out');
-            setTimeout(() => {
-                login.style.display = 'none';
-                login.classList.remove('anim-out');
-                window.scrollTo(0, 0);
-            }, 340);
+            const email    = document.getElementById('login-email').value.trim();
+            const password = document.getElementById('login-password').value;
+            const btn      = document.getElementById('btn-login');
+            _setLoginError('');
+            btn.disabled    = true;
+            btn.textContent = 'Signing in…';
+            try {
+                await authSignIn(email, password);
+                _showApp();
+            } catch (err) {
+                _setLoginError(err.message || 'Sign in failed. Check your credentials and try again.');
+            } finally {
+                btn.disabled    = false;
+                btn.textContent = 'Sign In →';
+            }
+        }
+
+        async function doSignup(e) {
+            e.preventDefault();
+            const firstName = document.getElementById('signup-firstname').value.trim();
+            const lastName  = document.getElementById('signup-lastname').value.trim();
+            const email     = document.getElementById('signup-email').value.trim();
+            const password  = document.getElementById('signup-password').value;
+            const confirm   = document.getElementById('signup-confirm').value;
+            const btn       = document.getElementById('btn-signup');
+            _setSignupError('');
+            if (password !== confirm) { _setSignupError('Passwords do not match.'); return; }
+            btn.disabled    = true;
+            btn.textContent = 'Creating account…';
+            try {
+                const data = await authSignUp(firstName, lastName, email, password);
+                if (data.session) {
+                    _showApp();
+                } else {
+                    document.getElementById('signup-form').style.display = 'none';
+                    _setSignupSuccess('Account created! Check your email to confirm your address, then sign in.');
+                }
+            } catch (err) {
+                _setSignupError(err.message || 'Sign up failed. Please try again.');
+            } finally {
+                btn.disabled    = false;
+                btn.textContent = 'Create Account →';
+            }
+        }
+
+        async function doLogout() {
+            try { await authSignOut(); } catch (_) {}
+            document.getElementById('app-shell').style.display = 'none';
+            document.getElementById('view-landing').style.display = '';
+            window.scrollTo(0, 0);
         }
 
         // ─── HERO TYPING ANIMATION ─────────────────────────────────────────────────
@@ -3100,7 +3294,7 @@
         }
 
         // ─── EXPORT ───────────────────────────────────────────────────────────────
-        function exportXLSX() {
+        async function exportXLSX() {
             if (!state.dept) return;
             if (typeof XLSX === 'undefined') { alert('Export library not loaded. Check your internet connection.'); return; }
             const procs = PROCESSES[state.dept];
@@ -3128,7 +3322,19 @@
             const ws2 = XLSX.utils.aoa_to_sheet(cat);
             ws2['!cols'] = [{ wch: 28 }, { wch: 13 }, { wch: 44 }, { wch: 28 }, { wch: 36 }, { wch: 44 }, { wch: 44 }];
             XLSX.utils.book_append_sheet(wb, ws2, 'By Category');
-            XLSX.writeFile(wb, 'KZNGFA_Gap_Analysis_' + state.dept + '_' + new Date().toISOString().slice(0, 10) + '.xlsx');
+            const fileName = 'KZNGFA_Gap_Analysis_' + state.dept + '_' + new Date().toISOString().slice(0, 10) + '.xlsx';
+            XLSX.writeFile(wb, fileName);
+            try {
+                const user = await authGetUser();
+                if (user) {
+                    await logDownload(
+                        user.user_metadata?.full_name || '',
+                        user.email || '',
+                        DEPT_LABELS[state.dept] || state.dept,
+                        fileName
+                    );
+                }
+            } catch (_) {}
         }
 
         // ─── UTILS ────────────────────────────────────────────────────────────────
@@ -3154,11 +3360,17 @@
         });
 
         // ─── INIT ─────────────────────────────────────────────────────────────────
-        loadState();
-        if (state.dept) {
-            const card = document.querySelector(`.dept-card[data-dept="${state.dept}"]`);
-            if (card) card.classList.add('selected');
-        }
+        (async function () {
+            try {
+                const session = await authCheckSession();
+                if (session) { _showApp(); }
+            } catch (_) {}
+            loadState();
+            if (state.dept) {
+                const card = document.querySelector(`.dept-card[data-dept="${state.dept}"]`);
+                if (card) card.classList.add('selected');
+            }
+        })();
     </script>
     <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
     <script src="process-maps.js"></script>
