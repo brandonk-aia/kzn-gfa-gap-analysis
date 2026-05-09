@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign In — AIA</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&family=DM+Serif+Display&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+
+<body>
+
+    <div id="auth-root" class="view-overlay" style="background:rgba(5,18,28,.93);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);display:flex;align-items:center;justify-content:center;padding:24px">
+
+        <!-- Login card -->
+        <div class="login-card" id="login-card">
+            <img src="https://www.africaia.com/images/aia_logos/logo.svg" class="login-logo"
+                alt="Africa International Advisors">
+            <div class="login-title">Welcome back</div>
+            <div class="login-sub">Sign in to access your client workspace</div>
+            <div id="login-error" class="login-error"></div>
+            <form onsubmit="doLogin(event)">
+                <div class="login-field">
+                    <label class="login-label">Email address</label>
+                    <input id="login-email" class="login-input" type="email" placeholder="you@organisation.com" required>
+                </div>
+                <div class="login-field">
+                    <label class="login-label">Password</label>
+                    <input id="login-password" class="login-input" type="password" placeholder="••••••••" required>
+                </div>
+                <button id="btn-login" type="submit" class="btn-login">Sign In →</button>
+            </form>
+            <div class="login-switch">Don't have an account? <span onclick="showSignupCard()">Create one</span></div>
+            <div class="login-back">
+                <span onclick="window.location.href='index.html'">← Back to home</span>
+            </div>
+        </div>
+
+        <!-- Signup card -->
+        <div class="login-card" id="signup-card" style="display:none">
+            <img src="https://www.africaia.com/images/aia_logos/logo.svg" class="login-logo"
+                alt="Africa International Advisors">
+            <div class="login-title">Create an account</div>
+            <div class="login-sub">Register to access the KZNGFA gap analysis workspace</div>
+            <div id="signup-error" class="login-error"></div>
+            <div id="signup-success" class="login-success"></div>
+            <form id="signup-form" onsubmit="doSignup(event)">
+                <div class="login-name-row">
+                    <div class="login-field">
+                        <label class="login-label">First name</label>
+                        <input id="signup-firstname" class="login-input" type="text" placeholder="Jane" required>
+                    </div>
+                    <div class="login-field">
+                        <label class="login-label">Last name</label>
+                        <input id="signup-lastname" class="login-input" type="text" placeholder="Doe" required>
+                    </div>
+                </div>
+                <div class="login-field">
+                    <label class="login-label">Email address</label>
+                    <input id="signup-email" class="login-input" type="email" placeholder="you@organisation.com" required>
+                </div>
+                <div class="login-field">
+                    <label class="login-label">Password</label>
+                    <input id="signup-password" class="login-input" type="password" placeholder="Min. 8 characters" required minlength="8">
+                </div>
+                <div class="login-field">
+                    <label class="login-label">Confirm password</label>
+                    <input id="signup-confirm" class="login-input" type="password" placeholder="Repeat your password" required>
+                </div>
+                <button id="btn-signup" type="submit" class="btn-login">Create Account →</button>
+            </form>
+            <div class="login-switch">Already have an account? <span onclick="showLoginCard()">Sign in</span></div>
+            <div class="login-back">
+                <span onclick="window.location.href='index.html'">← Back to home</span>
+            </div>
+        </div>
+
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="js/env.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/login.js"></script>
+
+</body>
+
+</html>

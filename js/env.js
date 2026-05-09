@@ -5,3 +5,4 @@
 
 window.SUPABASE_URL      = 'https://zmcizacshrlxlhkbynep.supabase.co';
 window.SUPABASE_ANON_KEY = 'sb_publishable_2BODQAV7xC3JlFaUZvB3Rg_S9YFgY2P';
+    

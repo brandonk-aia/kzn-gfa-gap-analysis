@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BPR Gap Analysis — KZNGFA</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link
+        href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&family=DM+Serif+Display&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+
+<body>
+
+    <!-- ═══════════════════════════════════════════════════ APP SHELL -->
+    <div id="app-shell">
+        <div class="shell">
+
+            <div class="hdr">
+                <div class="hdr-left">
+                    <img src="https://www.africaia.com/images/aia_logos/logo.svg" class="hdr-logo" alt="AIA">
+                    <div class="hdr-divider"></div>
+                    <div class="hdr-title-group">
+                        <span class="hdr-org">KwaZulu-Natal Growth Fund Agency</span>
+                        <span class="hdr-title">BPR Gap Analysis</span>
+                    </div>
+                </div>
+                <div style="display:flex;align-items:center;gap:10px">
+                    <span class="hdr-client-tag">KZNGFA</span>
+                    <span class="step-pill" id="step-pill">Step 1 of 6</span>
+                    <button class="hdr-logout" onclick="doLogout()">Sign out</button>
+                </div>
+            </div>
+            <div class="progress-track">
+                <div class="progress-fill" id="progress" style="width:16.7%"></div>
+            </div>
+
+            <!-- PAGE 1: INTRO -->
+            <div class="page active" id="page-intro">
+                <div class="page-head">
+                    <div class="page-title">Welcome to the Gap Analysis</div>
+                    <div class="page-sub">This tool forms part of the Business Process Reengineering (BPR) engagement
+                        currently underway at KZNGFA. Your input is critical to identifying process gaps and shaping the
+                        future-state design.</div>
+                </div>
+                <div class="info-block">
+                    <p><strong>What is a process gap?</strong><br>A gap is a point in your current (as-is) process where
+                        something is missing, unclear, duplicated, inefficient, or not aligned to policy or best
+                        practice.</p>
+                </div>
+                <div class="card">
+                    <p style="font-size:14px;font-weight:600;margin-bottom:12px">What you will be asked to do</p>
+                    <ul
+                        style="font-size:14px;color:var(--text2);padding-left:18px;display:flex;flex-direction:column;gap:8px;line-height:1.6">
+                        <li>Select the department you represent</li>
+                        <li>Work through each of your department's documented processes</li>
+                        <li>Review the process map and identify gaps by category</li>
+                        <li>Click the step in the process map where the gap occurs</li>
+                        <li>Describe the gap and suggest a mitigation where possible</li>
+                    </ul>
+                </div>
+                <div class="card" style="padding:18px 22px">
+                    <p style="font-size:13px;font-weight:600;margin-bottom:12px">Four gap categories</p>
+                    <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+                        <div style="font-size:13px;color:var(--text2)"><strong style="color:var(--text)">⚡ Service
+                                Delivery</strong><br>Gaps in how services reach stakeholders</div>
+                        <div style="font-size:13px;color:var(--text2)"><strong style="color:var(--text)">⚙️ Automation /
+                                Tools</strong><br>Manual steps that could be digitised</div>
+                        <div style="font-size:13px;color:var(--text2)"><strong style="color:var(--text)">📈
+                                Productivity</strong><br>Inefficiencies, bottlenecks, duplication</div>
+                        <div style="font-size:13px;color:var(--text2)"><strong style="color:var(--text)">🏛️
+                                Governance</strong><br>Control, policy, and oversight gaps</div>
+                    </div>
+                </div>
+                <div class="warn-block">
+                    <p><strong>Note:</strong> Your responses are saved locally in your browser as you go. You can return
+                        and continue where you left off, provided you use the same browser and device.</p>
+                </div>
+                <div class="nav-row">
+                    <div class="spacer"></div>
+                    <button class="btn btn-primary" onclick="goTo('page-dept')">Start<span
+                            style="font-size:16px">→</span></button>
+                </div>
+            </div>
+
+            <!-- PAGE 2: DEPT -->
+            <div class="page" id="page-dept">
+                <div class="top-nav">
+                    <div class="top-nav-left"><button class="btn btn-ghost btn-sm" onclick="goTo('page-intro')">←
+                            Back</button></div>
+                    <div class="spacer"></div>
+                    <div class="top-nav-right"><button class="btn btn-primary btn-sm" onclick="confirmDept()">Continue
+                            →</button></div>
+                </div>
+                <div class="page-head">
+                    <div class="page-title">Select your department</div>
+                    <div class="page-sub">Your selection determines which processes you will be asked to review.</div>
+                </div>
+                <div class="dept-grid" id="dept-grid">
+                    <div class="dept-card" data-dept="SCM" onclick="selectDept(this)">
+                        <div class="dept-abbr">SCM</div><span class="dept-label">Supply Chain Management</span>
+                    </div>
+                    <div class="dept-card" data-dept="Finance" onclick="selectDept(this)">
+                        <div class="dept-abbr">FIN</div><span class="dept-label">Finance</span>
+                    </div>
+                    <div class="dept-card" data-dept="HR" onclick="selectDept(this)">
+                        <div class="dept-abbr">HR</div><span class="dept-label">Human Resources</span>
+                    </div>
+                    <div class="dept-card" data-dept="Investment" onclick="selectDept(this)">
+                        <div class="dept-abbr">INV</div><span class="dept-label">Investment &amp; Post-Investment</span>
+                    </div>
+                    <div class="dept-card" data-dept="IT" onclick="selectDept(this)">
+                        <div class="dept-abbr">IT</div><span class="dept-label">Information Technology</span>
+                    </div>
+                    <div class="dept-card" data-dept="Risk" onclick="selectDept(this)">
+                        <div class="dept-abbr">RLC</div><span class="dept-label">Risk, Legal &amp; Compliance</span>
+                    </div>
+                    <div class="dept-card" data-dept="Marketing" onclick="selectDept(this)">
+                        <div class="dept-abbr">MKT</div><span class="dept-label">Marketing &amp; Communications</span>
+                    </div>
+                    <div class="dept-card" data-dept="Cosec" onclick="selectDept(this)">
+                        <div class="dept-abbr">COSEC</div><span class="dept-label">Company Secretariat</span>
+                    </div>
+                    <div class="dept-card" data-dept="PMO" onclick="selectDept(this)">
+                        <div class="dept-abbr">PMO</div><span class="dept-label">Project Management Office</span>
+                    </div>
+                </div>
+                <div id="dept-error" style="display:none;margin-top:12px">
+                    <span style="font-size:13px;color:var(--danger)">Please select a department to continue.</span>
+                </div>
+            </div>
+
+            <!-- PAGE 3: PROCESS INDEX -->
+            <div class="page" id="page-index">
+                <div class="top-nav">
+                    <div class="top-nav-left"><button class="btn btn-ghost btn-sm" onclick="goTo('page-dept')">← Change
+                            department</button></div>
+                    <div class="spacer"></div>
+                    <div class="top-nav-right"><button class="btn btn-primary btn-sm"
+                            onclick="goTo('page-summary')">View summary →</button></div>
+                </div>
+                <div class="page-head">
+                    <div class="page-title" id="index-title">Processes</div>
+                    <div class="page-sub">Select a process to view its map and record gaps. Your progress is saved
+                        automatically as you go.</div>
+                </div>
+                <div class="card" style="padding:0;overflow:hidden">
+                    <div
+                        style="padding:14px 20px 12px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between">
+                        <span style="font-size:13px;font-weight:600;color:var(--text2)">Process list</span>
+                        <span style="font-size:12px;color:var(--text3)" id="index-progress-text">0 of 0 with gaps</span>
+                    </div>
+                    <div class="proc-index" style="padding:10px 12px 12px" id="proc-index-list"></div>
+                </div>
+            </div>
+
+            <!-- PAGE 4: MAP + GAP TYPE -->
+            <div class="page" id="page-map">
+                <div class="top-nav">
+                    <div class="top-nav-left">
+                        <button class="btn btn-ghost btn-sm" onclick="goTo('page-index')">↑ Process list</button>
+                        <button class="btn btn-ghost btn-sm" id="map-prev-btn" onclick="procNav(-1)">← Prev</button>
+                    </div>
+                    <div class="spacer"></div>
+                    <div class="top-nav-right">
+                        <button class="btn btn-primary btn-sm" id="map-next-btn" onclick="procNav(1)">Next →</button>
+                    </div>
+                </div>
+                <div class="proc-page-header">
+                    <div class="proc-breadcrumb" id="map-breadcrumb"></div>
+                    <div class="proc-page-title" id="map-proc-title"></div>
+                </div>
+                <div class="map-wrap">
+                    <div class="map-toolbar">
+                        <span class="map-toolbar-label">Process Map</span>
+                        <span class="map-hint">Scroll to explore the diagram</span>
+                    </div>
+                    <div class="map-container" id="map-container-4">
+                        <div class="map-loading">Loading map…</div>
+                    </div>
+                </div>
+                <div class="gap-types-section">
+                    <div class="gap-types-label">Select a gap category to record</div>
+                    <div class="gap-types-grid" id="gap-types-grid"></div>
+                </div>
+            </div>
+
+            <!-- PAGE 5: GAP FORM -->
+            <div class="page" id="page-gap">
+                <div class="top-nav">
+                    <div class="top-nav-left">
+                        <button class="btn btn-ghost btn-sm" onclick="goTo('page-index')">↑ Process list</button>
+                        <button class="btn btn-ghost btn-sm" onclick="goTo('page-map')">← Gap categories</button>
+                    </div>
+                    <div class="spacer"></div>
+                    <div class="top-nav-right">
+                        <button class="btn btn-primary btn-sm" id="gap-next-btn" onclick="procNav(1)">Next process
+                            →</button>
+                    </div>
+                </div>
+                <div class="proc-page-header">
+                    <div class="proc-breadcrumb" id="gap-breadcrumb"></div>
+                    <div class="proc-page-title" id="gap-proc-title"></div>
+                </div>
+                <div class="map-wrap">
+                    <div class="map-toolbar">
+                        <span class="map-toolbar-label">Process Map</span>
+                        <span class="map-hint">Click an element to set the process step</span>
+                    </div>
+                    <div class="map-container compact" id="map-container-5">
+                        <div class="map-loading">Loading map…</div>
+                    </div>
+                </div>
+                <div id="gap-badge-wrap"></div>
+                <div id="gap-list-section" style="display:none">
+                    <div style="font-size:12px;font-weight:600;color:var(--text3);text-transform:uppercase;letter-spacing:.07em;margin-bottom:10px"
+                        id="gap-list-label">Recorded gaps</div>
+                    <div class="gap-list" id="gap-list"></div>
+                </div>
+                <div class="gap-form-card">
+                    <div class="gap-form-title">Add gap</div>
+                    <div class="gap-field">
+                        <label>Process Step <span
+                                style="font-weight:400;font-style:italic;text-transform:none;letter-spacing:0;font-size:11px">(click
+                                map element or type)</span></label>
+                        <input type="text" id="gap-step" placeholder="e.g. Step 3 — CFO Approval">
+                    </div>
+                    <div class="gap-field">
+                        <label>Gap / Challenge</label>
+                        <input type="text" id="gap-heading" placeholder="e.g. No escalation path defined">
+                    </div>
+                    <div class="gap-field">
+                        <label>Impact</label>
+                        <textarea id="gap-desc"
+                            placeholder="Describe the impact of this gap on the process…"></textarea>
+                    </div>
+                    <div class="gap-field">
+                        <label>Mitigation / Suggested Solution</label>
+                        <textarea id="gap-mitigation" placeholder="How should this gap be addressed?"></textarea>
+                    </div>
+                    <div style="margin-top:16px;display:flex;gap:10px;flex-wrap:wrap">
+                        <button class="btn btn-primary" onclick="saveGap()">+ Save gap</button>
+                        <button class="btn btn-ghost" onclick="clearGapForm()">Clear</button>
+                    </div>
+                </div>
+                <div class="action-bar" id="action-bar" style="display:none">
+                    <span class="action-bar-label">Gap saved successfully.</span>
+                    <div style="display:flex;gap:8px;flex-wrap:wrap">
+                        <button class="btn btn-ghost btn-sm" onclick="goTo('page-map')">← Choose another gap
+                            type</button>
+                        <button class="btn btn-primary btn-sm" id="action-next-btn" onclick="procNav(1)">Next process
+                            →</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- PAGE 6: SUMMARY -->
+            <div class="page" id="page-summary">
+                <div class="top-nav">
+                    <div class="top-nav-left"><button class="btn btn-ghost btn-sm" onclick="goTo('page-index')">← Back
+                            to processes</button></div>
+                    <div class="spacer"></div>
+                    <div class="top-nav-right"><button class="btn btn-primary btn-sm" onclick="exportXLSX()">Download
+                            XLSX</button></div>
+                </div>
+                <div class="page-head">
+                    <div class="page-title">Summary &amp; Export</div>
+                    <div class="page-sub">Review your responses below. You can go back to edit any process before
+                        exporting.</div>
+                </div>
+                <div class="export-card">
+                    <div class="export-text">
+                        <h3>Export your responses</h3>
+                        <p>Downloads a formatted Excel workbook to share with your BPR project coordinator.</p>
+                    </div>
+                    <div style="display:flex;gap:10px;flex-shrink:0;flex-wrap:wrap">
+                        <button class="btn btn-primary" onclick="exportXLSX()">Download XLSX</button>
+                    </div>
+                </div>
+                <div id="summary-body"></div>
+                <div style="margin-top:24px;display:flex;justify-content:flex-end">
+                    <button class="btn btn-sm btn-ghost" onclick="clearAllData()"
+                        style="color:var(--danger);border-color:var(--danger-border)">Clear all data</button>
+                </div>
+            </div>
+
+        </div><!-- /shell -->
+    </div><!-- /app-shell -->
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="js/env.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
+    <script src="js/process-maps.js"></script>
+    <script src="js/script.js"></script>
+    <script src="js/app.js"></script>
+
+</body>
+
+</html>

@@ -2,7 +2,9 @@
   "permissions": {
     "allow": [
       "Bash(Get-ChildItem -Recurse -Path \"C:\\\\Code Projects\\\\kzn-gfa-gap-analysis\")",
-      "Bash(Select-Object FullName, PSIsContainer)"
+      "Bash(Select-Object FullName, PSIsContainer)",
+      "Bash(ls css/)",
+      "Bash(ls js/)"
     ]
   }
 }
