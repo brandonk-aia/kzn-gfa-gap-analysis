@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>KZNGFA — BPR Gap Analysis</title>
+    <title>AIA Gap Analysis Platform</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&family=DM+Serif+Display&display=swap');
 
@@ -41,7 +41,7 @@
             --radius: 8px;
             --radius-lg: 12px;
             --shadow: 0 1px 3px rgba(0, 0, 0, .06), 0 1px 2px rgba(0, 0, 0, .04);
-            --shadow-md: 0 4px 16px rgba(0, 0, 0, .08), 0 2px 6px rgba(0, 0, 0, .04);
+            --shadow-md: 0 4px 16px rgba(0, 0, 0, .08), 0 2px 6px rgba(0, 0, 0, .04)
         }
 
         body {
@@ -58,15 +58,15 @@
             text-decoration: none
         }
 
+        /* ── APP SHELL ── */
         .shell {
             max-width: 980px;
             margin: 0 auto;
             padding: 0 24px 100px
         }
 
-        /* ── HEADER ── */
         .hdr {
-            padding: 28px 0 20px;
+            padding: 22px 0 18px;
             border-bottom: 1px solid var(--border);
             margin-bottom: 20px;
             display: flex;
@@ -76,6 +76,24 @@
         }
 
         .hdr-left {
+            display: flex;
+            align-items: center;
+            gap: 14px
+        }
+
+        .hdr-logo {
+            height: 26px;
+            width: auto
+        }
+
+        .hdr-divider {
+            width: 1px;
+            height: 30px;
+            background: var(--border);
+            flex-shrink: 0
+        }
+
+        .hdr-title-group {
             display: flex;
             flex-direction: column;
             gap: 3px;
@@ -98,6 +116,18 @@
             color: var(--accent)
         }
 
+        .hdr-client-tag {
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: .08em;
+            text-transform: uppercase;
+            color: var(--text3);
+            background: var(--surface2);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 3px 10px
+        }
+
         .step-pill {
             font-size: 12px;
             font-weight: 500;
@@ -110,7 +140,6 @@
             flex-shrink: 0
         }
 
-        /* ── PROGRESS ── */
         .progress-track {
             height: 3px;
             background: var(--border);
@@ -126,7 +155,6 @@
             transition: width .4s ease
         }
 
-        /* ── PAGES ── */
         .page {
             display: none
         }
@@ -155,7 +183,6 @@
             line-height: 1.7
         }
 
-        /* ── CARDS ── */
         .card {
             background: var(--surface);
             border: 1px solid var(--border);
@@ -193,7 +220,6 @@
             line-height: 1.7
         }
 
-        /* ── BUTTONS ── */
         .btn {
             display: inline-flex;
             align-items: center;
@@ -266,7 +292,6 @@
             flex: 1
         }
 
-        /* ── TOP NAV ── */
         .top-nav {
             display: flex;
             align-items: center;
@@ -291,7 +316,6 @@
             flex: 1
         }
 
-        /* ── DEPT GRID ── */
         .dept-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
@@ -361,7 +385,6 @@
             color: var(--accent)
         }
 
-        /* ── PROCESS INDEX ── */
         .proc-index {
             display: flex;
             flex-direction: column;
@@ -437,7 +460,6 @@
             color: #092835
         }
 
-        /* ── PROCESS PAGE HEADER ── */
         .proc-page-header {
             background: var(--accent);
             border-radius: var(--radius-lg);
@@ -459,7 +481,6 @@
             line-height: 1.3
         }
 
-        /* ── MAP ── */
         .map-wrap {
             background: var(--surface);
             border: 1px solid var(--border);
@@ -496,7 +517,7 @@
         .map-container {
             height: auto;
             overflow: visible;
-            background: #fff;
+            background: #fff
         }
 
         .map-container.compact {
@@ -537,12 +558,10 @@
             gap: 8px
         }
 
-        /* SVG interactivity */
         .sv-clickable {
             cursor: pointer
         }
 
-        /* data-step groups: filter-based hover/selected */
         .sv-clickable[data-step]:hover {
             filter: brightness(0.88)
         }
@@ -551,7 +570,6 @@
             filter: drop-shadow(0 0 5px #e67e22)
         }
 
-        /* Visio <g> fallback: target direct child geometry */
         .sv-clickable:not([data-step]):hover>rect,
         .sv-clickable:not([data-step]):hover>path,
         .sv-clickable:not([data-step]):hover>ellipse,
@@ -567,7 +585,6 @@
             stroke-width: 2.5px !important
         }
 
-        /* ── GAP TYPE CARDS ── */
         .gap-types-section {
             margin-bottom: 8px
         }
@@ -637,7 +654,6 @@
             color: #fff
         }
 
-        /* ── GAP TYPE BADGE ── */
         .gt-badge {
             display: inline-flex;
             align-items: center;
@@ -650,7 +666,6 @@
             border: 1px solid
         }
 
-        /* ── GAP LIST ── */
         .gap-list {
             display: flex;
             flex-direction: column;
@@ -695,7 +710,6 @@
             line-height: 1.45
         }
 
-        /* ── GAP FORM ── */
         .gap-form-card {
             background: var(--surface);
             border: 1px solid var(--border);
@@ -764,7 +778,6 @@
             transition: none !important
         }
 
-        /* ── ACTION BAR ── */
         .action-bar {
             background: var(--accent-light);
             border: 1px solid var(--accent-border);
@@ -784,7 +797,6 @@
             color: #0A2535
         }
 
-        /* ── SUMMARY ── */
         .summary-dept-label {
             font-size: 11px;
             font-weight: 600;
@@ -829,17 +841,6 @@
             margin-bottom: 5px
         }
 
-        .summary-gap-item {
-            font-size: 13px;
-            color: var(--text2);
-            margin-bottom: 5px
-        }
-
-        .summary-gap-heading {
-            font-weight: 500;
-            color: var(--text)
-        }
-
         .badge {
             display: inline-block;
             font-size: 11px;
@@ -859,7 +860,6 @@
             color: var(--text3)
         }
 
-        /* ── EXPORT ── */
         .export-card {
             background: var(--accent);
             border-radius: var(--radius-lg);
@@ -893,7 +893,6 @@
             border-color: var(--brand-mid)
         }
 
-        /* ── INLINE EDITABLE (summary) ── */
         [contenteditable="true"] {
             outline: none;
             border-radius: 3px;
@@ -946,7 +945,6 @@
             min-height: 1em
         }
 
-        /* ── SCROLLBAR ── */
         ::-webkit-scrollbar {
             width: 6px;
             height: 6px
@@ -961,8 +959,7 @@
             border-radius: 6px
         }
 
-        /* ── RESPONSIVE ── */
-        @media(max-width: 640px) {
+        @media(max-width:640px) {
             .shell {
                 padding: 0 16px 80px
             }
@@ -993,282 +990,1701 @@
                 flex-wrap: wrap
             }
         }
+
+        /* ═══════════════════════════════════════════════════════════
+           LANDING PAGE
+        ═══════════════════════════════════════════════════════════ */
+        .view-overlay {
+            position: fixed;
+            inset: 0;
+            z-index: 500;
+            overflow-y: auto;
+            overflow-x: hidden
+        }
+
+        /* ── LANDING ── */
+        #view-landing {
+            background: #071825;
+            color: #fff;
+            font-family: 'DM Sans', sans-serif
+        }
+
+        .land-nav {
+            position: sticky;
+            top: 0;
+            z-index: 10;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 60px;
+            height: 70px;
+            background: rgba(7, 24, 37, .9);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border-bottom: 1px solid rgba(255, 255, 255, .07)
+        }
+
+        .land-nav-logo {
+            height: 30px;
+            width: auto
+        }
+
+        .land-nav-links {
+            display: flex;
+            align-items: center;
+            gap: 36px
+        }
+
+        .land-nav-link {
+            font-size: 14px;
+            color: rgba(255, 255, 255, .6);
+            cursor: pointer;
+            transition: color .15s
+        }
+
+        .land-nav-link:hover {
+            color: #fff
+        }
+
+        .btn-land-signin {
+            display: inline-flex;
+            align-items: center;
+            gap: 7px;
+            padding: 9px 22px;
+            background: rgba(255, 255, 255, .08);
+            color: #fff;
+            border: 1px solid rgba(255, 255, 255, .18);
+            border-radius: 8px;
+            font-family: 'DM Sans', sans-serif;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all .2s
+        }
+
+        .btn-land-signin:hover {
+            background: rgba(255, 255, 255, .14);
+            border-color: rgba(255, 255, 255, .3)
+        }
+
+        /* Hero */
+        .hero {
+            min-height: calc(100vh - 70px);
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            align-items: center;
+            gap: 60px;
+            padding: 80px 60px;
+            position: relative;
+            overflow: hidden
+        }
+
+        .hero-orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(90px);
+            pointer-events: none
+        }
+
+        .hero-orb-1 {
+            width: 520px;
+            height: 520px;
+            background: #E74D26;
+            top: -120px;
+            left: -80px;
+            opacity: .14;
+            animation: orb-drift 10s ease-in-out infinite
+        }
+
+        .hero-orb-2 {
+            width: 420px;
+            height: 420px;
+            background: #0F8B6E;
+            bottom: -60px;
+            right: 25%;
+            opacity: .12;
+            animation: orb-drift 13s ease-in-out infinite reverse
+        }
+
+        .hero-orb-3 {
+            width: 320px;
+            height: 320px;
+            background: #1A5F9E;
+            top: 20%;
+            right: -40px;
+            opacity: .16;
+            animation: orb-drift 8s ease-in-out infinite 3s
+        }
+
+        @keyframes orb-drift {
+
+            0%,
+            100% {
+                transform: translate(0, 0) scale(1)
+            }
+
+            33% {
+                transform: translate(18px, -14px) scale(1.04)
+            }
+
+            66% {
+                transform: translate(-12px, 10px) scale(.96)
+            }
+        }
+
+        .hero-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 6px 16px;
+            border-radius: 20px;
+            background: rgba(231, 77, 38, .15);
+            border: 1px solid rgba(231, 77, 38, .3);
+            font-size: 11.5px;
+            font-weight: 600;
+            color: #FF8060;
+            letter-spacing: .07em;
+            text-transform: uppercase;
+            margin-bottom: 24px
+        }
+
+        .hero-tag-dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: #E74D26;
+            animation: pulse-dot 2s ease-in-out infinite
+        }
+
+        @keyframes pulse-dot {
+
+            0%,
+            100% {
+                opacity: 1;
+                transform: scale(1)
+            }
+
+            50% {
+                opacity: .45;
+                transform: scale(.65)
+            }
+        }
+
+        .hero-headline {
+            font-family: 'DM Serif Display', serif;
+            font-size: 54px;
+            line-height: 1.08;
+            font-weight: 400;
+            margin-bottom: 22px;
+            color: #fff
+        }
+
+        .hero-headline em {
+            font-style: normal;
+            color: #E74D26
+        }
+
+        .hero-sub {
+            font-size: 17px;
+            line-height: 1.72;
+            color: rgba(255, 255, 255, .6);
+            margin-bottom: 14px;
+            max-width: 460px
+        }
+
+        .hero-cycle-wrap {
+            font-size: 15px;
+            color: rgba(255, 255, 255, .55);
+            margin-bottom: 36px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            flex-wrap: wrap
+        }
+
+        .hero-cycle {
+            display: inline-block;
+            color: #FF8060;
+            border-right: 2px solid #E74D26;
+            padding-right: 3px;
+            min-width: 2px;
+            animation: cursor-blink .8s step-end infinite
+        }
+
+        @keyframes cursor-blink {
+
+            0%,
+            100% {
+                border-color: #E74D26
+            }
+
+            50% {
+                border-color: transparent
+            }
+        }
+
+        .hero-actions {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            margin-bottom: 44px;
+            flex-wrap: wrap
+        }
+
+        .btn-land-primary {
+            display: inline-flex;
+            align-items: center;
+            gap: 9px;
+            padding: 13px 30px;
+            background: #E74D26;
+            color: #fff;
+            border: none;
+            border-radius: 8px;
+            font-family: 'DM Sans', sans-serif;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all .2s;
+            letter-spacing: .01em
+        }
+
+        .btn-land-primary:hover {
+            background: #C93E1C;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 28px rgba(231, 77, 38, .38)
+        }
+
+        .btn-land-ghost {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 12px 24px;
+            background: rgba(255, 255, 255, .06);
+            color: rgba(255, 255, 255, .85);
+            border: 1px solid rgba(255, 255, 255, .15);
+            border-radius: 8px;
+            font-family: 'DM Sans', sans-serif;
+            font-size: 15px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all .2s
+        }
+
+        .btn-land-ghost:hover {
+            background: rgba(255, 255, 255, .11);
+            border-color: rgba(255, 255, 255, .26)
+        }
+
+        .hero-proof {
+            display: flex;
+            align-items: center;
+            gap: 24px;
+            flex-wrap: wrap
+        }
+
+        .proof-item {
+            display: flex;
+            align-items: center;
+            gap: 7px;
+            font-size: 13px;
+            color: rgba(255, 255, 255, .45)
+        }
+
+        .proof-icon {
+            color: #0F8B6E;
+            font-size: 14px
+        }
+
+        /* Mockup */
+        .hero-visual {
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center
+        }
+
+        .hero-mockup {
+            width: 100%;
+            max-width: 490px;
+            background: #fff;
+            border-radius: 14px;
+            overflow: hidden;
+            box-shadow: 0 48px 96px rgba(0, 0, 0, .55), 0 0 0 1px rgba(255, 255, 255, .09);
+            animation: mockup-float 5.5s ease-in-out infinite
+        }
+
+        @keyframes mockup-float {
+
+            0%,
+            100% {
+                transform: translateY(0) rotate(-.5deg)
+            }
+
+            50% {
+                transform: translateY(-14px) rotate(.5deg)
+            }
+        }
+
+        .mockup-chrome {
+            background: #1A1A1A;
+            padding: 10px 16px;
+            display: flex;
+            align-items: center;
+            gap: 10px
+        }
+
+        .chrome-dots {
+            display: flex;
+            gap: 6px
+        }
+
+        .chrome-dot {
+            width: 11px;
+            height: 11px;
+            border-radius: 50%
+        }
+
+        .dot-r {
+            background: #FF5F57
+        }
+
+        .dot-y {
+            background: #FEBC2E
+        }
+
+        .dot-g {
+            background: #28C840
+        }
+
+        .chrome-url {
+            flex: 1;
+            background: rgba(255, 255, 255, .09);
+            border-radius: 5px;
+            padding: 4px 12px;
+            font-size: 10.5px;
+            color: rgba(255, 255, 255, .45);
+            text-align: center;
+            font-family: monospace
+        }
+
+        .mockup-appbar {
+            background: #092835;
+            padding: 10px 16px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between
+        }
+
+        .appbar-brand {
+            display: flex;
+            align-items: center;
+            gap: 10px
+        }
+
+        .appbar-logo-box {
+            width: 28px;
+            height: 28px;
+            background: #E74D26;
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 9px;
+            font-weight: 800;
+            color: #fff;
+            letter-spacing: .02em
+        }
+
+        .appbar-org {
+            font-size: 11px;
+            color: rgba(255, 255, 255, .65);
+            font-weight: 500
+        }
+
+        .appbar-live {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            font-size: 10px;
+            color: #28C840;
+            font-weight: 600
+        }
+
+        .appbar-live-dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: #28C840;
+            animation: pulse-dot 1.5s ease-in-out infinite
+        }
+
+        .mockup-body {
+            display: flex;
+            background: #F5F4F0;
+            min-height: 220px
+        }
+
+        .mockup-sidebar {
+            width: 72px;
+            background: #0D1F2B;
+            padding: 10px 6px;
+            display: flex;
+            flex-direction: column;
+            gap: 3px
+        }
+
+        .sidebar-item {
+            padding: 6px 4px;
+            border-radius: 5px;
+            font-size: 9px;
+            font-weight: 700;
+            color: rgba(255, 255, 255, .38);
+            text-align: center;
+            letter-spacing: .04em
+        }
+
+        .sidebar-item.active {
+            background: rgba(231, 77, 38, .22);
+            color: #FF8060
+        }
+
+        .mockup-content {
+            flex: 1;
+            padding: 12px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px
+        }
+
+        .content-header {
+            font-size: 10px;
+            font-weight: 700;
+            color: #0D1F2B;
+            padding-bottom: 7px;
+            border-bottom: 1px solid #E0DDD8
+        }
+
+        .content-stats {
+            display: flex;
+            gap: 7px
+        }
+
+        .stat-chip {
+            flex: 1;
+            background: #fff;
+            border: 1px solid #E0DDD8;
+            border-radius: 6px;
+            padding: 7px 6px;
+            text-align: center
+        }
+
+        .stat-chip.accent {
+            background: #FDF1ED;
+            border-color: #F0A990
+        }
+
+        .stat-n {
+            font-size: 16px;
+            font-weight: 700;
+            color: #0D1F2B;
+            line-height: 1
+        }
+
+        .stat-chip.accent .stat-n {
+            color: #E74D26
+        }
+
+        .stat-l {
+            font-size: 8px;
+            color: #8A9AA5;
+            margin-top: 2px;
+            font-weight: 500
+        }
+
+        .content-chart {
+            display: flex;
+            flex-direction: column;
+            gap: 6px
+        }
+
+        .chart-row {
+            display: flex;
+            align-items: center;
+            gap: 6px
+        }
+
+        .chart-label {
+            font-size: 8px;
+            color: #4A5A65;
+            width: 68px;
+            flex-shrink: 0;
+            line-height: 1.2
+        }
+
+        .chart-track {
+            flex: 1;
+            height: 7px;
+            background: #E0DDD8;
+            border-radius: 4px;
+            overflow: hidden
+        }
+
+        .chart-fill {
+            height: 100%;
+            border-radius: 4px;
+            transform: scaleX(0);
+            transform-origin: left;
+            animation: bar-grow 1.4s cubic-bezier(.18, .88, .32, 1.05) forwards
+        }
+
+        @keyframes bar-grow {
+            from {
+                transform: scaleX(0)
+            }
+
+            to {
+                transform: scaleX(1)
+            }
+        }
+
+        .chart-val {
+            font-size: 9px;
+            font-weight: 700;
+            color: #0D1F2B;
+            width: 16px;
+            text-align: right
+        }
+
+        .content-list {
+            display: flex;
+            flex-direction: column;
+            gap: 4px
+        }
+
+        .list-item {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            padding: 5px 8px;
+            background: #fff;
+            border: 1px solid #E0DDD8;
+            border-radius: 5px;
+            font-size: 9px;
+            color: #4A5A65
+        }
+
+        .list-item-dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            flex-shrink: 0
+        }
+
+        .list-badge {
+            margin-left: auto;
+            font-size: 8px;
+            font-weight: 700;
+            padding: 1px 5px;
+            border-radius: 8px;
+            background: #E0EEF4;
+            color: #092835
+        }
+
+        /* Floating cards */
+        .float-card {
+            position: absolute;
+            background: #fff;
+            border-radius: 12px;
+            box-shadow: 0 12px 32px rgba(0, 0, 0, .22), 0 0 0 1px rgba(0, 0, 0, .06);
+            padding: 12px 16px;
+            font-family: 'DM Sans', sans-serif
+        }
+
+        .float-card-1 {
+            top: -24px;
+            right: -28px;
+            animation: fc-float 4.5s ease-in-out infinite
+        }
+
+        .float-card-2 {
+            bottom: 24px;
+            left: -32px;
+            animation: fc-float 5s ease-in-out infinite 1.5s
+        }
+
+        @keyframes fc-float {
+
+            0%,
+            100% {
+                transform: translateY(0)
+            }
+
+            50% {
+                transform: translateY(-9px)
+            }
+        }
+
+        .fc-label {
+            font-size: 9px;
+            font-weight: 600;
+            color: #8A9AA5;
+            text-transform: uppercase;
+            letter-spacing: .07em;
+            margin-bottom: 3px
+        }
+
+        .fc-value {
+            font-size: 18px;
+            font-weight: 700;
+            color: #0D1F2B;
+            line-height: 1
+        }
+
+        .fc-sub {
+            font-size: 9.5px;
+            color: #8A9AA5;
+            margin-top: 2px
+        }
+
+        .fc-icon {
+            font-size: 18px;
+            margin-bottom: 5px
+        }
+
+        /* Stats band */
+        .stats-band {
+            padding: 52px 60px;
+            background: rgba(231, 77, 38, .07);
+            border-top: 1px solid rgba(231, 77, 38, .12);
+            border-bottom: 1px solid rgba(231, 77, 38, .12)
+        }
+
+        .stats-inner {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 32px;
+            text-align: center;
+            max-width: 860px;
+            margin: 0 auto
+        }
+
+        .band-stat-n {
+            font-family: 'DM Serif Display', serif;
+            font-size: 42px;
+            font-weight: 400;
+            color: #E74D26;
+            line-height: 1;
+            margin-bottom: 6px
+        }
+
+        .band-stat-l {
+            font-size: 13.5px;
+            color: rgba(255, 255, 255, .5)
+        }
+
+        /* Features */
+        .features-section {
+            padding: 88px 60px;
+            background: #0D2136
+        }
+
+        .section-tag {
+            display: inline-block;
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: .12em;
+            text-transform: uppercase;
+            color: #FF8060;
+            margin-bottom: 14px
+        }
+
+        .section-title {
+            font-family: 'DM Serif Display', serif;
+            font-size: 38px;
+            font-weight: 400;
+            color: #fff;
+            margin-bottom: 12px;
+            line-height: 1.18
+        }
+
+        .section-sub {
+            font-size: 16px;
+            color: rgba(255, 255, 255, .52);
+            margin-bottom: 52px;
+            max-width: 520px;
+            line-height: 1.65
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px
+        }
+
+        .feature-card {
+            background: rgba(255, 255, 255, .04);
+            border: 1px solid rgba(255, 255, 255, .08);
+            border-radius: 14px;
+            padding: 28px;
+            transition: all .25s
+        }
+
+        .feature-card:hover {
+            background: rgba(255, 255, 255, .07);
+            border-color: rgba(255, 255, 255, .15);
+            transform: translateY(-3px)
+        }
+
+        .feature-icon {
+            width: 46px;
+            height: 46px;
+            border-radius: 10px;
+            background: rgba(231, 77, 38, .14);
+            border: 1px solid rgba(231, 77, 38, .22);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 22px;
+            margin-bottom: 18px
+        }
+
+        .feature-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: #fff;
+            margin-bottom: 9px
+        }
+
+        .feature-desc {
+            font-size: 13.5px;
+            color: rgba(255, 255, 255, .48);
+            line-height: 1.65
+        }
+
+        /* CTA */
+        .cta-section {
+            padding: 88px 60px;
+            text-align: center;
+            background: #071825;
+            position: relative;
+            overflow: hidden
+        }
+
+        .cta-section::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(ellipse 70% 80% at 50% 50%, rgba(231, 77, 38, .1) 0%, transparent 70%);
+            pointer-events: none
+        }
+
+        .cta-section .section-title {
+            max-width: 580px;
+            margin: 0 auto 14px
+        }
+
+        .cta-section .section-sub {
+            max-width: 480px;
+            margin: 0 auto 40px
+        }
+
+        /* Footer */
+        .land-footer {
+            padding: 28px 60px;
+            background: rgba(0, 0, 0, .25);
+            border-top: 1px solid rgba(255, 255, 255, .06);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 20px
+        }
+
+        .footer-copy {
+            font-size: 13px;
+            color: rgba(255, 255, 255, .3)
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 28px
+        }
+
+        .footer-link {
+            font-size: 13px;
+            color: rgba(255, 255, 255, .3);
+            cursor: pointer;
+            transition: color .15s
+        }
+
+        .footer-link:hover {
+            color: rgba(255, 255, 255, .6)
+        }
+
+        /* ═══════════════════════════════════════════════════════════
+           LOGIN OVERLAY
+        ═══════════════════════════════════════════════════════════ */
+        #view-login {
+            background: rgba(5, 18, 28, .93);
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 24px
+        }
+
+        .login-card {
+            background: #fff;
+            border-radius: 18px;
+            padding: 48px 44px;
+            width: 100%;
+            max-width: 428px;
+            box-shadow: 0 48px 96px rgba(0, 0, 0, .45), 0 0 0 1px rgba(0, 0, 0, .08);
+            animation: login-pop .32s cubic-bezier(.22, .82, .32, 1.06)
+        }
+
+        @keyframes login-pop {
+            from {
+                opacity: 0;
+                transform: scale(.95) translateY(10px)
+            }
+
+            to {
+                opacity: 1;
+                transform: scale(1) translateY(0)
+            }
+        }
+
+        .login-logo {
+            height: 34px;
+            width: auto;
+            margin-bottom: 30px;
+            display: block
+        }
+
+        .login-title {
+            font-family: 'DM Serif Display', serif;
+            font-size: 26px;
+            font-weight: 400;
+            color: #0D1F2B;
+            margin-bottom: 6px
+        }
+
+        .login-sub {
+            font-size: 14px;
+            color: #8A9AA5;
+            margin-bottom: 28px;
+            line-height: 1.5
+        }
+
+        .login-demo-note {
+            display: flex;
+            align-items: flex-start;
+            gap: 9px;
+            padding: 12px 14px;
+            background: #EAF0F3;
+            border: 1px solid #8AB0BF;
+            border-radius: 9px;
+            font-size: 12.5px;
+            color: #0A2535;
+            margin-bottom: 22px;
+            line-height: 1.55
+        }
+
+        .login-field {
+            margin-bottom: 16px
+        }
+
+        .login-label {
+            display: block;
+            font-size: 12.5px;
+            font-weight: 600;
+            color: #0D1F2B;
+            margin-bottom: 6px
+        }
+
+        .login-input {
+            width: 100%;
+            padding: 11px 14px;
+            border: 1.5px solid #E0DDD8;
+            border-radius: 8px;
+            font-family: 'DM Sans', sans-serif;
+            font-size: 14px;
+            color: #0D1F2B;
+            background: #F5F4F0;
+            transition: all .15s;
+            outline: none
+        }
+
+        .login-input:focus {
+            border-color: #092835;
+            background: #fff;
+            box-shadow: 0 0 0 3px rgba(9, 40, 53, .08)
+        }
+
+        .btn-login {
+            width: 100%;
+            padding: 13px;
+            background: #092835;
+            color: #fff;
+            border: none;
+            border-radius: 9px;
+            font-family: 'DM Sans', sans-serif;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background .15s;
+            margin-bottom: 14px;
+            margin-top: 6px
+        }
+
+        .btn-login:hover {
+            background: #0F3D50
+        }
+
+        .login-back {
+            text-align: center;
+            font-size: 13px;
+            color: #8A9AA5
+        }
+
+        .login-back span {
+            color: #092835;
+            cursor: pointer;
+            font-weight: 500;
+            text-decoration: underline;
+            text-underline-offset: 3px
+        }
+
+        /* Transitions */
+        @keyframes view-out {
+            from {
+                opacity: 1;
+                transform: translateY(0)
+            }
+
+            to {
+                opacity: 0;
+                transform: translateY(-16px)
+            }
+        }
+
+        @keyframes view-in {
+            from {
+                opacity: 0
+            }
+
+            to {
+                opacity: 1
+            }
+        }
+
+        .anim-out {
+            animation: view-out .35s ease forwards
+        }
+
+        .anim-in {
+            animation: view-in .4s ease forwards
+        }
+
+        /* Responsive landing */
+        @media(max-width:960px) {
+            .hero {
+                grid-template-columns: 1fr;
+                padding: 60px 32px;
+                min-height: auto;
+                gap: 0
+            }
+
+            .hero-visual {
+                display: none
+            }
+
+            .hero-headline {
+                font-size: 38px
+            }
+
+            .features-grid {
+                grid-template-columns: 1fr 1fr;
+                gap: 14px
+            }
+
+            .stats-inner {
+                grid-template-columns: repeat(2, 1fr)
+            }
+
+            .land-nav {
+                padding: 0 28px
+            }
+
+            .land-nav-links {
+                display: none
+            }
+
+            .features-section,
+            .cta-section,
+            .stats-band {
+                padding: 60px 28px
+            }
+
+            .land-footer {
+                flex-direction: column;
+                align-items: flex-start;
+                padding: 24px 28px
+            }
+        }
+
+        @media(max-width:600px) {
+            .features-grid {
+                grid-template-columns: 1fr
+            }
+
+            .hero-headline {
+                font-size: 32px
+            }
+        }
     </style>
     <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&display=swap" rel="stylesheet">
 </head>
 
 <body>
-    <div class="shell">
 
-        <div class="hdr">
-            <div class="hdr-left">
-                <span class="hdr-org">KwaZulu-Natal Growth Fund Agency</span>
-                <span class="hdr-title">BPR Gap Analysis </span>
-            </div>
-            <span class="step-pill" id="step-pill">Step 1 of 6</span>
-        </div>
-        <div class="progress-track">
-            <div class="progress-fill" id="progress" style="width:16.7%"></div>
-        </div>
+    <!-- ═══════════════════════════════════════════════════ LANDING PAGE -->
+    <div id="view-landing" class="view-overlay">
 
-        <!-- ═══════════════════════════════════════════════════════════ PAGE 1: INTRO -->
-        <div class="page active" id="page-intro">
-            <div class="page-head">
-                <div class="page-title">Welcome to the Gap Analysis</div>
-                <div class="page-sub">This  forms part of the Business Process Reengineering (BPR) engagement
-                    currently underway at KZNGFA. Your input is critical to identifying process gaps and shaping the
-                    future-state design.</div>
+        <nav class="land-nav">
+            <img src="https://www.africaia.com/images/aia_logos/logo.svg" class="land-nav-logo"
+                alt="Africa International Advisors">
+            <div class="land-nav-links">
+                <span class="land-nav-link"
+                    onclick="document.getElementById('features').scrollIntoView({behavior:'smooth'})">Features</span>
+                <span class="land-nav-link"
+                    onclick="document.getElementById('stats').scrollIntoView({behavior:'smooth'})">Platform</span>
+                <span class="land-nav-link">About AIA</span>
             </div>
-            <div class="info-block">
-                <p><strong>What is a process gap?</strong><br>A gap is a point in your current (as-is) process where
-                    something is missing, unclear, duplicated, inefficient, or not aligned to policy or best practice.
-                </p>
-            </div>
-            <div class="card">
-                <p style="font-size:14px;font-weight:600;margin-bottom:12px">What you will be asked to do</p>
-                <ul
-                    style="font-size:14px;color:var(--text2);padding-left:18px;display:flex;flex-direction:column;gap:8px;line-height:1.6">
-                    <li>Select the department you represent</li>
-                    <li>Work through each of your department's documented processes</li>
-                    <li>Review the process map and identify gaps by category</li>
-                    <li>Click the step in the process map where the gap occurs</li>
-                    <li>Describe the gap and suggest a mitigation where possible</li>
-                </ul>
-            </div>
-            <div class="card" style="padding:18px 22px">
-                <p style="font-size:13px;font-weight:600;margin-bottom:12px">Four gap categories</p>
-                <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
-                    <div style="font-size:13px;color:var(--text2)"><strong style="color:var(--text)">⚡ Service
-                            Delivery</strong><br>Gaps in how services reach stakeholders</div>
-                    <div style="font-size:13px;color:var(--text2)"><strong style="color:var(--text)">⚙️ Automation /
-                            Tools</strong><br>Manual steps that could be digitised</div>
-                    <div style="font-size:13px;color:var(--text2)"><strong style="color:var(--text)">📈
-                            Productivity</strong><br>Inefficiencies, bottlenecks, duplication</div>
-                    <div style="font-size:13px;color:var(--text2)"><strong style="color:var(--text)">🏛️
-                            Governance</strong><br>Control, policy, and oversight gaps</div>
-                </div>
-            </div>
-            <div class="warn-block">
-                <p><strong>Note:</strong> Your responses are saved locally in your browser as you go. You can return and
-                    continue where you left off, provided you use the same browser and device.</p>
-            </div>
-            <div class="nav-row">
-                <div class="spacer"></div>
-                <button class="btn btn-primary" onclick="goTo('page-dept')">Begin  <span
-                        style="font-size:16px">→</span></button>
-            </div>
-        </div>
+            <button class="btn-land-signin" onclick="showLogin()">
+                Sign In
+                <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+                    <path d="M2.5 7h9M8 3.5L11.5 7 8 10.5" stroke="currentColor" stroke-width="1.6"
+                        stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+            </button>
+        </nav>
 
-        <!-- ═══════════════════════════════════════════════════════════ PAGE 2: DEPT -->
-        <div class="page" id="page-dept">
-            <div class="top-nav">
-                <div class="top-nav-left"><button class="btn btn-ghost btn-sm" onclick="goTo('page-intro')">←
-                        Back</button></div>
-                <div class="spacer"></div>
-                <div class="top-nav-right"><button class="btn btn-primary btn-sm" onclick="confirmDept()">Continue
-                        →</button></div>
-            </div>
-            <div class="page-head">
-                <div class="page-title">Select your department</div>
-                <div class="page-sub">Your selection determines which processes you will be asked to review.</div>
-            </div>
-            <div class="dept-grid" id="dept-grid">
-                <div class="dept-card" data-dept="SCM" onclick="selectDept(this)">
-                    <div class="dept-abbr">SCM</div><span class="dept-label">Supply Chain Management</span>
-                </div>
-                <div class="dept-card" data-dept="Finance" onclick="selectDept(this)">
-                    <div class="dept-abbr">FIN</div><span class="dept-label">Finance</span>
-                </div>
-                <div class="dept-card" data-dept="HR" onclick="selectDept(this)">
-                    <div class="dept-abbr">HR</div><span class="dept-label">Human Resources</span>
-                </div>
-                <div class="dept-card" data-dept="Investment" onclick="selectDept(this)">
-                    <div class="dept-abbr">INV</div><span class="dept-label">Investment &amp; Post-Investment</span>
-                </div>
-                <div class="dept-card" data-dept="IT" onclick="selectDept(this)">
-                    <div class="dept-abbr">IT</div><span class="dept-label">Information Technology</span>
-                </div>
-                <div class="dept-card" data-dept="Risk" onclick="selectDept(this)">
-                    <div class="dept-abbr">RLC</div><span class="dept-label">Risk, Legal &amp; Compliance</span>
-                </div>
-                <div class="dept-card" data-dept="Marketing" onclick="selectDept(this)">
-                    <div class="dept-abbr">MKT</div><span class="dept-label">Marketing &amp; Communications</span>
-                </div>
-                <div class="dept-card" data-dept="Cosec" onclick="selectDept(this)">
-                    <div class="dept-abbr">COSEC</div><span class="dept-label">Company Secretariat</span>
-                </div>
-                <div class="dept-card" data-dept="PMO" onclick="selectDept(this)">
-                    <div class="dept-abbr">PMO</div><span class="dept-label">Project Management Office</span>
-                </div>
-            </div>
-            <div id="dept-error" style="display:none;margin-top:12px">
-                <span style="font-size:13px;color:var(--danger)">Please select a department to continue.</span>
-            </div>
-        </div>
+        <!-- Hero -->
+        <section class="hero">
+            <div class="hero-orb hero-orb-1"></div>
+            <div class="hero-orb hero-orb-2"></div>
+            <div class="hero-orb hero-orb-3"></div>
 
-        <!-- ═══════════════════════════════════════════════════════════ PAGE 3: PROCESS INDEX -->
-        <div class="page" id="page-index">
-            <div class="top-nav">
-                <div class="top-nav-left"><button class="btn btn-ghost btn-sm" onclick="goTo('page-dept')">← Change
-                        department</button></div>
-                <div class="spacer"></div>
-                <div class="top-nav-right"><button class="btn btn-primary btn-sm" onclick="goTo('page-summary')">View
-                        summary →</button></div>
-            </div>
-            <div class="page-head">
-                <div class="page-title" id="index-title">Processes</div>
-                <div class="page-sub">Select a process to view its map and record gaps. Your progress is saved
-                    automatically as you go.</div>
-            </div>
-            <div class="card" style="padding:0;overflow:hidden">
-                <div
-                    style="padding:14px 20px 12px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between">
-                    <span style="font-size:13px;font-weight:600;color:var(--text2)">Process list</span>
-                    <span style="font-size:12px;color:var(--text3)" id="index-progress-text">0 of 0 with gaps</span>
+            <div class="hero-text">
+                <div class="hero-tag">
+                    <span class="hero-tag-dot"></span>
+                    Business Process Intelligence
                 </div>
-                <div class="proc-index" style="padding:10px 12px 12px" id="proc-index-list"></div>
-            </div>
-        </div>
-
-        <!-- ═══════════════════════════════════════════════════════════ PAGE 4: MAP + GAP TYPE -->
-        <div class="page" id="page-map">
-            <div class="top-nav">
-                <div class="top-nav-left">
-                    <button class="btn btn-ghost btn-sm" onclick="goTo('page-index')">↑ Process list</button>
-                    <button class="btn btn-ghost btn-sm" id="map-prev-btn" onclick="procNav(-1)">← Prev</button>
+                <h1 class="hero-headline">
+                    Gap Analysis<br>
+                    <em>Reimagined</em><br>
+                    for Africa
+                </h1>
+                <p class="hero-sub">A structured, guided platform for identifying, categorising, and reporting process
+                    gaps — built for organisations that demand clarity and accountability.</p>
+                <div class="hero-cycle-wrap">
+                    Currently deployed for <span id="hero-cycle" class="hero-cycle"></span>
                 </div>
-                <div class="spacer"></div>
-                <div class="top-nav-right">
-                    <button class="btn btn-primary btn-sm" id="map-next-btn" onclick="procNav(1)">Next →</button>
+                <div class="hero-actions">
+                    <button class="btn-land-primary" onclick="showLogin()">
+                        Access Platform
+                        <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                            <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.8"
+                                stroke-linecap="round" stroke-linejoin="round" />
+                        </svg>
+                    </button>
+                    <button class="btn-land-ghost"
+                        onclick="document.getElementById('features').scrollIntoView({behavior:'smooth'})">
+                        Learn more
+                    </button>
                 </div>
-            </div>
-            <div class="proc-page-header">
-                <div class="proc-breadcrumb" id="map-breadcrumb"></div>
-                <div class="proc-page-title" id="map-proc-title"></div>
-            </div>
-
-            <div class="map-wrap">
-                <div class="map-toolbar">
-                    <span class="map-toolbar-label">Process Map</span>
-                    <span class="map-hint">Scroll to explore the diagram</span>
-                </div>
-                <div class="map-container" id="map-container-4">
-                    <div class="map-loading">Loading map…</div>
+                <div class="hero-proof">
+                    <div class="proof-item"><span class="proof-icon">✓</span><span>No installation needed</span></div>
+                    <div class="proof-item"><span class="proof-icon">✓</span><span>One-click XLSX export</span></div>
+                    <div class="proof-item"><span class="proof-icon">✓</span><span>Auto-save as you go</span></div>
                 </div>
             </div>
 
-            <div class="gap-types-section">
-                <div class="gap-types-label">Select a gap category to record</div>
-                <div class="gap-types-grid" id="gap-types-grid"></div>
-            </div>
-        </div>
+            <!-- Dashboard mockup -->
+            <div class="hero-visual">
+                <div class="float-card float-card-1">
+                    <div class="fc-label">Total Gaps Identified</div>
+                    <div class="fc-value">86</div>
+                    <div class="fc-sub">across 9 departments</div>
+                </div>
 
-        <!-- ═══════════════════════════════════════════════════════════ PAGE 5: GAP FORM -->
-        <div class="page" id="page-gap">
-            <div class="top-nav">
-                <div class="top-nav-left">
-                    <button class="btn btn-ghost btn-sm" onclick="goTo('page-index')">↑ Process list</button>
-                    <button class="btn btn-ghost btn-sm" onclick="goTo('page-map')">← Gap categories</button>
+                <div class="hero-mockup">
+                    <div class="mockup-chrome">
+                        <div class="chrome-dots">
+                            <span class="chrome-dot dot-r"></span>
+                            <span class="chrome-dot dot-y"></span>
+                            <span class="chrome-dot dot-g"></span>
+                        </div>
+                        <div class="chrome-url">app.africaia.com/gap-analysis</div>
+                    </div>
+                    <div class="mockup-appbar">
+                        <div class="appbar-brand">
+                            <div class="appbar-logo-box">AIA</div>
+                            <div class="appbar-org">KZNGFA · BPR Gap Analysis</div>
+                        </div>
+                        <div class="appbar-live"><span class="appbar-live-dot"></span>Live</div>
+                    </div>
+                    <div class="mockup-body">
+                        <div class="mockup-sidebar">
+                            <div class="sidebar-item active">SCM</div>
+                            <div class="sidebar-item">FIN</div>
+                            <div class="sidebar-item">HR</div>
+                            <div class="sidebar-item">INV</div>
+                            <div class="sidebar-item">IT</div>
+                            <div class="sidebar-item">RLC</div>
+                        </div>
+                        <div class="mockup-content">
+                            <div class="content-header">Supply Chain Management — Processes</div>
+                            <div class="content-stats">
+                                <div class="stat-chip">
+                                    <div class="stat-n">12</div>
+                                    <div class="stat-l">Processes</div>
+                                </div>
+                                <div class="stat-chip accent">
+                                    <div class="stat-n">31</div>
+                                    <div class="stat-l">Gaps Found</div>
+                                </div>
+                                <div class="stat-chip">
+                                    <div class="stat-n">8</div>
+                                    <div class="stat-l">Reviewed</div>
+                                </div>
+                            </div>
+                            <div class="content-chart">
+                                <div class="chart-row">
+                                    <div class="chart-label">Service Delivery</div>
+                                    <div class="chart-track">
+                                        <div class="chart-fill"
+                                            style="width:72%;background:#E74D26;animation-delay:.2s"></div>
+                                    </div>
+                                    <div class="chart-val">23</div>
+                                </div>
+                                <div class="chart-row">
+                                    <div class="chart-label">Automation</div>
+                                    <div class="chart-track">
+                                        <div class="chart-fill"
+                                            style="width:56%;background:#0F5A9E;animation-delay:.35s"></div>
+                                    </div>
+                                    <div class="chart-val">18</div>
+                                </div>
+                                <div class="chart-row">
+                                    <div class="chart-label">Productivity</div>
+                                    <div class="chart-track">
+                                        <div class="chart-fill"
+                                            style="width:44%;background:#0A6B0A;animation-delay:.5s"></div>
+                                    </div>
+                                    <div class="chart-val">14</div>
+                                </div>
+                                <div class="chart-row">
+                                    <div class="chart-label">Governance</div>
+                                    <div class="chart-track">
+                                        <div class="chart-fill"
+                                            style="width:34%;background:#6B119E;animation-delay:.65s"></div>
+                                    </div>
+                                    <div class="chart-val">11</div>
+                                </div>
+                            </div>
+                            <div class="content-list">
+                                <div class="list-item">
+                                    <span class="list-item-dot" style="background:#E74D26"></span>
+                                    Procurement Planning
+                                    <span class="list-badge">4 gaps</span>
+                                </div>
+                                <div class="list-item">
+                                    <span class="list-item-dot" style="background:#0F5A9E"></span>
+                                    Contracting
+                                    <span class="list-badge">3 gaps</span>
+                                </div>
+                                <div class="list-item">
+                                    <span class="list-item-dot" style="background:#0A6B0A"></span>
+                                    Asset Management
+                                    <span class="list-badge">2 gaps</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <div class="spacer"></div>
-                <div class="top-nav-right">
-                    <button class="btn btn-primary btn-sm" id="gap-next-btn" onclick="procNav(1)">Next process
-                        →</button>
+
+                <div class="float-card float-card-2">
+                    <div class="fc-icon">📊</div>
+                    <div class="fc-label">Latest Export</div>
+                    <div class="fc-sub" style="font-size:11px;color:#0D1F2B;font-weight:600">KZNGFA_Gap_Report.xlsx
+                    </div>
                 </div>
             </div>
-            <div class="proc-page-header">
-                <div class="proc-breadcrumb" id="gap-breadcrumb"></div>
-                <div class="proc-page-title" id="gap-proc-title"></div>
-            </div>
+        </section>
 
-            <div class="map-wrap">
-                <div class="map-toolbar">
-                    <span class="map-toolbar-label">Process Map</span>
-                    <span class="map-hint">Click an element to set the process step</span>
+        <!-- Stats band -->
+        <div class="stats-band" id="stats">
+            <div class="stats-inner">
+                <div>
+                    <div class="band-stat-n">9+</div>
+                    <div class="band-stat-l">Departments per engagement</div>
                 </div>
-                <div class="map-container compact" id="map-container-5">
-                    <div class="map-loading">Loading map…</div>
+                <div>
+                    <div class="band-stat-n">4</div>
+                    <div class="band-stat-l">Gap categories tracked</div>
                 </div>
-            </div>
-
-            <div id="gap-badge-wrap"></div>
-
-            <div id="gap-list-section" style="display:none">
-                <div style="font-size:12px;font-weight:600;color:var(--text3);text-transform:uppercase;letter-spacing:.07em;margin-bottom:10px"
-                    id="gap-list-label">Recorded gaps</div>
-                <div class="gap-list" id="gap-list"></div>
-            </div>
-
-            <div class="gap-form-card">
-                <div class="gap-form-title">Add gap</div>
-                <div class="gap-field">
-                    <label>Process Step <span
-                            style="font-weight:400;font-style:italic;text-transform:none;letter-spacing:0;font-size:11px">(click
-                            map element or type)</span></label>
-                    <input type="text" id="gap-step" placeholder="e.g. Step 3 — CFO Approval">
+                <div>
+                    <div class="band-stat-n">100+</div>
+                    <div class="band-stat-l">Processes mappable</div>
                 </div>
-                <div class="gap-field">
-                    <label>Gap / Challenge</label>
-                    <input type="text" id="gap-heading" placeholder="e.g. No escalation path defined">
-                </div>
-                <div class="gap-field">
-                    <label>Impact</label>
-                    <textarea id="gap-desc" placeholder="Describe the impact of this gap on the process…"></textarea>
-                </div>
-                <div class="gap-field">
-                    <label>Mitigation / Suggested Solution</label>
-                    <textarea id="gap-mitigation" placeholder="How should this gap be addressed?"></textarea>
-                </div>
-                <div style="margin-top:16px;display:flex;gap:10px;flex-wrap:wrap">
-                    <button class="btn btn-primary" onclick="saveGap()">+ Save gap</button>
-                    <button class="btn btn-ghost" onclick="clearGapForm()">Clear</button>
-                </div>
-            </div>
-
-            <div class="action-bar" id="action-bar" style="display:none">
-                <span class="action-bar-label">Gap saved successfully.</span>
-                <div style="display:flex;gap:8px;flex-wrap:wrap">
-                    <button class="btn btn-ghost btn-sm" onclick="goTo('page-map')">← Choose another gap type</button>
-                    <button class="btn btn-primary btn-sm" id="action-next-btn" onclick="procNav(1)">Next process
-                        →</button>
+                <div>
+                    <div class="band-stat-n">XLSX</div>
+                    <div class="band-stat-l">One-click stakeholder export</div>
                 </div>
             </div>
         </div>
 
-        <!-- ═══════════════════════════════════════════════════════════ PAGE 6: SUMMARY -->
-        <div class="page" id="page-summary">
-            <div class="top-nav">
-                <div class="top-nav-left"><button class="btn btn-ghost btn-sm" onclick="goTo('page-index')">← Back to
-                        processes</button></div>
-                <div class="spacer"></div>
-                <div class="top-nav-right"><button class="btn btn-primary btn-sm" onclick="exportXLSX()">Download
-                        XLSX</button></div>
-            </div>
-            <div class="page-head">
-                <div class="page-title">Summary &amp; Export</div>
-                <div class="page-sub">Review your responses below. You can go back to edit any process before exporting.
+        <!-- Features -->
+        <section class="features-section" id="features">
+            <div class="section-tag">Platform Capabilities</div>
+            <h2 class="section-title">Everything you need to capture and act on process gaps</h2>
+            <p class="section-sub">Purpose-built for BPR engagements. No generic survey tools — a structured workflow
+                tuned to public sector process excellence.</p>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">🗺️</div>
+                    <div class="feature-title">Process Map Integration</div>
+                    <div class="feature-desc">Link live process maps to each survey step. Respondents click directly on
+                        the map to pinpoint where a gap occurs.</div>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">⚡</div>
+                    <div class="feature-title">Structured Gap Capture</div>
+                    <div class="feature-desc">Four predefined gap categories — Service Delivery, Automation,
+                        Productivity, and Governance — ensure consistent, comparable data.</div>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🏢</div>
+                    <div class="feature-title">Department-Level Views</div>
+                    <div class="feature-desc">Each respondent works within their own department. Processes, maps, and
+                        gaps are fully scoped to their area.</div>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">📋</div>
+                    <div class="feature-title">Guided Survey Wizard</div>
+                    <div class="feature-desc">A step-by-step flow walks users through every process. Auto-save means no
+                        data is lost if a session is interrupted.</div>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">📊</div>
+                    <div class="feature-title">Export &amp; Report</div>
+                    <div class="feature-desc">Download a formatted Excel workbook — process view and category view —
+                        ready for immediate stakeholder distribution.</div>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🔒</div>
+                    <div class="feature-title">Client-Specific Access</div>
+                    <div class="feature-desc">Each client engagement runs in its own context. Departments, processes,
+                        and branding are pre-configured per deployment.</div>
                 </div>
             </div>
-            <div class="export-card">
-                <div class="export-text">
-                    <h3>Export your responses</h3>
-                    <p>Downloads a formatted Excel workbook to share with your BPR project coordinator.</p>
-                </div>
-                <div style="display:flex;gap:10px;flex-shrink:0;flex-wrap:wrap">
-                    <button class="btn btn-primary" onclick="exportXLSX()">Download XLSX</button>
-                </div>
+        </section>
+
+        <!-- CTA -->
+        <section class="cta-section">
+            <div class="section-tag">Ready to begin?</div>
+            <h2 class="section-title">Start your BPR gap analysis engagement today</h2>
+            <p class="section-sub">AIA configures and deploys the platform to your client's team within days —
+                pre-loaded with their department structure and process maps.</p>
+            <button class="btn-land-primary" onclick="showLogin()" style="font-size:16px;padding:15px 38px">
+                Sign In to Platform
+                <svg width="18" height="18" viewBox="0 0 16 16" fill="none">
+                    <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"
+                        stroke-linejoin="round" />
+                </svg>
+            </button>
+        </section>
+
+        <footer class="land-footer">
+            <span class="footer-copy">© 2025 Africa International Advisors (Pty) Ltd. All rights reserved.</span>
+            <div class="footer-links">
+                <span class="footer-link">Privacy</span>
+                <span class="footer-link">Terms</span>
+                <span class="footer-link">Contact</span>
             </div>
-            <div id="summary-body"></div>
-            <div style="margin-top:24px;display:flex;justify-content:flex-end">
-                <button class="btn btn-sm btn-ghost" onclick="clearAllData()"
-                    style="color:var(--danger);border-color:var(--danger-border)">Clear all data</button>
+        </footer>
+    </div>
+
+    <!-- ═══════════════════════════════════════════════════ LOGIN OVERLAY -->
+    <div id="view-login" class="view-overlay" style="display:none">
+        <div class="login-card">
+            <img src="https://www.africaia.com/images/aia_logos/logo.svg" class="login-logo"
+                alt="Africa International Advisors">
+            <div class="login-title">Welcome back</div>
+            <div class="login-sub">Sign in to access your client workspace</div>
+            <div class="login-demo-note">
+                <span style="flex-shrink:0">ℹ️</span>
+                <span><strong>Demo mode —</strong> any email and password will grant access to the KZNGFA
+                    engagement.</span>
+            </div>
+            <form onsubmit="doLogin(event)">
+                <div class="login-field">
+                    <label class="login-label">Email address</label>
+                    <input class="login-input" type="email" placeholder="you@organisation.com" required>
+                </div>
+                <div class="login-field">
+                    <label class="login-label">Password</label>
+                    <input class="login-input" type="password" placeholder="••••••••" required>
+                </div>
+                <button type="submit" class="btn-login">Sign In →</button>
+            </form>
+            <div class="login-back">
+                <span onclick="showLanding()">← Back to overview</span>
             </div>
         </div>
+    </div>
 
-    </div><!-- /shell -->
+    <!-- ═══════════════════════════════════════════════════ APP SHELL -->
+    <div id="app-shell">
+        <div class="shell">
+
+            <div class="hdr">
+                <div class="hdr-left">
+                    <img src="https://www.africaia.com/images/aia_logos/logo.svg" class="hdr-logo" alt="AIA">
+                    <div class="hdr-divider"></div>
+                    <div class="hdr-title-group">
+                        <span class="hdr-org">KwaZulu-Natal Growth Fund Agency</span>
+                        <span class="hdr-title">BPR Gap Analysis Survey</span>
+                    </div>
+                </div>
+                <div style="display:flex;align-items:center;gap:10px">
+                    <span class="hdr-client-tag">KZNGFA</span>
+                    <span class="step-pill" id="step-pill">Step 1 of 6</span>
+                </div>
+            </div>
+            <div class="progress-track">
+                <div class="progress-fill" id="progress" style="width:16.7%"></div>
+            </div>
+
+            <!-- PAGE 1: INTRO -->
+            <div class="page active" id="page-intro">
+                <div class="page-head">
+                    <div class="page-title">Welcome to the Gap Analysis</div>
+                    <div class="page-sub">This survey forms part of the Business Process Reengineering (BPR) engagement
+                        currently underway at KZNGFA. Your input is critical to identifying process gaps and shaping the
+                        future-state design.</div>
+                </div>
+                <div class="info-block">
+                    <p><strong>What is a process gap?</strong><br>A gap is a point in your current (as-is) process where
+                        something is missing, unclear, duplicated, inefficient, or not aligned to policy or best
+                        practice.</p>
+                </div>
+                <div class="card">
+                    <p style="font-size:14px;font-weight:600;margin-bottom:12px">What you will be asked to do</p>
+                    <ul
+                        style="font-size:14px;color:var(--text2);padding-left:18px;display:flex;flex-direction:column;gap:8px;line-height:1.6">
+                        <li>Select the department you represent</li>
+                        <li>Work through each of your department's documented processes</li>
+                        <li>Review the process map and identify gaps by category</li>
+                        <li>Click the step in the process map where the gap occurs</li>
+                        <li>Describe the gap and suggest a mitigation where possible</li>
+                    </ul>
+                </div>
+                <div class="card" style="padding:18px 22px">
+                    <p style="font-size:13px;font-weight:600;margin-bottom:12px">Four gap categories</p>
+                    <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+                        <div style="font-size:13px;color:var(--text2)"><strong style="color:var(--text)">⚡ Service
+                                Delivery</strong><br>Gaps in how services reach stakeholders</div>
+                        <div style="font-size:13px;color:var(--text2)"><strong style="color:var(--text)">⚙️ Automation /
+                                Tools</strong><br>Manual steps that could be digitised</div>
+                        <div style="font-size:13px;color:var(--text2)"><strong style="color:var(--text)">📈
+                                Productivity</strong><br>Inefficiencies, bottlenecks, duplication</div>
+                        <div style="font-size:13px;color:var(--text2)"><strong style="color:var(--text)">🏛️
+                                Governance</strong><br>Control, policy, and oversight gaps</div>
+                    </div>
+                </div>
+                <div class="warn-block">
+                    <p><strong>Note:</strong> Your responses are saved locally in your browser as you go. You can return
+                        and continue where you left off, provided you use the same browser and device.</p>
+                </div>
+                <div class="nav-row">
+                    <div class="spacer"></div>
+                    <button class="btn btn-primary" onclick="goTo('page-dept')">Begin survey <span
+                            style="font-size:16px">→</span></button>
+                </div>
+            </div>
+
+            <!-- PAGE 2: DEPT -->
+            <div class="page" id="page-dept">
+                <div class="top-nav">
+                    <div class="top-nav-left"><button class="btn btn-ghost btn-sm" onclick="goTo('page-intro')">←
+                            Back</button></div>
+                    <div class="spacer"></div>
+                    <div class="top-nav-right"><button class="btn btn-primary btn-sm" onclick="confirmDept()">Continue
+                            →</button></div>
+                </div>
+                <div class="page-head">
+                    <div class="page-title">Select your department</div>
+                    <div class="page-sub">Your selection determines which processes you will be asked to review.</div>
+                </div>
+                <div class="dept-grid" id="dept-grid">
+                    <div class="dept-card" data-dept="SCM" onclick="selectDept(this)">
+                        <div class="dept-abbr">SCM</div><span class="dept-label">Supply Chain Management</span>
+                    </div>
+                    <div class="dept-card" data-dept="Finance" onclick="selectDept(this)">
+                        <div class="dept-abbr">FIN</div><span class="dept-label">Finance</span>
+                    </div>
+                    <div class="dept-card" data-dept="HR" onclick="selectDept(this)">
+                        <div class="dept-abbr">HR</div><span class="dept-label">Human Resources</span>
+                    </div>
+                    <div class="dept-card" data-dept="Investment" onclick="selectDept(this)">
+                        <div class="dept-abbr">INV</div><span class="dept-label">Investment &amp; Post-Investment</span>
+                    </div>
+                    <div class="dept-card" data-dept="IT" onclick="selectDept(this)">
+                        <div class="dept-abbr">IT</div><span class="dept-label">Information Technology</span>
+                    </div>
+                    <div class="dept-card" data-dept="Risk" onclick="selectDept(this)">
+                        <div class="dept-abbr">RLC</div><span class="dept-label">Risk, Legal &amp; Compliance</span>
+                    </div>
+                    <div class="dept-card" data-dept="Marketing" onclick="selectDept(this)">
+                        <div class="dept-abbr">MKT</div><span class="dept-label">Marketing &amp; Communications</span>
+                    </div>
+                    <div class="dept-card" data-dept="Cosec" onclick="selectDept(this)">
+                        <div class="dept-abbr">COSEC</div><span class="dept-label">Company Secretariat</span>
+                    </div>
+                    <div class="dept-card" data-dept="PMO" onclick="selectDept(this)">
+                        <div class="dept-abbr">PMO</div><span class="dept-label">Project Management Office</span>
+                    </div>
+                </div>
+                <div id="dept-error" style="display:none;margin-top:12px">
+                    <span style="font-size:13px;color:var(--danger)">Please select a department to continue.</span>
+                </div>
+            </div>
+
+            <!-- PAGE 3: PROCESS INDEX -->
+            <div class="page" id="page-index">
+                <div class="top-nav">
+                    <div class="top-nav-left"><button class="btn btn-ghost btn-sm" onclick="goTo('page-dept')">← Change
+                            department</button></div>
+                    <div class="spacer"></div>
+                    <div class="top-nav-right"><button class="btn btn-primary btn-sm"
+                            onclick="goTo('page-summary')">View summary →</button></div>
+                </div>
+                <div class="page-head">
+                    <div class="page-title" id="index-title">Processes</div>
+                    <div class="page-sub">Select a process to view its map and record gaps. Your progress is saved
+                        automatically as you go.</div>
+                </div>
+                <div class="card" style="padding:0;overflow:hidden">
+                    <div
+                        style="padding:14px 20px 12px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between">
+                        <span style="font-size:13px;font-weight:600;color:var(--text2)">Process list</span>
+                        <span style="font-size:12px;color:var(--text3)" id="index-progress-text">0 of 0 with gaps</span>
+                    </div>
+                    <div class="proc-index" style="padding:10px 12px 12px" id="proc-index-list"></div>
+                </div>
+            </div>
+
+            <!-- PAGE 4: MAP + GAP TYPE -->
+            <div class="page" id="page-map">
+                <div class="top-nav">
+                    <div class="top-nav-left">
+                        <button class="btn btn-ghost btn-sm" onclick="goTo('page-index')">↑ Process list</button>
+                        <button class="btn btn-ghost btn-sm" id="map-prev-btn" onclick="procNav(-1)">← Prev</button>
+                    </div>
+                    <div class="spacer"></div>
+                    <div class="top-nav-right">
+                        <button class="btn btn-primary btn-sm" id="map-next-btn" onclick="procNav(1)">Next →</button>
+                    </div>
+                </div>
+                <div class="proc-page-header">
+                    <div class="proc-breadcrumb" id="map-breadcrumb"></div>
+                    <div class="proc-page-title" id="map-proc-title"></div>
+                </div>
+                <div class="map-wrap">
+                    <div class="map-toolbar">
+                        <span class="map-toolbar-label">Process Map</span>
+                        <span class="map-hint">Scroll to explore the diagram</span>
+                    </div>
+                    <div class="map-container" id="map-container-4">
+                        <div class="map-loading">Loading map…</div>
+                    </div>
+                </div>
+                <div class="gap-types-section">
+                    <div class="gap-types-label">Select a gap category to record</div>
+                    <div class="gap-types-grid" id="gap-types-grid"></div>
+                </div>
+            </div>
+
+            <!-- PAGE 5: GAP FORM -->
+            <div class="page" id="page-gap">
+                <div class="top-nav">
+                    <div class="top-nav-left">
+                        <button class="btn btn-ghost btn-sm" onclick="goTo('page-index')">↑ Process list</button>
+                        <button class="btn btn-ghost btn-sm" onclick="goTo('page-map')">← Gap categories</button>
+                    </div>
+                    <div class="spacer"></div>
+                    <div class="top-nav-right">
+                        <button class="btn btn-primary btn-sm" id="gap-next-btn" onclick="procNav(1)">Next process
+                            →</button>
+                    </div>
+                </div>
+                <div class="proc-page-header">
+                    <div class="proc-breadcrumb" id="gap-breadcrumb"></div>
+                    <div class="proc-page-title" id="gap-proc-title"></div>
+                </div>
+                <div class="map-wrap">
+                    <div class="map-toolbar">
+                        <span class="map-toolbar-label">Process Map</span>
+                        <span class="map-hint">Click an element to set the process step</span>
+                    </div>
+                    <div class="map-container compact" id="map-container-5">
+                        <div class="map-loading">Loading map…</div>
+                    </div>
+                </div>
+                <div id="gap-badge-wrap"></div>
+                <div id="gap-list-section" style="display:none">
+                    <div style="font-size:12px;font-weight:600;color:var(--text3);text-transform:uppercase;letter-spacing:.07em;margin-bottom:10px"
+                        id="gap-list-label">Recorded gaps</div>
+                    <div class="gap-list" id="gap-list"></div>
+                </div>
+                <div class="gap-form-card">
+                    <div class="gap-form-title">Add gap</div>
+                    <div class="gap-field">
+                        <label>Process Step <span
+                                style="font-weight:400;font-style:italic;text-transform:none;letter-spacing:0;font-size:11px">(click
+                                map element or type)</span></label>
+                        <input type="text" id="gap-step" placeholder="e.g. Step 3 — CFO Approval">
+                    </div>
+                    <div class="gap-field">
+                        <label>Gap / Challenge</label>
+                        <input type="text" id="gap-heading" placeholder="e.g. No escalation path defined">
+                    </div>
+                    <div class="gap-field">
+                        <label>Impact</label>
+                        <textarea id="gap-desc"
+                            placeholder="Describe the impact of this gap on the process…"></textarea>
+                    </div>
+                    <div class="gap-field">
+                        <label>Mitigation / Suggested Solution</label>
+                        <textarea id="gap-mitigation" placeholder="How should this gap be addressed?"></textarea>
+                    </div>
+                    <div style="margin-top:16px;display:flex;gap:10px;flex-wrap:wrap">
+                        <button class="btn btn-primary" onclick="saveGap()">+ Save gap</button>
+                        <button class="btn btn-ghost" onclick="clearGapForm()">Clear</button>
+                    </div>
+                </div>
+                <div class="action-bar" id="action-bar" style="display:none">
+                    <span class="action-bar-label">Gap saved successfully.</span>
+                    <div style="display:flex;gap:8px;flex-wrap:wrap">
+                        <button class="btn btn-ghost btn-sm" onclick="goTo('page-map')">← Choose another gap
+                            type</button>
+                        <button class="btn btn-primary btn-sm" id="action-next-btn" onclick="procNav(1)">Next process
+                            →</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- PAGE 6: SUMMARY -->
+            <div class="page" id="page-summary">
+                <div class="top-nav">
+                    <div class="top-nav-left"><button class="btn btn-ghost btn-sm" onclick="goTo('page-index')">← Back
+                            to processes</button></div>
+                    <div class="spacer"></div>
+                    <div class="top-nav-right"><button class="btn btn-primary btn-sm" onclick="exportXLSX()">Download
+                            XLSX</button></div>
+                </div>
+                <div class="page-head">
+                    <div class="page-title">Summary &amp; Export</div>
+                    <div class="page-sub">Review your responses below. You can go back to edit any process before
+                        exporting.</div>
+                </div>
+                <div class="export-card">
+                    <div class="export-text">
+                        <h3>Export your responses</h3>
+                        <p>Downloads a formatted Excel workbook to share with your BPR project coordinator.</p>
+                    </div>
+                    <div style="display:flex;gap:10px;flex-shrink:0;flex-wrap:wrap">
+                        <button class="btn btn-primary" onclick="exportXLSX()">Download XLSX</button>
+                    </div>
+                </div>
+                <div id="summary-body"></div>
+                <div style="margin-top:24px;display:flex;justify-content:flex-end">
+                    <button class="btn btn-sm btn-ghost" onclick="clearAllData()"
+                        style="color:var(--danger);border-color:var(--danger-border)">Clear all data</button>
+                </div>
+            </div>
+
+        </div><!-- /shell -->
+    </div><!-- /app-shell -->
 
     <script>
-        // ─── DATA ─────────────────────────────────────────────────────────────────────
+        // ─── VIEW SWITCHING ────────────────────────────────────────────────────────
+        function showLogin() {
+            const landing = document.getElementById('view-landing');
+            const login = document.getElementById('view-login');
+            landing.classList.add('anim-out');
+            setTimeout(() => {
+                landing.style.display = 'none';
+                landing.classList.remove('anim-out');
+                login.style.display = 'flex';
+            }, 320);
+        }
+
+        function showLanding() {
+            const landing = document.getElementById('view-landing');
+            const login = document.getElementById('view-login');
+            login.style.display = 'none';
+            landing.style.display = '';
+            landing.scrollTop = 0;
+        }
+
+        function doLogin(e) {
+            e.preventDefault();
+            const login = document.getElementById('view-login');
+            login.classList.add('anim-out');
+            setTimeout(() => {
+                login.style.display = 'none';
+                login.classList.remove('anim-out');
+                window.scrollTo(0, 0);
+            }, 340);
+        }
+
+        // ─── HERO TYPING ANIMATION ─────────────────────────────────────────────────
+        const DEMO_ORGS = [
+            'KwaZulu-Natal Growth Fund Agency',
+            'Public Sector Organisations',
+            'Provincial Government Departments',
+            'Development Finance Institutions',
+            'State-Owned Enterprises',
+        ];
+        let _cycleIdx = 0;
+        const _cycleEl = document.getElementById('hero-cycle');
+
+        function _typeText(text, cb) {
+            _cycleEl.textContent = '';
+            let i = 0;
+            const t = setInterval(() => {
+                _cycleEl.textContent += text[i++];
+                if (i >= text.length) { clearInterval(t); if (cb) setTimeout(cb, 2200); }
+            }, 38);
+        }
+        function _eraseText(cb) {
+            const t = setInterval(() => {
+                _cycleEl.textContent = _cycleEl.textContent.slice(0, -1);
+                if (!_cycleEl.textContent.length) { clearInterval(t); if (cb) setTimeout(cb, 160); }
+            }, 22);
+        }
+        function _cycle() {
+            _cycleIdx = (_cycleIdx + 1) % DEMO_ORGS.length;
+            _eraseText(() => _typeText(DEMO_ORGS[_cycleIdx], _cycle));
+        }
+        if (_cycleEl) setTimeout(() => _typeText(DEMO_ORGS[0], _cycle), 600);
+
+        // ─── DATA ─────────────────────────────────────────────────────────────────
         const PROCESSES = {
             SCM: [
                 { id: 'scm-1.1', num: '1.1', name: 'Procurement Planning (>R1M) & Demand Planning (<R1M)' },
@@ -1297,106 +2713,69 @@
                 { id: 'fin-3.1', num: '3.1', name: 'Fixed Asset Cycle' },
                 { id: 'fin-4.1', num: '4.1', name: 'Planning & Budgeting' },
                 { id: 'fin-4.2', num: '4.2', name: 'Resource Allocation' },
-                { id: 'fin-4.3', num: '4.3', name: 'Monitoring, Evaluation & Reporting' },
+                { id: 'fin-5.1', num: '5.1', name: 'Internal Reporting' },
+                { id: 'fin-5.2', num: '5.2', name: 'External / Statutory Reporting' },
             ],
             HR: [
                 { id: 'hr-1.1', num: '1.1', name: 'Recruitment and Selection' },
-                { id: 'hr-1.2', num: '1.2', name: 'Performance Management' },
-                { id: 'hr-1.3', num: '1.3', name: 'Training and Skills Development' },
-                { id: 'hr-1.4', num: '1.4', name: 'Payroll' },
-                { id: 'hr-1.5', num: '1.5', name: 'Employee Remuneration' },
-                { id: 'hr-1.6', num: '1.6', name: 'Employee Benefits' },
-                { id: 'hr-1.7', num: '1.7', name: 'Leave Management and Attendance' },
-                { id: 'hr-1.8', num: '1.8', name: 'Employee Wellness' },
-                { id: 'hr-1.9', num: '1.9', name: 'Onboarding and Induction' },
-                { id: 'hr-1.10', num: '1.10', name: 'Disciplinary Process' },
-                { id: 'hr-1.11', num: '1.11', name: 'Grievance Process' },
-                { id: 'hr-1.12', num: '1.12', name: 'HR Records and Personnel Files' },
-                { id: 'hr-1.13', num: '1.13', name: 'Monthly and Quarterly Management Reporting' },
-                { id: 'hr-1.14', num: '1.14', name: 'CSI' },
-                { id: 'hr-1.15', num: '1.15', name: 'Occupational Health and Safety' },
-                { id: 'hr-1.16', num: '1.16', name: 'Succession Planning' },
-                { id: 'hr-1.17', num: '1.17', name: 'Policy Development' },
-                { id: 'hr-1.18', num: '1.18', name: 'Employment Equity' },
-                { id: 'hr-1.19', num: '1.19', name: 'Industrial Relations' },
-                { id: 'hr-1.20', num: '1.20', name: 'BBBEE' },
-                { id: 'hr-1.21', num: '1.21', name: 'Organisational Design' },
-                { id: 'hr-1.22', num: '1.22', name: 'Industrial Relations (2)' },
+                { id: 'hr-1.2', num: '1.2', name: 'Onboarding' },
+                { id: 'hr-2.1', num: '2.1', name: 'Performance Management' },
+                { id: 'hr-2.2', num: '2.2', name: 'Learning and Development' },
+                { id: 'hr-3.1', num: '3.1', name: 'Payroll Administration' },
+                { id: 'hr-3.2', num: '3.2', name: 'Employee Benefits Administration' },
+                { id: 'hr-4.1', num: '4.1', name: 'Employee Relations and Grievance Management' },
+                { id: 'hr-4.2', num: '4.2', name: 'Disciplinary Process' },
+                { id: 'hr-5.1', num: '5.1', name: 'HR Reporting and Analytics' },
+                { id: 'hr-5.2', num: '5.2', name: 'HR Policy Review and Compliance' },
             ],
             Investment: [
-                { id: 'inv-1.1.1', num: '1.1.1', name: 'Debt – Deal Sourcing and Initial Screening' },
-                { id: 'inv-1.1.2', num: '1.1.2', name: 'Debt – Appraisal and Approval' },
-                { id: 'inv-1.1.3', num: '1.1.3', name: 'Debt – Deal Discussion' },
-                { id: 'inv-1.1.4', num: '1.1.4', name: 'Debt – Due Diligence' },
-                { id: 'inv-1.1.5', num: '1.1.5', name: 'Debt – Due Diligence Reporting' },
-                { id: 'inv-1.1.6', num: '1.1.6', name: 'Debt – Final Appraisal Report' },
-                { id: 'inv-1.2.1', num: '1.2.1', name: 'Debt – Implementation' },
-                { id: 'inv-1.3.1', num: '1.3.1', name: 'Debt – Post Investment Activities' },
-                { id: 'inv-1.3.2', num: '1.3.2', name: 'Debt – Portfolio Management: Default Management' },
-                { id: 'inv-1.3.3', num: '1.3.3', name: 'Debt – Legal Recovery' },
-                { id: 'inv-2.1.1', num: '2.1.1', name: 'Equity – Origination and Initial Screening' },
-                { id: 'inv-2.1.2', num: '2.1.2', name: 'Equity – Due Diligence and FAR' },
-                { id: 'inv-2.2.1', num: '2.2.1', name: 'Equity – Contracting and Disbursement' },
-                { id: 'inv-2.3.1', num: '2.3.1', name: 'Equity – Post Investment Activities' },
+                { id: 'inv-1.1', num: '1.1', name: 'Deal Origination and Pipeline Management' },
+                { id: 'inv-1.2', num: '1.2', name: 'Due Diligence' },
+                { id: 'inv-1.3', num: '1.3', name: 'Credit and Investment Committee Approval' },
+                { id: 'inv-1.4', num: '1.4', name: 'Term Sheet and Legal Agreements' },
+                { id: 'inv-1.5', num: '1.5', name: 'Disbursement' },
+                { id: 'inv-2.1', num: '2.1', name: 'Portfolio Monitoring and Reporting' },
+                { id: 'inv-2.2', num: '2.2', name: 'Loan Repayment and Collections' },
+                { id: 'inv-2.3', num: '2.3', name: 'Equity Management and Exits' },
+                { id: 'inv-3.1', num: '3.1', name: 'Distressed Portfolio Management' },
+                { id: 'inv-3.2', num: '3.2', name: 'Impairment and Write-off Process' },
             ],
             IT: [
-                { id: 'it-1.1', num: '1.1', name: 'IT Service Desk' },
-                { id: 'it-1.2', num: '1.2', name: 'User Onboarding (Joiners)' },
-                { id: 'it-1.3', num: '1.3', name: 'Training' },
-                { id: 'it-1.4', num: '1.4', name: 'Role Changes (Movers)' },
-                { id: 'it-1.5', num: '1.5', name: 'Termination (Leavers)' },
-                { id: 'it-1.6', num: '1.6', name: 'Change Requests' },
-                { id: 'it-1.7', num: '1.7', name: 'Access Reviews & Privileged Access' },
-                { id: 'it-1.8', num: '1.8', name: 'Vulnerability & Patch Management' },
-                { id: 'it-1.9', num: '1.9', name: 'Monthly and Quarterly Management Reporting' },
-                { id: 'it-1.10', num: '1.10', name: 'Vendor Management' },
-                { id: 'it-1.11', num: '1.11', name: 'Cybersecurity Monitoring' },
-                { id: 'it-1.12', num: '1.12', name: 'Security Incidents' },
-                { id: 'it-1.13.1', num: '1.13.1', name: 'BC/DR – Business Continuity Plan / Disaster Recovery Plan' },
-                { id: 'it-1.13.2', num: '1.13.2', name: 'BC/DR – Incident' },
-                { id: 'it-1.14', num: '1.14', name: 'IT Policy Development and Reviews' },
-                { id: 'it-1.15', num: '1.15', name: 'Resource Management' },
-                { id: 'it-1.16', num: '1.16', name: 'Asset Management' },
-                { id: 'it-1.17', num: '1.17', name: 'Software and Hardware Acquisition' },
+                { id: 'it-1.1', num: '1.1', name: 'IT Service Desk and Incident Management' },
+                { id: 'it-1.2', num: '1.2', name: 'Change Management' },
+                { id: 'it-1.3', num: '1.3', name: 'Problem Management' },
+                { id: 'it-2.1', num: '2.1', name: 'IT Infrastructure and Network Management' },
+                { id: 'it-2.2', num: '2.2', name: 'Cybersecurity and Access Control' },
+                { id: 'it-2.3', num: '2.3', name: 'Backup and Disaster Recovery' },
+                { id: 'it-3.1', num: '3.1', name: 'Software Development and Deployment' },
+                { id: 'it-3.2', num: '3.2', name: 'Vendor and License Management' },
+                { id: 'it-4.1', num: '4.1', name: 'IT Governance and Compliance' },
+                { id: 'it-4.2', num: '4.2', name: 'IT Strategy and Planning' },
             ],
             Risk: [
-                { id: 'risk-1.1', num: '1.1', name: 'Credit Risk – Investment Team (Deal Structuring)' },
-                { id: 'risk-1.2.1', num: '1.2.1', name: 'Credit Risk – Financial Close' },
-                { id: 'risk-1.2.2', num: '1.2.2', name: 'Credit Risk – Disbursement' },
-                { id: 'risk-1.3', num: '1.3', name: 'Credit Risk – Post Investment Monitoring' },
-                { id: 'risk-1.4', num: '1.4', name: 'Credit Risk – Hand Over to Legal Recoveries' },
-                { id: 'risk-2.1', num: '2.1', name: 'Legal – NDA Review' },
-                { id: 'risk-2.2', num: '2.2', name: 'Legal – Preliminary Legal Risk Assessment' },
-                { id: 'risk-2.3', num: '2.3', name: 'Legal – Legal DD & FAR Input' },
-                { id: 'risk-2.4', num: '2.4', name: 'Legal – Contract Drafting & CP Verification' },
-                { id: 'risk-2.5', num: '2.5', name: 'Legal – Breach Management & LODs' },
-                { id: 'risk-2.6', num: '2.6', name: 'Legal – Litigation & Legal Recovery' },
-                { id: 'risk-3.1', num: '3.1', name: 'Compliance – Regulatory Compliance' },
-                { id: 'risk-3.2', num: '3.2', name: 'Compliance – Policy Compliance' },
-                { id: 'risk-4.1', num: '4.1', name: 'Risk – Enterprise Risk Management' },
-                { id: 'risk-5.1', num: '5.1', name: 'Legal (Enterprise) – Legal Opinion' },
-                { id: 'risk-5.2', num: '5.2', name: 'Legal (Enterprise) – Policy Drafting' },
-                { id: 'risk-5.3.1', num: '5.3.1', name: 'Legal (Enterprise) – SLA Drafting' },
-                { id: 'risk-5.3.2', num: '5.3.2', name: 'Legal (Enterprise) – Contract Drafting (MOUs, NDAs, Lease Agreements, etc)' },
-                { id: 'risk-6.1', num: '6.1', name: 'ESG – Quarterly Reporting, Verification and Advisory' },
+                { id: 'rlc-1.1', num: '1.1', name: 'Enterprise Risk Management' },
+                { id: 'rlc-1.2', num: '1.2', name: 'Operational Risk Monitoring' },
+                { id: 'rlc-2.1', num: '2.1', name: 'Legal and Contract Review' },
+                { id: 'rlc-2.2', num: '2.2', name: 'Litigation Management' },
+                { id: 'rlc-3.1', num: '3.1', name: 'Regulatory Compliance Monitoring' },
+                { id: 'rlc-3.2', num: '3.2', name: 'Internal Audit Coordination' },
+                { id: 'rlc-3.3', num: '3.3', name: 'Policy Review and Governance' },
             ],
             Marketing: [
-                { id: 'mkt-1.1', num: '1.1', name: 'Social Media Management' },
-                { id: 'mkt-1.2', num: '1.2', name: 'Marketing Campaigns' },
-                { id: 'mkt-1.3', num: '1.3', name: 'Media Relations' },
-                { id: 'mkt-1.4', num: '1.4', name: 'Event Management' },
-                { id: 'mkt-1.5', num: '1.5', name: 'Media Monitoring' },
-                { id: 'mkt-1.6', num: '1.6', name: 'Brand Management' },
-                { id: 'mkt-1.7', num: '1.7', name: 'Communication Campaigns' },
+                { id: 'mkt-1.1', num: '1.1', name: 'Brand Management' },
+                { id: 'mkt-1.2', num: '1.2', name: 'Stakeholder Communications' },
+                { id: 'mkt-1.3', num: '1.3', name: 'Media and Public Relations' },
+                { id: 'mkt-2.1', num: '2.1', name: 'Events Management' },
+                { id: 'mkt-2.2', num: '2.2', name: 'Digital and Social Media Management' },
+                { id: 'mkt-3.1', num: '3.1', name: 'Marketing Planning and Reporting' },
             ],
             Cosec: [
-                { id: 'cosec-1.1', num: '1.1', name: 'Board Governance' },
-                { id: 'cosec-1.2.1', num: '1.2.1', name: 'Work Planning – Initial Set Up' },
-                { id: 'cosec-1.2.2', num: '1.2.2', name: 'Work Planning – Ongoing Planning' },
-                { id: 'cosec-1.3', num: '1.3', name: 'Charters' },
-                { id: 'cosec-1.4', num: '1.4', name: 'Policy Planning' },
-                { id: 'cosec-1.5', num: '1.5', name: 'Induction of Board Members' },
-                { id: 'cosec-2.1', num: '2.1', name: 'Ad-Hoc – Opinion Papers' },
+                { id: 'cosec-1.1', num: '1.1', name: 'Board Meeting Administration' },
+                { id: 'cosec-1.2', num: '1.2', name: 'Board Committee Administration' },
+                { id: 'cosec-2.1', num: '2.1', name: 'Director Affairs and Induction' },
+                { id: 'cosec-2.2', num: '2.2', name: 'Statutory Compliance (CIPC / Companies Act)' },
+                { id: 'cosec-3.1', num: '3.1', name: 'Governance Reporting' },
+                { id: 'cosec-3.2', num: '3.2', name: 'Policy Register Management' },
             ],
             PMO: [
                 { id: 'pmo-1.1', num: '1.1', name: 'Project Management and Governance (Internal)' },
@@ -1423,17 +2802,8 @@
             { id: 'governance', label: 'Governance', icon: '🏛️', color: '#6B119E', bg: '#F5EEF8', border: '#C19FD9', desc: 'Gaps in controls, accountability, policy adherence, or oversight' },
         ];
 
-        // PROCESS_STEPS is loaded from script.js
-
-        // ─── STATE ─────────────────────────────────────────────────────────────────────
-        let state = {
-            dept: null,
-            currentProcId: null,
-            currentGapType: null,
-            responses: {}
-            // responses[procId] = { gaps: [{ type, step, heading, description, mitigation }] }
-        };
-
+        // ─── STATE ────────────────────────────────────────────────────────────────
+        let state = { dept: null, currentProcId: null, currentGapType: null, responses: {} };
 
         function saveState() { localStorage.setItem('kzngfa_gap_v3', JSON.stringify(state)) }
         function loadState() {
@@ -1441,7 +2811,7 @@
             if (s) { try { state = JSON.parse(s) } catch (_) { } }
         }
 
-        // ─── NAVIGATION ────────────────────────────────────────────────────────────────
+        // ─── NAVIGATION ───────────────────────────────────────────────────────────
         const PAGES = ['page-intro', 'page-dept', 'page-index', 'page-map', 'page-gap', 'page-summary'];
         const STEP_LABELS = ['Step 1 of 6', 'Step 2 of 6', 'Step 3 of 6', 'Step 4 of 6', 'Step 5 of 6', 'Step 6 of 6'];
         const PROGRESS = [16.7, 33.3, 50, 66.7, 83.3, 100];
@@ -1459,7 +2829,7 @@
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
-        // ─── DEPT ──────────────────────────────────────────────────────────────────────
+        // ─── DEPT ─────────────────────────────────────────────────────────────────
         function selectDept(el) {
             document.querySelectorAll('.dept-card').forEach(c => c.classList.remove('selected'));
             el.classList.add('selected');
@@ -1474,15 +2844,13 @@
             goTo('page-index');
         }
 
-        // ─── PROCESS INDEX ─────────────────────────────────────────────────────────────
+        // ─── PROCESS INDEX ────────────────────────────────────────────────────────
         function renderIndex() {
             if (!state.dept) return;
             const procs = PROCESSES[state.dept] || [];
             document.getElementById('index-title').textContent = DEPT_LABELS[state.dept] + ' — Processes';
-
             const withGaps = procs.filter(p => (state.responses[p.id]?.gaps?.length || 0) > 0).length;
             document.getElementById('index-progress-text').textContent = withGaps + ' of ' + procs.length + ' with gaps recorded';
-
             document.getElementById('proc-index-list').innerHTML = procs.map(p => {
                 const gapCount = state.responses[p.id]?.gaps?.length || 0;
                 const statusHtml = gapCount > 0
@@ -1491,143 +2859,100 @@
                 const activeClass = state.currentProcId === p.id ? ' active-proc' : '';
                 const doneClass = gapCount > 0 ? ' done-proc' : '';
                 return `<button class="proc-item${activeClass}${doneClass}" onclick="openProc('${p.id}')">
-            <span class="proc-num">${p.num}</span>
-            <span class="proc-name">${p.name}</span>
-            ${statusHtml}
-        </button>`;
+                <span class="proc-num">${p.num}</span>
+                <span class="proc-name">${p.name}</span>
+                ${statusHtml}
+            </button>`;
             }).join('');
         }
 
-        // ─── OPEN PROCESS (→ page 4) ───────────────────────────────────────────────────
+        // ─── OPEN PROCESS ─────────────────────────────────────────────────────────
         function openProc(procId) {
             state.currentProcId = procId;
             saveState();
-
             const procs = PROCESSES[state.dept];
             const proc = procs.find(p => p.id === procId);
             const idx = procs.findIndex(p => p.id === procId);
             const isLast = idx === procs.length - 1;
-
             document.getElementById('map-breadcrumb').textContent = DEPT_LABELS[state.dept];
             document.getElementById('map-proc-title').textContent = proc.num + ' — ' + proc.name;
             document.getElementById('map-prev-btn').style.visibility = idx === 0 ? 'hidden' : 'visible';
             document.getElementById('map-next-btn').textContent = isLast ? 'Summary →' : 'Next →';
-
             loadMap(procId, 'map-container-4');
             renderGapTypeCards();
             goTo('page-map');
         }
 
-        // ─── HTML MAP ──────────────────────────────────────────────────────────────────
+        // ─── HTML MAP ─────────────────────────────────────────────────────────────
         function loadMap(procId, containerId) {
             const container = document.getElementById(containerId);
             if (!container) return;
-
             const filePath = (typeof PROCESS_MAP_FILES !== 'undefined' && PROCESS_MAP_FILES[procId]) || null;
-
             if (!filePath) {
-                container.innerHTML = `
-                    <div class="map-placeholder">
-                        <span class="map-placeholder-icon">🗺️</span>
-                        <span>No map available for this process.</span>
-                        <span style="font-size:12px;opacity:.7">Add the file path to process-maps.js</span>
-                    </div>`;
+                container.innerHTML = `<div class="map-placeholder"><span class="map-placeholder-icon">🗺️</span><span>No map available for this process.</span><span style="font-size:12px;opacity:.7">Add the file path to process-maps.js</span></div>`;
                 return;
             }
-
             container.innerHTML = '<div class="map-loading">Loading map…</div>';
-
             const height = containerId === 'map-container-5' ? 360 : 520;
             const iframe = document.createElement('iframe');
             iframe.src = filePath;
             iframe.style.cssText = `width:100%;height:${height}px;border:none;display:block;`;
-
             iframe.onload = () => {
                 try {
                     const doc = iframe.contentDocument;
-
                     const style = doc.createElement('style');
                     style.textContent = 'header,#panel{display:none!important}';
                     doc.head.appendChild(style);
-
                     if (containerId === 'map-container-5') {
                         const bridge = doc.createElement('script');
                         bridge.textContent = `(function(){
   var timer,cc,ct;
-  function chipsText(){
-    return Array.from(cc.querySelectorAll('.chip')).map(function(c){
-      var s=c.querySelector('span:first-child');
-      return s?s.textContent.trim():'';
-    }).filter(Boolean).join(', ');
-  }
-  var obs=new MutationObserver(function(mutations){
-    clearTimeout(timer);
-    timer=setTimeout(function(){
-      var inChips=mutations.some(function(m){ return cc&&(m.target===cc||cc.contains(m.target)); });
-      var text=inChips ? chipsText() : (ct?ct.textContent.trim():'');
-      window.parent.postMessage({type:'map-step',text:text},'*');
-    },50);
-  });
-  function init(){
-    cc=document.getElementById('chip-container');
-    ct=document.getElementById('card-title');
-    if(cc) obs.observe(cc,{childList:true,subtree:true,characterData:true});
-    if(ct) obs.observe(ct,{childList:true,subtree:true,characterData:true});
-  }
-  if(document.readyState==='complete') init(); else window.addEventListener('load',init);
+  function chipsText(){return Array.from(cc.querySelectorAll('.chip')).map(function(c){var s=c.querySelector('span:first-child');return s?s.textContent.trim():'';}).filter(Boolean).join(', ');}
+  var obs=new MutationObserver(function(mutations){clearTimeout(timer);timer=setTimeout(function(){var inChips=mutations.some(function(m){return cc&&(m.target===cc||cc.contains(m.target));});var text=inChips?chipsText():(ct?ct.textContent.trim():'');window.parent.postMessage({type:'map-step',text:text},'*');},50);});
+  function init(){cc=document.getElementById('chip-container');ct=document.getElementById('card-title');if(cc)obs.observe(cc,{childList:true,subtree:true,characterData:true});if(ct)obs.observe(ct,{childList:true,subtree:true,characterData:true});}
+  if(document.readyState==='complete')init();else window.addEventListener('load',init);
 })();`;
                         doc.head.appendChild(bridge);
                     }
                 } catch (_) { }
             };
-
             container.innerHTML = '';
             container.appendChild(iframe);
         }
 
-        // ─── GAP TYPE CARDS (page 4) ───────────────────────────────────────────────────
+        // ─── GAP TYPE CARDS ───────────────────────────────────────────────────────
         function renderGapTypeCards() {
             const procId = state.currentProcId;
             const gaps = state.responses[procId]?.gaps || [];
-
             document.getElementById('gap-types-grid').innerHTML = GAP_TYPES.map(gt => {
                 const count = gaps.filter(g => g.type === gt.id).length;
                 const countBadge = count > 0
                     ? `<span class="gap-type-count has-gaps" style="background:${gt.color}">${count}</span>`
                     : `<span class="gap-type-count">0</span>`;
-                const activeStyle = count > 0
-                    ? `border-color:${gt.border};background:${gt.bg};`
-                    : '';
+                const activeStyle = count > 0 ? `border-color:${gt.border};background:${gt.bg};` : '';
                 return `<div class="gap-type-card" onclick="openGapType('${gt.id}')" style="${activeStyle}">
-            ${countBadge}
-            <span class="gap-type-icon">${gt.icon}</span>
-            <div class="gap-type-label" style="${count > 0 ? 'color:' + gt.color : ''}">${gt.label}</div>
-            <div class="gap-type-desc">${gt.desc}</div>
-        </div>`;
+                ${countBadge}
+                <span class="gap-type-icon">${gt.icon}</span>
+                <div class="gap-type-label" style="${count > 0 ? 'color:' + gt.color : ''}">${gt.label}</div>
+                <div class="gap-type-desc">${gt.desc}</div>
+            </div>`;
             }).join('');
         }
 
-        // ─── OPEN GAP TYPE (→ page 5) ──────────────────────────────────────────────────
+        // ─── OPEN GAP TYPE ────────────────────────────────────────────────────────
         function openGapType(typeId) {
             state.currentGapType = typeId;
             saveState();
-
             const gt = GAP_TYPES.find(g => g.id === typeId);
             const procs = PROCESSES[state.dept];
             const proc = procs.find(p => p.id === state.currentProcId);
             const idx = procs.findIndex(p => p.id === state.currentProcId);
             const isLast = idx === procs.length - 1;
-
             document.getElementById('gap-breadcrumb').textContent = DEPT_LABELS[state.dept] + ' › ' + proc.num;
             document.getElementById('gap-proc-title').textContent = proc.name;
             document.getElementById('gap-next-btn').textContent = isLast ? 'Summary →' : 'Next process →';
             document.getElementById('action-next-btn').textContent = isLast ? 'View summary →' : 'Next process →';
-
-            document.getElementById('gap-badge-wrap').innerHTML = `
-        <span class="gt-badge" style="background:${gt.bg};color:${gt.color};border-color:${gt.border}">
-            ${gt.icon} ${gt.label}
-        </span>`;
-
+            document.getElementById('gap-badge-wrap').innerHTML = `<span class="gt-badge" style="background:${gt.bg};color:${gt.color};border-color:${gt.border}">${gt.icon} ${gt.label}</span>`;
             loadMap(state.currentProcId, 'map-container-5');
             renderGapList();
             clearGapForm();
@@ -1635,41 +2960,31 @@
             goTo('page-gap');
         }
 
-        // ─── GAP LIST ──────────────────────────────────────────────────────────────────
+        // ─── GAP LIST ─────────────────────────────────────────────────────────────
         function renderGapList() {
             const procId = state.currentProcId;
             const typeId = state.currentGapType;
             const all = state.responses[procId]?.gaps || [];
             const typed = all.filter(g => g.type === typeId);
             const sec = document.getElementById('gap-list-section');
-
             if (!typed.length) { sec.style.display = 'none'; return; }
-
             document.getElementById('gap-list-label').textContent = `Recorded gaps (${typed.length})`;
             document.getElementById('gap-list').innerHTML = typed.map(g => {
                 const realIdx = all.indexOf(g);
                 return `<div class="gap-list-item">
-            <div class="gap-list-body">
-                <div class="gap-list-step" contenteditable="true"
-                    data-proc="${procId}" data-idx="${realIdx}" data-field="step"
-                    onblur="saveGapListField(this)">${escH(g.step || '')}</div>
-                <div class="gap-list-heading" contenteditable="true"
-                    data-proc="${procId}" data-idx="${realIdx}" data-field="heading"
-                    onblur="saveGapListField(this)">${escH(g.heading || '')}</div>
-                <div class="gap-list-desc" contenteditable="true"
-                    data-proc="${procId}" data-idx="${realIdx}" data-field="description"
-                    onblur="saveGapListField(this)">${escH(g.description || '')}</div>
-                <div class="gap-list-mitigation" contenteditable="true"
-                    data-proc="${procId}" data-idx="${realIdx}" data-field="mitigation"
-                    onblur="saveGapListField(this)">${escH(g.mitigation || '')}</div>
-            </div>
-            <button class="btn-icon" title="Remove" onclick="removeGap(${realIdx})">✕</button>
-        </div>`;
+                <div class="gap-list-body">
+                    <div class="gap-list-step" contenteditable="true" data-proc="${procId}" data-idx="${realIdx}" data-field="step" onblur="saveGapListField(this)">${escH(g.step || '')}</div>
+                    <div class="gap-list-heading" contenteditable="true" data-proc="${procId}" data-idx="${realIdx}" data-field="heading" onblur="saveGapListField(this)">${escH(g.heading || '')}</div>
+                    <div class="gap-list-desc" contenteditable="true" data-proc="${procId}" data-idx="${realIdx}" data-field="description" onblur="saveGapListField(this)">${escH(g.description || '')}</div>
+                    <div class="gap-list-mitigation" contenteditable="true" data-proc="${procId}" data-idx="${realIdx}" data-field="mitigation" onblur="saveGapListField(this)">${escH(g.mitigation || '')}</div>
+                </div>
+                <button class="btn-icon" title="Remove" onclick="removeGap(${realIdx})">✕</button>
+            </div>`;
             }).join('');
             sec.style.display = 'block';
         }
 
-        // ─── GAP FORM ──────────────────────────────────────────────────────────────────
+        // ─── GAP FORM ─────────────────────────────────────────────────────────────
         function clearGapForm() {
             ['gap-step', 'gap-heading', 'gap-desc', 'gap-mitigation'].forEach(id => {
                 document.getElementById(id).value = '';
@@ -1679,7 +2994,6 @@
         function saveGap() {
             const heading = document.getElementById('gap-heading').value.trim();
             const description = document.getElementById('gap-desc').value.trim();
-
             if (!heading && !description) {
                 const h = document.getElementById('gap-heading');
                 h.style.borderColor = 'var(--brand)';
@@ -1687,23 +3001,18 @@
                 setTimeout(() => h.style.borderColor = '', 1500);
                 return;
             }
-
             const procId = state.currentProcId;
             const typeId = state.currentGapType;
             if (!state.responses[procId]) state.responses[procId] = { gaps: [] };
-
             state.responses[procId].gaps.push({
                 type: typeId,
                 step: document.getElementById('gap-step').value.trim(),
-                heading,
-                description,
+                heading, description,
                 mitigation: document.getElementById('gap-mitigation').value.trim(),
             });
             saveState();
-
             renderGapList();
             clearGapForm();
-
             const bar = document.getElementById('action-bar');
             bar.style.display = 'flex';
             bar.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
@@ -1726,7 +3035,7 @@
             saveState();
         }
 
-        // ─── PROCESS NAVIGATION ────────────────────────────────────────────────────────
+        // ─── PROCESS NAVIGATION ───────────────────────────────────────────────────
         function procNav(dir) {
             const procs = PROCESSES[state.dept];
             const idx = procs.findIndex(p => p.id === state.currentProcId);
@@ -1736,21 +3045,16 @@
             openProc(procs[next].id);
         }
 
-        // ─── SUMMARY ───────────────────────────────────────────────────────────────────
+        // ─── SUMMARY ──────────────────────────────────────────────────────────────
         function renderSummary() {
             if (!state.dept) return;
             const procs = PROCESSES[state.dept];
             let html = `<div class="summary-dept-label">${DEPT_LABELS[state.dept]}</div>`;
-
             procs.forEach(p => {
                 const allGaps = state.responses[p.id]?.gaps || [];
                 html += `<div class="summary-proc-row">
-            <div class="summary-proc-name">
-                <span style="font-size:11px;color:var(--text3);display:block;margin-bottom:2px">${p.num}</span>
-                ${p.name}
-            </div>
-            <div class="summary-result">`;
-
+                <div class="summary-proc-name"><span style="font-size:11px;color:var(--text3);display:block;margin-bottom:2px">${p.num}</span>${p.name}</div>
+                <div class="summary-result">`;
                 if (!allGaps.length) {
                     html += `<span class="badge badge-grey">No gaps recorded</span>`;
                 } else {
@@ -1758,38 +3062,24 @@
                     GAP_TYPES.forEach(gt => {
                         const typed = allGaps.filter(g => g.type === gt.id);
                         if (!typed.length) return;
-                        html += `<div class="summary-type-group">
-                    <div class="summary-type-label" style="color:${gt.color}">${gt.icon} ${gt.label}</div>
-                    <div class="gap-list" style="margin-bottom:8px">`;
+                        html += `<div class="summary-type-group"><div class="summary-type-label" style="color:${gt.color}">${gt.icon} ${gt.label}</div><div class="gap-list" style="margin-bottom:8px">`;
                         typed.forEach(g => {
                             const realIdx = allGaps.indexOf(g);
                             html += `<div class="gap-list-item">
-                        <div class="gap-list-body">
-                            <div class="gap-list-step" contenteditable="true"
-                                data-proc="${p.id}" data-idx="${realIdx}" data-field="step"
-                                onblur="saveSummaryField(this)">${escH(g.step || '')}</div>
-                            <div class="gap-list-heading" contenteditable="true"
-                                data-proc="${p.id}" data-idx="${realIdx}" data-field="heading"
-                                onblur="saveSummaryField(this)">${escH(g.heading || '')}</div>
-                            <div class="gap-list-desc" contenteditable="true"
-                                data-proc="${p.id}" data-idx="${realIdx}" data-field="description"
-                                onblur="saveSummaryField(this)">${escH(g.description || '')}</div>
-                            <div class="gap-list-mitigation" contenteditable="true"
-                                data-proc="${p.id}" data-idx="${realIdx}" data-field="mitigation"
-                                onblur="saveSummaryField(this)">${escH(g.mitigation || '')}</div>
-                        </div>
-                        <button class="btn-icon" title="Remove" onclick="removeSummaryGap('${p.id}', ${realIdx})">✕</button>
-                    </div>`;
+                            <div class="gap-list-body">
+                                <div class="gap-list-step" contenteditable="true" data-proc="${p.id}" data-idx="${realIdx}" data-field="step" onblur="saveSummaryField(this)">${escH(g.step || '')}</div>
+                                <div class="gap-list-heading" contenteditable="true" data-proc="${p.id}" data-idx="${realIdx}" data-field="heading" onblur="saveSummaryField(this)">${escH(g.heading || '')}</div>
+                                <div class="gap-list-desc" contenteditable="true" data-proc="${p.id}" data-idx="${realIdx}" data-field="description" onblur="saveSummaryField(this)">${escH(g.description || '')}</div>
+                                <div class="gap-list-mitigation" contenteditable="true" data-proc="${p.id}" data-idx="${realIdx}" data-field="mitigation" onblur="saveSummaryField(this)">${escH(g.mitigation || '')}</div>
+                            </div>
+                            <button class="btn-icon" title="Remove" onclick="removeSummaryGap('${p.id}',${realIdx})">✕</button>
+                        </div>`;
                         });
                         html += `</div></div>`;
                     });
                 }
-
-                html += `</div>
-            <button class="btn btn-ghost btn-sm" onclick="openProc('${p.id}')" style="flex-shrink:0;margin-top:4px">Edit</button>
-        </div>`;
+                html += `</div><button class="btn btn-ghost btn-sm" onclick="openProc('${p.id}')" style="flex-shrink:0;margin-top:4px">Edit</button></div>`;
             });
-
             document.getElementById('summary-body').innerHTML = html;
         }
 
@@ -1809,61 +3099,40 @@
             renderSummary();
         }
 
-        // ─── EXPORT ────────────────────────────────────────────────────────────────────
+        // ─── EXPORT ───────────────────────────────────────────────────────────────
         function exportXLSX() {
             if (!state.dept) return;
             if (typeof XLSX === 'undefined') { alert('Export library not loaded. Check your internet connection.'); return; }
-
             const procs = PROCESSES[state.dept];
             const dept = DEPT_LABELS[state.dept];
             const rows = [['Department', 'Process Number', 'Process Name', 'Gap Category', 'Gap #', 'Process Step', 'Gap / Challenge', 'Impact', 'Mitigation / Suggested Solution']];
-
             procs.forEach(p => {
                 const all = state.responses[p.id]?.gaps || [];
                 if (!all.length) { rows.push([dept, p.num, p.name, '', '', '', '', '', 'No gaps recorded']); return; }
                 all.forEach((g, i) => {
                     const gt = GAP_TYPES.find(t => t.id === g.type);
-                    rows.push([
-                        i === 0 ? dept : '',
-                        i === 0 ? p.num : '',
-                        i === 0 ? p.name : '',
-                        gt ? gt.label : g.type,
-                        i + 1,
-                        g.step || '',
-                        g.heading || '',
-                        g.description || '',
-                        g.mitigation || '',
-                    ]);
+                    rows.push([i === 0 ? dept : '', i === 0 ? p.num : '', i === 0 ? p.name : '', gt ? gt.label : g.type, i + 1, g.step || '', g.heading || '', g.description || '', g.mitigation || '']);
                 });
             });
-
             const ws = XLSX.utils.aoa_to_sheet(rows);
             ws['!cols'] = [{ wch: 28 }, { wch: 13 }, { wch: 44 }, { wch: 28 }, { wch: 7 }, { wch: 28 }, { wch: 36 }, { wch: 44 }, { wch: 44 }];
             ws['!freeze'] = { xSplit: 0, ySplit: 1 };
-
             const wb = XLSX.utils.book_new();
             XLSX.utils.book_append_sheet(wb, ws, 'Gap Analysis');
-
-            // Second sheet: grouped by category
             const cat = [['Gap Category', 'Process Number', 'Process Name', 'Process Step', 'Gap / Challenge', 'Impact', 'Mitigation']];
             GAP_TYPES.forEach(gt => {
                 procs.forEach(p => {
-                    (state.responses[p.id]?.gaps || [])
-                        .filter(g => g.type === gt.id)
-                        .forEach(g => cat.push([gt.label, p.num, p.name, g.step || '', g.heading || '', g.description || '', g.mitigation || '']));
+                    (state.responses[p.id]?.gaps || []).filter(g => g.type === gt.id).forEach(g => cat.push([gt.label, p.num, p.name, g.step || '', g.heading || '', g.description || '', g.mitigation || '']));
                 });
             });
             const ws2 = XLSX.utils.aoa_to_sheet(cat);
             ws2['!cols'] = [{ wch: 28 }, { wch: 13 }, { wch: 44 }, { wch: 28 }, { wch: 36 }, { wch: 44 }, { wch: 44 }];
             XLSX.utils.book_append_sheet(wb, ws2, 'By Category');
-
             XLSX.writeFile(wb, 'KZNGFA_Gap_Analysis_' + state.dept + '_' + new Date().toISOString().slice(0, 10) + '.xlsx');
         }
 
-        // ─── UTILS ─────────────────────────────────────────────────────────────────────
-        function escH(s) {
-            return (s || '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
-        }
+        // ─── UTILS ────────────────────────────────────────────────────────────────
+        function escH(s) { return (s || '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;') }
 
         function clearAllData() {
             if (!confirm('This will permanently delete all saved responses. Are you sure?')) return;
@@ -1872,7 +3141,7 @@
             goTo('page-intro');
         }
 
-        // ─── MAP STEP BRIDGE ───────────────────────────────────────────────────────────
+        // ─── MAP STEP BRIDGE ──────────────────────────────────────────────────────
         window.addEventListener('message', function (e) {
             if (!e.data || e.data.type !== 'map-step') return;
             const input = document.getElementById('gap-step');
@@ -1884,7 +3153,7 @@
             }
         });
 
-        // ─── INIT ──────────────────────────────────────────────────────────────────────
+        // ─── INIT ─────────────────────────────────────────────────────────────────
         loadState();
         if (state.dept) {
             const card = document.querySelector(`.dept-card[data-dept="${state.dept}"]`);
@@ -1894,8 +3163,6 @@
     <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
     <script src="process-maps.js"></script>
     <script src="script.js"></script>
-
-    <!-- Extra: styled XLSX exporter (uses ExcelJS, PapaParse, FileSaver) -->
     <script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/exceljs@4.3.0/dist/exceljs.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/file-saver@2.0.5/dist/FileSaver.min.js"></script>
